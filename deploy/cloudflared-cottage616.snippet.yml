@@ -1,0 +1,3 @@
+  - hostname: xarindar.com
+    path: ^/cottage616(/.*)?$
+    service: http://localhost:8083
