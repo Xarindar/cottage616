@@ -135,7 +135,7 @@ a {
   padding: clamp(96px, 13vw, 180px) clamp(18px, 5vw, 72px) clamp(36px, 6vw, 80px);
   color: var(--paper);
   background-color: rgba(16, 45, 66, 0.78);
-  background-image: url("assets/hero.jpg");
+  background-image: url("assets/hero-facebook.jpg");
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
