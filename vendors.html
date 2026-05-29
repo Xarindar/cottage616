@@ -11,7 +11,7 @@
   <body>
     <header class="site-header">
       <a class="brand" href="index.html#top" aria-label="Cottage 616 home">
-        <span class="brand-mark">616</span>
+        <img class="brand-logo" src="assets/images/logo.svg" alt="">
         <span>Cottage 616</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -31,29 +31,259 @@
 
     <main>
       <section class="subpage-hero">
-        <p class="eyebrow">Vendor Partners</p>
-        <h1>Trusted extras for Cottage 616 celebrations.</h1>
-        <p>Use this page as a planning hub for partner vendors, party add-ons, rental details, and direct contact information.</p>
+        <h1>Preferred Vendors</h1>
       </section>
+
+      <section class="vendor-intro" aria-label="Local vendor note">
+        <img src="assets/images/vendors/welovelocal.svg" alt="We love local">
+        <p>Cottage 616 loves supporting the locals who support us. We've partnered with select, quality vendors with proven track records of trust and great service to offer exclusive discounts when you book with us. Check out the offers from our fabulous vendors, then use their contact info to book!</p>
+      </section>
+
+      <svg class="svg-defs" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="vendor-heart-path" d="M193.4657,17.1675c-.5475-.5824-1.4962-1.5329-2.5724-2.5246-3.0192-2.7821-11.4453-10.3739-23.8809-13.3899-11.8535-2.8748-21.6066-.0776-26.5933,1.206-11.9825,3.0844-21.946,9.8965-29.8495,19.0977-6.5449,7.6197-11.8314,16.3206-17.9926,24.9886-1.2731-.9927-2.9733-2.3035-4.6569-3.6353-1.7674-1.3978-3.4742-2.8761-5.2844-4.2153-18.8489-13.9434-40.5587-15.3451-58.5411-1.9642-5.3167,3.9562-9.6638,8.4785-13.118,13.4792C7.9927,54.5297-1.8942,68.864.3204,86.6934c.1569,1.2634.332,2.2028.4827,3.0115,2.3309,12.5081,8.0377,21.1522,10.6181,24.9773,1.5498,2.2973,6.9594,12.4433,25.0417,23.9912,11.3578,7.2535,22.977,14.1131,34.6542,20.8463,11.367,6.5543,23.0014,12.6438,34.4041,19.138,2.868,1.6334,5.4523,3.8672,7.9033,6.1127,9.5668,8.7648,22.3464,6.6408,28.1339-4.7211,1.3503-2.6507,2.8528-5.2438,4.5043-7.7173,6.246-9.355,12.5855-18.6475,18.8834-27.968,7.134-10.5579,13.3974-21.6518,20.0546-32.4904,8.6054-14.0104,14.5112-28.801,17.4481-44.7559,3.5243-19.1462.6008-39.756-8.9829-49.9503Z"/>
+        </defs>
+      </svg>
 
       <section class="section vendor-list">
         <article class="vendor-card">
-          <div>
-            <p class="eyebrow">Soft Play Rentals</p>
-            <h2>Victoria's Soft Play Rentals</h2>
-            <p>Book with Cottage 616 and receive 15% off your total with Victoria's Soft Play Rentals.</p>
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="Fleurish logo">
+            <defs><clipPath id="fleurish-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/fleurish.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#fleurish-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">Florals</p>
+            <h2>Fleurish Flowers</h2>
+            <div class="vendor-offers">
+              <span class="vendor-offer">Free toss bouquet</span>
+              <span class="vendor-offer">Free groom's boutonniere</span>
+              <span class="vendor-offer">Free delivery</span>
+            </div>
+            <p>Custom floristry for weddings, events, prom, birthdays, and everyday floral moments.</p>
           </div>
-          <div class="vendor-contact">
-            <a href="mailto:victoriassoftplayrentals@gmail.com">victoriassoftplayrentals@gmail.com</a>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="Fleurish Flowers" data-contact-target="fleurish-contact">Contact</button>
+            <div id="fleurish-contact" class="vendor-contact-data" hidden>
+              <a href="tel:+18702733838">(870) 273-3838</a>
+              <a href="mailto:Fleurishjonesboro@gmail.com">Fleurishjonesboro@gmail.com</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.facebook.com/FleurishJonesboro" aria-label="Fleurish Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="vendor-card">
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="Yessuh BBQ and More Catering logo">
+            <defs><clipPath id="yessuh-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/yessuh-bbq.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#yessuh-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">Catering</p>
+            <h2>Yessuh BBQ &amp; More</h2>
+            <div class="vendor-offers">
+              <span class="vendor-offer">Free delivery</span>
+            </div>
+            <p>BBQ and catering focused on quality food and service for events, gatherings, and celebrations.</p>
+          </div>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="Yessuh BBQ &amp; More" data-contact-target="yessuh-contact">Contact</button>
+            <div id="yessuh-contact" class="vendor-contact-data" hidden>
+              <a href="tel:+18706278811">(870) 627-8811</a>
+              <a href="tel:+18707619169">(870) 761-9169</a>
+              <a href="mailto:yessuhbmc@gmail.com">yessuhbmc@gmail.com</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.yessuhbmc.com/" aria-label="Yessuh BBQ website">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+                <span>Website</span>
+              </a>
+              <a class="icon-link" href="https://www.facebook.com/YESSUHBMC" aria-label="Yessuh BBQ Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
+            <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=2401%20E%20Parker%20Rd%2C%20Jonesboro%2C%20AR" aria-label="Navigate to Yessuh BBQ">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+              <span>Navigate</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="vendor-card featured-vendor">
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="Victoria's Soft Play Rentals logo">
+            <defs><clipPath id="victorias-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/victorias-soft-play.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#victorias-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">Soft Play Rentals</p>
+            <h2>Victoria's Soft Play</h2>
+            <div class="vendor-offers">
+              <span class="vendor-offer">15% off</span>
+            </div>
+            <p>Soft play rentals for birthdays, baby showers, and kid-friendly celebration setups.</p>
+          </div>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="Victoria's Soft Play" data-contact-target="victorias-contact">Contact</button>
+            <div id="victorias-contact" class="vendor-contact-data" hidden>
+              <a href="mailto:victoriassoftplayrentals@gmail.com">victoriassoftplayrentals@gmail.com</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.facebook.com/profile.php?id=61573592342903" aria-label="Victoria's Soft Play Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="vendor-card">
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="Biscuits and Grace LLC logo">
+            <defs><clipPath id="biscuits-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/biscuits-grace.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#biscuits-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">Catering</p>
+            <h2>Biscuits &amp; Grace LLC</h2>
+            <div class="vendor-offers">
+              <span class="vendor-offer">15% off</span>
+            </div>
+            <p>Catering, family-sized take-out meals, and cakes for events and special occasions.</p>
+          </div>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="Biscuits &amp; Grace LLC" data-contact-target="biscuits-contact">Contact</button>
+            <div id="biscuits-contact" class="vendor-contact-data" hidden>
+              <a href="tel:+18707611779">(870) 761-1779</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.biscuitsandgracellc.com/contact-us" aria-label="Biscuits and Grace website">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+                <span>Website</span>
+              </a>
+              <a class="icon-link" href="https://www.facebook.com/Biscuitsngrace" aria-label="Biscuits and Grace Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
+            <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=2704%20Phillip%27s%20Drive%20Suite%20F%2C%20Jonesboro%2C%20AR" aria-label="Navigate to Biscuits and Grace">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+              <span>Navigate</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="vendor-card">
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="NEA Pop Up Party logo">
+            <defs><clipPath id="nea-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/nea-popup-party-cover.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#nea-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">Party Styling</p>
+            <h2>NEA Pop Up Party</h2>
+            <div class="vendor-offers">
+              <span class="vendor-offer">15% off</span>
+            </div>
+            <p>Picture-perfect balloon moments, custom balloon garlands, arches, and party styling.</p>
+          </div>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="NEA Pop Up Party" data-contact-target="nea-contact">Contact</button>
+            <div id="nea-contact" class="vendor-contact-data" hidden>
+              <a href="tel:+18702439284">(870) 243-9284</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.facebook.com/NEAPOPUPPARTY" aria-label="NEA Pop Up Party Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="vendor-card">
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="Top Notch Entertainment DJ and Photobooth logo">
+            <defs><clipPath id="top-notch-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/top-notch-entertainment.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#top-notch-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">DJ &amp; Photobooth</p>
+            <h2>Top Notch Entertainment</h2>
+            <p>Professional DJs, photobooths, 360 booth, uplighting, glow parties, karaoke, and event entertainment.</p>
+          </div>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="Top Notch Entertainment" data-contact-target="top-notch-contact">Contact</button>
+            <div id="top-notch-contact" class="vendor-contact-data" hidden>
+              <a href="tel:+18708974468">(870) 897-4468</a>
+              <a href="mailto:info@topnotchparty.com">info@topnotchparty.com</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.topnotchparty.com/" aria-label="Top Notch Entertainment website">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+                <span>Website</span>
+              </a>
+              <a class="icon-link" href="https://www.facebook.com/NeaDJPhotobooth" aria-label="Top Notch Entertainment Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="vendor-card">
+          <svg class="vendor-logo-frame" viewBox="0 0 203.8891 190.1747" role="img" aria-label="Parties and Platters logo">
+            <defs><clipPath id="parties-avatar-clip"><circle cx="111.45" cy="107.99" r="58"/></clipPath></defs>
+            <use href="#vendor-heart-path" fill="#f38ab0"/>
+            <image href="assets/images/vendors/parties-platters.jpg" x="53.45" y="49.99" width="116" height="116" clip-path="url(#parties-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="111.45" cy="107.99" r="58" fill="none" stroke="#fffdf8" stroke-width="5"/>
+          </svg>
+          <div class="vendor-main">
+            <p class="eyebrow">Grazing &amp; Party Food</p>
+            <h2>Parties &amp; Platters</h2>
+            <p>Balloon arches, grazing tables, food, and party details for memorable events.</p>
+          </div>
+          <div class="vendor-details">
+            <button class="vendor-contact-button" type="button" data-contact-modal="Parties &amp; Platters" data-contact-target="parties-contact">Contact</button>
+            <div id="parties-contact" class="vendor-contact-data" hidden>
+              <a href="mailto:amymayes@rocketmail.com">amymayes@rocketmail.com</a>
+            </div>
+            <div class="vendor-links">
+              <a class="icon-link" href="https://www.facebook.com/profile.php?id=61587412134868" aria-label="Parties and Platters Facebook">
+                <span class="facebook-mark" aria-hidden="true">f</span>
+                <span>Facebook</span>
+              </a>
+            </div>
           </div>
         </article>
       </section>
     </main>
 
+    <div class="modal-overlay" data-contact-overlay hidden>
+      <section class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+        <button class="modal-close" type="button" data-contact-close aria-label="Close contact details">x</button>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-modal-title">Vendor</h2>
+        <div class="modal-contact-links" data-contact-links></div>
+      </section>
+    </div>
+
     <footer id="contact" class="site-footer">
       <div>
         <a class="brand" href="index.html#top">
-          <span class="brand-mark">616</span>
+          <img class="brand-logo" src="assets/images/logo.svg" alt="">
           <span>Cottage 616</span>
         </a>
         <p>A peaceful space to unwind, connect, and create lasting memories.</p>
@@ -65,6 +295,75 @@
       </address>
     </footer>
 
+    <script>
+      (() => {
+        const contactOverlay = document.querySelector("[data-contact-overlay]");
+        const contactTitle = document.querySelector("#contact-modal-title");
+        const contactLinks = document.querySelector("[data-contact-links]");
+        const contactClose = document.querySelector("[data-contact-close]");
+        let activeContactButton = null;
+
+        const closeContactModal = () => {
+          if (!contactOverlay || !contactLinks) {
+            return;
+          }
+
+          contactOverlay.hidden = true;
+          document.body.classList.remove("is-modal-open");
+          contactLinks.replaceChildren();
+
+          if (activeContactButton) {
+            activeContactButton.focus();
+            activeContactButton = null;
+          }
+        };
+
+        const openContactModal = (button) => {
+          if (!contactOverlay || !contactTitle || !contactLinks) {
+            return;
+          }
+
+          const contactSource = document.getElementById(button.dataset.contactTarget || "");
+          if (!contactSource) {
+            return;
+          }
+
+          activeContactButton = button;
+          contactTitle.textContent = button.dataset.contactModal || "Vendor";
+          contactLinks.replaceChildren(...Array.from(contactSource.children).map((item) => item.cloneNode(true)));
+          contactOverlay.hidden = false;
+          document.body.classList.add("is-modal-open");
+
+          if (contactClose) {
+            contactClose.focus();
+          }
+        };
+
+        document.querySelectorAll("[data-contact-modal][data-contact-target]").forEach((button) => {
+          button.addEventListener("click", () => {
+            openContactModal(button);
+          });
+        });
+
+        if (contactClose) {
+          contactClose.addEventListener("click", closeContactModal);
+        }
+
+        if (contactOverlay) {
+          contactOverlay.addEventListener("click", (event) => {
+            if (event.target === contactOverlay) {
+              closeContactModal();
+            }
+          });
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && contactOverlay && !contactOverlay.hidden) {
+            closeContactModal();
+          }
+        });
+      })();
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
