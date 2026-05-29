@@ -29,6 +29,15 @@ class CottageHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Location", PREFIX + "/")
         self.end_headers()
 
+    def end_headers(self):
+        stripped = self._stripped_path() or self._request_path()
+        _, ext = os.path.splitext(stripped)
+        if ext in {".html", ".css", ".js"} or stripped in {"/", ""}:
+            self.send_header("Cache-Control", "no-cache, max-age=0, must-revalidate")
+        else:
+            self.send_header("Cache-Control", "public, max-age=3600")
+        super().end_headers()
+
     def do_GET(self):
         if self._request_path() == PREFIX:
             self._redirect_prefix_root()
