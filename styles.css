@@ -735,44 +735,33 @@ main section[id] {
 
 .vendor-list {
   display: grid;
-  gap: clamp(18px, 3vw, 28px);
+  gap: clamp(18px, 3vw, 30px);
   padding-top: clamp(20px, 4vw, 42px);
   background: var(--paper);
   background-image: url("assets/textures/natural-paper.png");
 }
 
 .vendor-card {
-  --card-accent: var(--pink);
-  --card-wash: var(--soft-pink);
   position: relative;
   display: grid;
-  grid-template-columns: 152px minmax(280px, 1fr) minmax(238px, 0.44fr);
-  gap: clamp(18px, 4vw, 38px);
+  grid-template-columns: clamp(224px, 21vw, 292px) minmax(280px, 1fr) minmax(238px, 0.44fr);
+  gap: clamp(16px, 3vw, 34px);
   align-items: center;
-  overflow: hidden;
-  padding: clamp(24px, 4vw, 38px);
-  border: 1px solid rgba(23, 63, 95, 0.13);
-  border-radius: 8px;
-  background:
-    linear-gradient(90deg, var(--card-wash) 0 9px, transparent 9px),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 253, 248, 0.9)),
-    #fff;
-  box-shadow: 10px 12px 0 rgba(23, 63, 95, 0.06), 0 16px 42px rgba(23, 63, 95, 0.09);
+  min-height: clamp(178px, 17vw, 224px);
+  overflow: visible;
+  padding: clamp(14px, 2vw, 20px) clamp(18px, 3vw, 34px) clamp(14px, 2vw, 20px) 0;
 }
 
-.vendor-card::after {
+.vendor-card::before {
   content: "";
   position: absolute;
+  inset: clamp(14px, 2vw, 20px) 0 clamp(14px, 2vw, 20px) clamp(128px, 12vw, 174px);
+  z-index: 0;
+  border: 1px solid rgba(23, 63, 95, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 10px 12px 0 rgba(23, 63, 95, 0.06), 0 16px 42px rgba(23, 63, 95, 0.09);
   pointer-events: none;
-}
-
-.vendor-card::after {
-  left: 0;
-  top: 22px;
-  width: 9px;
-  height: calc(100% - 44px);
-  border-radius: 0 999px 999px 0;
-  background: var(--card-accent);
 }
 
 .svg-defs {
@@ -785,10 +774,10 @@ main section[id] {
 .vendor-logo-frame {
   z-index: 1;
   display: block;
-  width: 174px;
+  width: clamp(224px, 21vw, 292px);
   max-width: 100%;
   height: auto;
-  justify-self: center;
+  justify-self: start;
   filter: drop-shadow(8px 10px 0 rgba(23, 63, 95, 0.08));
 }
 
@@ -796,19 +785,19 @@ main section[id] {
   position: relative;
   z-index: 1;
   min-width: 0;
+  padding-block: clamp(18px, 3vw, 30px);
 }
 
 .vendor-card .eyebrow {
-  display: inline-flex;
+  display: block;
   width: fit-content;
-  min-height: 28px;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 5px 10px;
-  border: 1px solid rgba(245, 138, 176, 0.58);
-  border-radius: 999px;
+  min-height: 0;
+  margin-bottom: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   color: var(--deep-blue);
-  background: var(--soft-pink);
+  background: transparent;
   letter-spacing: 0.08em;
 }
 
@@ -838,6 +827,7 @@ main section[id] {
   gap: 14px;
   justify-items: end;
   min-width: 0;
+  padding-block: clamp(18px, 3vw, 30px);
 }
 
 .vendor-contact-button {
@@ -1140,12 +1130,29 @@ address a {
     justify-self: start;
   }
 
-  .vendor-logo {
-    justify-self: start;
+  .vendor-card {
+    gap: 0;
+    min-height: 0;
+    padding: 0 clamp(18px, 5vw, 28px) clamp(24px, 5vw, 34px);
+  }
+
+  .vendor-card::before {
+    inset: clamp(82px, 19vw, 110px) 0 0;
+  }
+
+  .vendor-logo-frame {
+    width: clamp(176px, 46vw, 224px);
+    justify-self: center;
+    margin-bottom: -4px;
+  }
+
+  .vendor-main {
+    padding-block: 10px 0;
   }
 
   .vendor-details {
     justify-items: start;
+    padding-block: 20px 0;
   }
 
   .location-link {
