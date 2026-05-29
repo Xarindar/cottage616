@@ -760,7 +760,7 @@ main section[id] {
   border: 1px solid rgba(23, 63, 95, 0.12);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.94);
-  box-shadow: 10px 12px 0 rgba(23, 63, 95, 0.06), 0 16px 42px rgba(23, 63, 95, 0.09);
+  box-shadow: 0 8px 22px rgba(23, 63, 95, 0.035);
   pointer-events: none;
 }
 
@@ -778,7 +778,7 @@ main section[id] {
   max-width: 100%;
   height: auto;
   justify-self: start;
-  filter: drop-shadow(8px 10px 0 rgba(23, 63, 95, 0.08));
+  filter: drop-shadow(18px 24px 18px rgba(23, 63, 95, 0.18));
 }
 
 .vendor-main {
