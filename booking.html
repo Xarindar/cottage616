@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Request a date for Cottage 616 events and head-spa appointments in Bay, Arkansas.">
+    <title>Cottage 616 | Booking</title>
+    <link rel="preconnect" href="https://www.cottage616.com">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="booking.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html#top" aria-label="Cottage 616 home">
+        <img class="brand-logo" src="assets/images/logo.svg" alt="">
+        <span>Cottage 616</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html#events">Events</a>
+        <a href="index.html#head-spa">Head Spa</a>
+        <a href="index.html#team">Team</a>
+        <a href="vendors.html">Vendors</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="nav-cta" href="booking.html">Book</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="subpage-hero booking-page-hero">
+        <h1>Let's get this party started!</h1>
+      </section>
+
+      <section class="booking-page section">
+        <form class="booking-request" action="mailto:info@cottage616.com" method="post" enctype="text/plain" data-booking>
+          <input type="hidden" name="Requested date" data-booking-date-input>
+          <input type="hidden" name="Requested time" data-booking-time-input>
+
+          <div class="booking-scheduler" aria-label="Booking scheduler">
+            <div class="booking-scheduler__group booking-scheduler__group--dates">
+              <div class="booking-scheduler__heading">
+                <div>
+                  <h3>Select a date</h3>
+                  <p data-earliest-date>Earliest booking date loading...</p>
+                </div>
+              </div>
+
+              <div class="date-strip">
+                <button class="date-strip__arrow" type="button" aria-label="Show earlier dates" data-date-prev>&lt;</button>
+                <div class="date-picker" role="list" aria-label="Available dates" data-date-picker></div>
+                <button class="date-strip__arrow" type="button" aria-label="Show later dates" data-date-next>&gt;</button>
+              </div>
+
+              <div class="booking-calendar-row">
+                <p class="booking-notice" role="status" data-booking-notice></p>
+                <button class="booking-calendar-button" type="button" aria-expanded="false" data-calendar-toggle>Show full calendar</button>
+              </div>
+
+            </div>
+
+            <div class="booking-scheduler__group">
+              <div class="booking-scheduler__heading">
+                <h3>Select a time</h3>
+              </div>
+              <div class="time-picker" role="list" aria-label="Available times" data-time-picker></div>
+            </div>
+
+            <aside class="booking-summary" aria-label="Selected booking">
+              <div>
+                <p>Selected request</p>
+                <strong data-booking-summary>Date selected, time pending</strong>
+              </div>
+              <button class="booking-summary__button" type="button" disabled data-booking-continue>Continue</button>
+            </aside>
+          </div>
+
+          <div class="booking-calendar-modal" data-calendar hidden>
+            <section class="booking-calendar" role="dialog" aria-modal="true" aria-label="Full calendar">
+              <button class="booking-calendar__close" type="button" aria-label="Close calendar" data-calendar-close>x</button>
+              <div class="booking-calendar__header">
+                <button type="button" aria-label="Previous month" data-calendar-prev>&lt;</button>
+                <h3 data-calendar-month>Month</h3>
+                <button type="button" aria-label="Next month" data-calendar-next>&gt;</button>
+              </div>
+              <div class="booking-calendar__weekdays" aria-hidden="true">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+              </div>
+              <div class="booking-calendar__grid" data-calendar-grid></div>
+            </section>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <div>
+        <a class="brand" href="index.html#top">
+          <img class="brand-logo" src="assets/images/logo.svg" alt="">
+          <span>Cottage 616</span>
+        </a>
+      </div>
+      <address>
+        <a href="tel:+18702196982">(870) 219-6982</a>
+        <a href="mailto:info@cottage616.com">info@cottage616.com</a>
+        <span>3773 County Road 616, Bay, AR 72411</span>
+      </address>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="booking.js"></script>
+  </body>
+</html>
