@@ -29,6 +29,10 @@ if (bookingForm) {
   const continueButton = bookingForm.querySelector("[data-booking-continue]");
   const dateInput = bookingForm.querySelector("[data-booking-date-input]");
   const timeInput = bookingForm.querySelector("[data-booking-time-input]");
+  const eventTypeSelect = bookingForm.querySelector("[data-event-type]");
+  const eventDurationSelect = bookingForm.querySelector("[data-event-duration]");
+  const eventTypeInput = bookingForm.querySelector("[data-event-type-input]");
+  const eventDurationInput = bookingForm.querySelector("[data-event-duration-input]");
   const firstField = bookingForm.querySelector("[data-booking-first-field]");
 
   const startOfDay = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -94,6 +98,12 @@ if (bookingForm) {
   const updateSummary = () => {
     dateInput.value = state.selectedDate.longLabel;
     timeInput.value = state.selectedTime;
+    if (eventTypeInput && eventTypeSelect) {
+      eventTypeInput.value = eventTypeSelect.value;
+    }
+    if (eventDurationInput && eventDurationSelect) {
+      eventDurationInput.value = eventDurationSelect.value;
+    }
     summary.textContent = state.selectedTime
       ? `${state.selectedDate.longLabel} at ${state.selectedTime}`
       : `${state.selectedDate.longLabel}, time pending`;
@@ -130,6 +140,14 @@ if (bookingForm) {
         button.addEventListener("click", () => selectDate(dateOption));
         datePicker.append(button);
       });
+  };
+  const shiftDateStrip = (days) => {
+    state.stripStartDate = addDays(state.stripStartDate, days);
+    datePicker.classList.remove("is-shifting");
+    renderDateStrip();
+    requestAnimationFrame(() => {
+      datePicker.classList.add("is-shifting");
+    });
   };
 
   const renderTimes = () => {
@@ -189,15 +207,13 @@ if (bookingForm) {
       return;
     }
 
-    state.stripStartDate = addDays(state.stripStartDate, -7);
+    shiftDateStrip(-1);
     setNotice("");
-    renderDateStrip();
   });
 
   bookingForm.querySelector("[data-date-next]").addEventListener("click", () => {
-    state.stripStartDate = addDays(state.stripStartDate, 7);
+    shiftDateStrip(1);
     setNotice("");
-    renderDateStrip();
   });
 
   calendarToggle.addEventListener("click", () => {
@@ -232,6 +248,9 @@ if (bookingForm) {
     state.calendarMonth = addMonths(state.calendarMonth, 1);
     renderCalendar();
   });
+
+  eventTypeSelect?.addEventListener("change", updateSummary);
+  eventDurationSelect?.addEventListener("change", updateSummary);
 
   continueButton.addEventListener("click", () => {
     if (!firstField) {

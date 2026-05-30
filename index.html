@@ -6,7 +6,10 @@
     <meta name="description" content="Cottage 616 is an indoor and outdoor event venue and head-spa retreat in Bay, Arkansas.">
     <title>Cottage 616 | Events & Head Spa in Bay, Arkansas</title>
     <link rel="preconnect" href="https://www.cottage616.com">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=nav-center">
   </head>
   <body>
     <header class="site-header">
@@ -20,12 +23,16 @@
         <span></span>
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="#events">Events</a>
-        <a href="#head-spa">Head Spa</a>
-        <a href="#team">Team</a>
-        <a href="vendors.html">Vendors</a>
-        <a href="#contact">Contact</a>
-        <a class="nav-cta" href="booking.html">Book</a>
+        <div class="site-nav__group site-nav__group--left">
+          <a href="#events">Events</a>
+          <a href="the-hive.html">The Hive</a>
+          <a href="#team">Team</a>
+          <a href="vendors.html">Vendors</a>
+        </div>
+        <div class="site-nav__group site-nav__group--right">
+          <a href="#contact">Contact</a>
+          <a class="nav-cta" href="booking.html">Book</a>
+        </div>
       </nav>
     </header>
 
@@ -124,7 +131,7 @@
             <li>Massage-focused relaxation</li>
             <li>Event add-on for brides, guests, or girls' nights</li>
           </ul>
-          <a class="button primary" href="booking.html">Ask About Head Spa</a>
+          <a class="button primary" href="the-hive.html">Explore The Hive</a>
         </div>
       </section>
 
@@ -181,16 +188,33 @@
     </main>
 
     <footer id="contact" class="site-footer">
-      <div>
-        <a class="brand" href="#top">
+      <div class="hive-updates" aria-labelledby="hive-updates-title">
+        <h2 id="hive-updates-title">Let's stay in touch, gorgeous</h2>
+        <p>Sign up for Cottage 616 deals and updates</p>
+        <form class="hive-updates__form" action="mailto:info@cottage616.com" method="post" enctype="text/plain">
+          <label for="hive-updates-email">Email address</label>
+          <div class="hive-updates__field">
+            <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
+      </div>
+      <div class="site-footer__logos" aria-label="Site links">
+        <a class="brand" href="index.html">
           <img class="brand-logo" src="assets/images/logo.svg" alt="">
           <span>Cottage 616</span>
+        </a>
+        <span class="site-footer__logo-separator" aria-hidden="true">|</span>
+        <a class="site-footer__hive-wordmark" href="the-hive.html" aria-label="The Hive landing page">
+          <span class="brand--hive__script">the hive</span>
+          <span class="brand--hive__tagline">at cottage 616</span>
         </a>
       </div>
       <address>
         <a href="tel:+18702196982">(870) 219-6982</a>
         <a href="mailto:info@cottage616.com">info@cottage616.com</a>
         <span>3773 County Road 616, Bay, AR 72411</span>
+        <span class="site-credit">Site design by Admit One Design Studio</span>
       </address>
     </footer>
 

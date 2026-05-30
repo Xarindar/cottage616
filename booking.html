@@ -6,7 +6,10 @@
     <meta name="description" content="Request a date for Cottage 616 events and head-spa appointments in Bay, Arkansas.">
     <title>Cottage 616 | Booking</title>
     <link rel="preconnect" href="https://www.cottage616.com">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=nav-center">
     <link rel="stylesheet" href="booking.css">
   </head>
   <body>
@@ -21,12 +24,16 @@
         <span></span>
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="index.html#events">Events</a>
-        <a href="index.html#head-spa">Head Spa</a>
-        <a href="index.html#team">Team</a>
-        <a href="vendors.html">Vendors</a>
-        <a href="index.html#contact">Contact</a>
-        <a class="nav-cta" href="booking.html">Book</a>
+        <div class="site-nav__group site-nav__group--left">
+          <a href="index.html#events">Events</a>
+          <a href="the-hive.html">The Hive</a>
+          <a href="index.html#team">Team</a>
+          <a href="vendors.html">Vendors</a>
+        </div>
+        <div class="site-nav__group site-nav__group--right">
+          <a href="index.html#contact">Contact</a>
+          <a class="nav-cta" href="booking.html">Book</a>
+        </div>
       </nav>
     </header>
 
@@ -39,6 +46,31 @@
         <form class="booking-request" action="mailto:info@cottage616.com" method="post" enctype="text/plain" data-booking>
           <input type="hidden" name="Requested date" data-booking-date-input>
           <input type="hidden" name="Requested time" data-booking-time-input>
+          <input type="hidden" name="Event type" data-event-type-input>
+          <input type="hidden" name="Event duration" data-event-duration-input>
+
+          <div class="booking-options" aria-label="Event details">
+            <label>
+              <span>Event Type</span>
+              <select data-event-type>
+                <option value="Birthday Party">Birthday Party</option>
+                <option value="Baby Shower">Baby Shower</option>
+                <option value="Intimate Wedding">Intimate Wedding</option>
+                <option value="Head Spa">Head Spa</option>
+                <option value="Other Celebration">Other Celebration</option>
+              </select>
+            </label>
+            <label>
+              <span>Event Duration</span>
+              <select data-event-duration>
+                <option value="2 hours">2 hours</option>
+                <option value="3 hours">3 hours</option>
+                <option value="4 hours">4 hours</option>
+                <option value="Full day">Full day</option>
+                <option value="Overnight">Overnight</option>
+              </select>
+            </label>
+          </div>
 
           <div class="booking-scheduler" aria-label="Booking scheduler">
             <div class="booking-scheduler__group booking-scheduler__group--dates">
@@ -80,22 +112,26 @@
 
           <div class="booking-calendar-modal" data-calendar hidden>
             <section class="booking-calendar" role="dialog" aria-modal="true" aria-label="Full calendar">
-              <button class="booking-calendar__close" type="button" aria-label="Close calendar" data-calendar-close>x</button>
               <div class="booking-calendar__header">
-                <button type="button" aria-label="Previous month" data-calendar-prev>&lt;</button>
                 <h3 data-calendar-month>Month</h3>
-                <button type="button" aria-label="Next month" data-calendar-next>&gt;</button>
+                <button class="booking-calendar__close" type="button" aria-label="Close calendar" data-calendar-close>x</button>
               </div>
-              <div class="booking-calendar__weekdays" aria-hidden="true">
-                <span>Sun</span>
-                <span>Mon</span>
-                <span>Tue</span>
-                <span>Wed</span>
-                <span>Thu</span>
-                <span>Fri</span>
-                <span>Sat</span>
+              <div class="booking-calendar__body">
+                <button class="booking-calendar__rail" type="button" aria-label="Previous month" data-calendar-prev>&lt;</button>
+                <div class="booking-calendar__dates">
+                  <div class="booking-calendar__weekdays" aria-hidden="true">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                  </div>
+                  <div class="booking-calendar__grid" data-calendar-grid></div>
+                </div>
+                <button class="booking-calendar__rail" type="button" aria-label="Next month" data-calendar-next>&gt;</button>
               </div>
-              <div class="booking-calendar__grid" data-calendar-grid></div>
             </section>
           </div>
         </form>
@@ -103,16 +139,33 @@
     </main>
 
     <footer id="contact" class="site-footer">
-      <div>
-        <a class="brand" href="index.html#top">
+      <div class="hive-updates" aria-labelledby="hive-updates-title">
+        <h2 id="hive-updates-title">Let's stay in touch, gorgeous</h2>
+        <p>Sign up for Cottage 616 deals and updates</p>
+        <form class="hive-updates__form" action="mailto:info@cottage616.com" method="post" enctype="text/plain">
+          <label for="hive-updates-email">Email address</label>
+          <div class="hive-updates__field">
+            <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
+      </div>
+      <div class="site-footer__logos" aria-label="Site links">
+        <a class="brand" href="index.html">
           <img class="brand-logo" src="assets/images/logo.svg" alt="">
           <span>Cottage 616</span>
+        </a>
+        <span class="site-footer__logo-separator" aria-hidden="true">|</span>
+        <a class="site-footer__hive-wordmark" href="the-hive.html" aria-label="The Hive landing page">
+          <span class="brand--hive__script">the hive</span>
+          <span class="brand--hive__tagline">at cottage 616</span>
         </a>
       </div>
       <address>
         <a href="tel:+18702196982">(870) 219-6982</a>
         <a href="mailto:info@cottage616.com">info@cottage616.com</a>
         <span>3773 County Road 616, Bay, AR 72411</span>
+        <span class="site-credit">Site design by Admit One Design Studio</span>
       </address>
     </footer>
 

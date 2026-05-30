@@ -35,9 +35,11 @@ That script escalates with `sudo`, creates the systemd service, backs up the liv
 
 ```bash
 curl -si http://127.0.0.1:8083/cottage616/
+curl -si http://127.0.0.1:8083/cottage616/the-hive.html
 curl -si http://127.0.0.1:8083/cottage616/vendors.html
 curl -si http://127.0.0.1:8083/cottage616/booking.html
 curl -si https://xarindar.com/cottage616/
+curl -si https://xarindar.com/cottage616/the-hive.html
 curl -si https://xarindar.com/cottage616/vendors.html
 curl -si https://xarindar.com/cottage616/booking.html
 ```

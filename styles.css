@@ -67,7 +67,7 @@ a {
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 24px;
   padding: 16px clamp(18px, 4vw, 56px);
   background: rgba(255, 248, 242, 0.94);
@@ -79,11 +79,21 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--display-font);
-  font-size: 1.25rem;
-  font-weight: 700;
   text-decoration: none;
   color: var(--deep-blue);
+}
+
+.site-header > .brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.brand span {
+  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  font-size: 1.22rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .brand-logo {
@@ -93,10 +103,30 @@ a {
   object-fit: contain;
 }
 
+.site-header .brand-logo {
+  display: none;
+}
+
 .site-nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 18vw, 360px);
+  width: 100%;
+}
+
+.site-nav__group {
+  display: flex;
+  align-items: center;
   gap: 6px;
+}
+
+.site-nav__group--left {
+  justify-content: flex-start;
+}
+
+.site-nav__group--right {
+  justify-content: flex-end;
 }
 
 .site-nav a {
@@ -1127,11 +1157,21 @@ textarea:focus {
 
 .site-footer {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(240px, 0.8fr);
-  gap: 28px;
-  padding: 34px clamp(18px, 5vw, 72px);
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 4vw, 32px);
+  padding: clamp(46px, 7vw, 72px) clamp(18px, 5vw, 72px) 34px;
   color: var(--paper);
   background: #102d42;
+  text-align: center;
+}
+
+.site-footer .brand {
+  color: var(--paper);
+  justify-content: center;
+}
+
+.site-footer .brand-logo {
+  filter: brightness(0) invert(1);
 }
 
 .site-footer p {
@@ -1140,15 +1180,166 @@ textarea:focus {
   color: rgba(255, 253, 248, 0.72);
 }
 
-address {
-  display: grid;
-  gap: 8px;
+.site-credit {
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  opacity: 0.62;
+}
+
+address .site-credit {
+  margin-top: 6px;
+  color: rgba(255, 253, 248, 0.68);
   font-style: normal;
-  justify-items: end;
+}
+
+address {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(16px, 3vw, 28px);
+  font-style: normal;
+  justify-content: center;
+  text-align: center;
 }
 
 address a {
   text-decoration: none;
+}
+
+address > * {
+  white-space: nowrap;
+}
+
+.site-footer address .site-credit {
+  flex-basis: 100%;
+}
+
+.hive-updates {
+  justify-self: center;
+  width: min(100%, 560px);
+  margin: 0 auto clamp(26px, 5vw, 48px);
+  text-align: center;
+}
+
+.site-footer .hive-updates h2 {
+  max-width: 560px;
+  margin-right: auto;
+  margin-bottom: 6px;
+  margin-left: auto;
+  color: var(--paper);
+  font-size: clamp(2.25rem, 4vw, 4.1rem);
+  text-align: center;
+}
+
+.site-footer .hive-updates p {
+  margin: 0 auto 16px;
+  color: rgba(255, 253, 248, 0.72);
+  font-weight: 700;
+  text-align: center;
+}
+
+.hive-updates__form {
+  display: grid;
+  gap: 8px;
+}
+
+.hive-updates__form label {
+  color: rgba(255, 253, 248, 0.64);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hive-updates__field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+  width: min(100%, 392px);
+  margin: 0 auto;
+}
+
+.hive-updates__field input {
+  min-height: 44px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 253, 248, 0.38);
+  border-radius: 0;
+  color: var(--paper);
+  background: transparent;
+}
+
+.hive-updates__field input::placeholder {
+  color: rgba(255, 253, 248, 0.46);
+}
+
+.hive-updates__field input:focus {
+  outline: 0;
+  border-color: var(--yellow);
+}
+
+.hive-updates__field button {
+  min-height: 40px;
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 1px solid var(--yellow);
+  color: var(--yellow);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.hive-updates__field button:hover,
+.hive-updates__field button:focus-visible {
+  color: var(--paper);
+  outline: 0;
+}
+
+.site-footer__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 28px);
+}
+
+.site-footer__logos .brand {
+  flex: 0 0 auto;
+}
+
+.site-footer__logo-separator {
+  color: rgba(255, 253, 248, 0.44);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+}
+
+.site-footer__hive-wordmark {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.site-footer__hive-wordmark .brand--hive__script {
+  color: var(--paper);
+  font-family: "Great Vibes", "Segoe Script", "Brush Script MT", cursive;
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 400;
+  line-height: 0.78;
+}
+
+.site-footer__hive-wordmark .brand--hive__tagline {
+  color: rgba(255, 253, 248, 0.76);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.56rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-transform: lowercase;
 }
 
 @media (max-width: 980px) {
@@ -1200,6 +1391,10 @@ address a {
     padding: 0 clamp(18px, 5vw, 28px) clamp(24px, 5vw, 34px);
   }
 
+  .hive-updates__field {
+    grid-template-columns: 1fr;
+  }
+
   .vendor-card::before {
     inset: clamp(82px, 19vw, 110px) 0 0;
   }
@@ -1232,6 +1427,12 @@ address a {
 @media (max-width: 720px) {
   .site-header {
     align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .site-header > .brand {
+    position: static;
+    transform: none;
   }
 
   .menu-toggle {
@@ -1242,6 +1443,9 @@ address a {
     position: absolute;
     inset: 74px 18px auto;
     display: none;
+    width: auto;
+    justify-content: flex-start;
+    gap: 4px;
     padding: 14px;
     border: 1px solid var(--line);
     border-radius: 8px;
@@ -1251,6 +1455,12 @@ address a {
 
   .site-nav.is-open {
     display: grid;
+  }
+
+  .site-nav__group {
+    display: grid;
+    gap: 4px;
+    justify-content: stretch;
   }
 
   .site-nav a {
