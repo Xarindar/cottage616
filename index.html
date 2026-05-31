@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=nav-center">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=vendor-showcase">
   </head>
   <body>
     <header class="site-header">
@@ -135,6 +136,51 @@
         </div>
       </section>
 
+      <section class="section vendor vendor-showcase">
+        <div class="vendor-showcase__photo vendor-showcase__photo--left" aria-hidden="true">
+          <img src="assets/images/vendors/vendor-showcase-party.jpg" alt="">
+        </div>
+        <div class="vendor-showcase__photo vendor-showcase__photo--right" aria-hidden="true">
+          <img src="assets/images/vendors/vendor-showcase-celebration.jpg" alt="">
+        </div>
+        <div class="vendor-showcase__copy">
+          <h2>Vendor Partners</h2>
+          <p>Need a hand? We know a guy or two...</p>
+          <a class="button primary vendor-button" href="vendors.html">
+            <i class="bx bxs-store-alt" aria-hidden="true"></i>
+            <span>View All Vendors</span>
+            <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
+          </a>
+          <p class="vendor-showcase__note">Use our vendor partners for exclusive discounts and perks!</p>
+        </div>
+        <div class="vendor-preview" aria-label="Vendor category previews">
+          <article class="vendor-preview-card">
+            <span class="vendor-preview-icon" aria-hidden="true">
+              <i class="bx bxs-baby-carriage"></i>
+            </span>
+            <h3>Soft Play</h3>
+          </article>
+          <article class="vendor-preview-card">
+            <span class="vendor-preview-icon" aria-hidden="true">
+              <i class="bx bxs-cake"></i>
+            </span>
+            <h3>Catering &amp; Cakes</h3>
+          </article>
+          <article class="vendor-preview-card">
+            <span class="vendor-preview-icon" aria-hidden="true">
+              <i class="bx bxs-party"></i>
+            </span>
+            <h3>Party Styling</h3>
+          </article>
+          <article class="vendor-preview-card">
+            <span class="vendor-preview-icon" aria-hidden="true">
+              <i class="bx bxs-camera-movie"></i>
+            </span>
+            <h3>DJ &amp; Photobooth</h3>
+          </article>
+        </div>
+      </section>
+
       <section id="team" class="section team">
         <div class="section-heading">
           <p class="eyebrow">Our Team</p>
@@ -164,26 +210,9 @@
         </div>
       </section>
 
-      <section class="section vendor">
-        <div>
-          <p class="eyebrow">Vendor Partners</p>
-          <h2>Bring in the sweet extras without starting from scratch.</h2>
-        </div>
-        <p>Cottage 616 can help guests discover local vendors for party add-ons, soft play setups, styling details, rentals, and other celebration support. We will keep partner contacts together on a dedicated vendor page so clients can plan the extras with confidence.</p>
-        <a class="button vendor-button" href="vendors.html">View Vendor Details</a>
-      </section>
-
       <section id="book" class="section booking">
-        <div class="booking-copy">
-          <p class="eyebrow">Booking</p>
-          <h2>Ready to find a date?</h2>
-          <p>Requests open two weeks from today so there is room to plan the setup properly. Deposit and contract are due within 48 hours of booking confirmation.</p>
-        </div>
-        <div class="booking-card">
-          <h3>Pick a date and tell us what you are planning.</h3>
-          <p>The booking page includes available request dates, times, and a quick detail form.</p>
-          <a class="button primary" href="booking.html">Book Now</a>
-        </div>
+        <h2>Looks pretty good, right?</h2>
+        <a class="button primary" href="booking.html">Let's book it!</a>
       </section>
     </main>
 
