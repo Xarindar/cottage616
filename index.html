@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://www.cottage616.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=vendor-showcase">
   </head>
@@ -115,25 +115,51 @@
         </div>
       </section>
 
-      <section id="head-spa" class="section head-spa">
-        <div class="media-stack">
-          <img class="spa-main" src="assets/spa1.jpg" alt="Cottage 616 head-spa water treatment">
-          <div class="product-note">
-            <strong>Products</strong>
-            <span>Amika formulas selected for scalp-friendly care, hydration, and shine.</span>
+      <section class="venue-strip" aria-label="Small venue event inspiration" data-carousel data-carousel-start="middle">
+        <div class="venue-strip__copy" aria-hidden="true">
+          <span>Small Venue</span>
+          <span>Lots to love</span>
+        </div>
+        <button class="venue-strip__control venue-strip__control--prev" type="button" aria-label="Previous event photo" data-carousel-prev>
+          <span aria-hidden="true">&lt;</span>
+        </button>
+        <div class="venue-strip__viewport">
+          <div class="venue-strip__rail" data-carousel-track tabindex="0" aria-label="Event photo carousel">
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-cocktail.webp" alt="Outdoor cocktail hour at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-shower.webp" alt="Elegant shower table setting at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-lounge.webp" alt="Elegant bridal shower lounge setup at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-cake.webp" alt="Wedding cake and champagne setup at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-dinner.webp" alt="Intimate dinner event at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-birthday.webp" alt="Upscale birthday party details at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-wedding.webp" alt="Intimate wedding moment at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-rehearsal.webp" alt="Rehearsal dinner table at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-girls-night.webp" alt="Private celebration cocktail bar at Cottage 616">
+            </figure>
+            <figure class="venue-strip__image" data-carousel-card>
+              <img src="assets/images/events/event-strip-celebration.webp" alt="Family celebration at Cottage 616">
+            </figure>
           </div>
         </div>
-        <div class="section-copy">
-          <p class="eyebrow">Head Spa</p>
-          <h2>Scalp care, stress relief, and a softer reset.</h2>
-          <p>The head-spa treatment supports scalp health and relaxation through specialized tools, massage techniques, and professional-grade products. It helps cleanse buildup, stimulate circulation, rebalance oil, reduce dandruff, ease tension, and leave hair smoother and refreshed.</p>
-          <ul class="check-list">
-            <li>Deep scalp cleanse and hydration</li>
-            <li>Massage-focused relaxation</li>
-            <li>Event add-on for brides, guests, or girls' nights</li>
-          </ul>
-          <a class="button primary" href="the-hive.html">Explore The Hive</a>
-        </div>
+        <button class="venue-strip__control venue-strip__control--next" type="button" aria-label="Next event photo" data-carousel-next>
+          <span aria-hidden="true">&gt;</span>
+        </button>
       </section>
 
       <section class="section vendor vendor-showcase">
@@ -215,6 +241,7 @@
         </a>
         <span class="site-footer__logo-separator" aria-hidden="true">|</span>
         <a class="site-footer__hive-wordmark" href="the-hive.html" aria-label="The Hive landing page">
+          <img class="site-footer__hive-icon" src="assets/images/the-hive/hive-logo.svg" alt="">
           <span class="brand--hive__script">the hive</span>
           <span class="brand--hive__tagline">at cottage 616</span>
         </a>

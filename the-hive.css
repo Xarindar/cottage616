@@ -1,10 +1,29 @@
+.hive-page {
+  --yellow: #f3c64e;
+  --soft-yellow: #fff0bd;
+  --pink: #ff7f73;
+  --soft-pink: #ffe2df;
+}
+
 .brand--hive {
   display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 6px;
+  row-gap: 0;
+  align-items: end;
   justify-items: center;
-  gap: 2px;
+}
+
+.site-header .brand--hive .brand-logo {
+  display: block;
+  width: clamp(20px, 2vw, 28px);
+  height: clamp(22px, 2.2vw, 31px);
+  margin-bottom: 2px;
+  object-fit: contain;
 }
 
 .site-header .brand--hive__script {
+  justify-self: start;
   color: #121823;
   font-family: "Great Vibes", "Segoe Script", "Brush Script MT", cursive;
   font-size: clamp(2.1rem, 3.4vw, 2.9rem);
@@ -13,30 +32,30 @@
 }
 
 .site-header .brand--hive__tagline {
+  grid-column: 1 / 3;
+  justify-self: stretch;
+  box-sizing: border-box;
+  padding-left: 5px;
   color: #121823;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.58rem;
   font-weight: 400;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.44em;
   line-height: 1;
+  text-align: center;
   text-transform: lowercase;
+  white-space: nowrap;
 }
 
 .hive-hero {
-  background-color: rgba(16, 45, 66, 0.62);
+  background-color: rgba(16, 45, 66, 0.68);
   background-image: url("assets/images/the-hive/rustic_salon_hero_1440w.webp");
   background-position: center 45%;
   background-blend-mode: multiply;
 }
 
 .hive-hero::after {
-  bottom: -2px;
-  display: block;
-  height: clamp(86px, 11vw, 146px);
-  background-image: url("data:image/svg+xml,%3Csvg width='1440' height='150' viewBox='0 0 1440 150' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath fill='%23fffdf8' d='M0 150V72L190 0h1060l190 72v78H0Z'/%3E%3Cpath fill='none' stroke='%23f3c64e' stroke-width='5' stroke-linejoin='round' stroke-opacity='.82' d='M0 72 190 0h1060l190 72'/%3E%3C/svg%3E");
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  display: none;
 }
 
 .hive-hero .hero-copy {
@@ -60,24 +79,14 @@
   grid-template-columns: minmax(280px, 0.86fr) minmax(320px, 1.14fr);
   gap: clamp(28px, 5vw, 72px);
   align-items: center;
-  padding: clamp(42px, 6vw, 76px) clamp(18px, 5vw, 72px);
+  padding: clamp(58px, 7vw, 96px) clamp(18px, 5vw, 72px);
   background: var(--paper);
+  border-bottom: 1px solid rgba(23, 63, 95, 0.1);
   z-index: 3;
 }
 
 .hive-intro::after {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(clamp(86px, 11vw, 146px) * -1 + 2px);
-  z-index: 3;
-  height: clamp(86px, 11vw, 146px);
-  background-image: url("data:image/svg+xml,%3Csvg width='1440' height='150' viewBox='0 0 1440 150' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath fill='%23fffdf8' d='M0 0h1440v78l-190 72H190L0 78V0Z'/%3E%3Cpath fill='none' stroke='%23f3c64e' stroke-width='5' stroke-linejoin='round' stroke-opacity='.82' d='M0 78 190 150h1060l190-72'/%3E%3C/svg%3E");
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  content: "";
-  pointer-events: none;
+  display: none;
 }
 
 .hive-intro__copy {
@@ -91,12 +100,7 @@
 }
 
 .hive-intro__bee {
-  position: absolute;
-  left: clamp(22px, 5vw, 74px);
-  bottom: clamp(22px, 3vw, 38px);
-  width: clamp(58px, 7vw, 92px);
-  opacity: 0.58;
-  transform: rotate(-12deg);
+  display: none;
 }
 
 .hive-photo-stack {
@@ -126,10 +130,8 @@
 .hive-specialist {
   position: relative;
   overflow: hidden;
-  padding-top: calc(clamp(58px, 8vw, 112px) + clamp(28px, 4vw, 52px));
-  background:
-    linear-gradient(rgba(255, 253, 248, 0.18), rgba(255, 253, 248, 0.34)),
-    url("assets/images/the-hive/cork-texture.jpg") center / 420px repeat;
+  padding-top: clamp(58px, 8vw, 112px);
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(255, 248, 242, 0.96));
 }
 
 .hive-specialist__board {
@@ -145,14 +147,7 @@
 .hive-specialist__portrait::before,
 .hive-specialist__bio::before,
 .hive-specialist__details::before {
-  position: absolute;
-  width: var(--pin-width, 32px);
-  height: var(--pin-height, 46px);
-  background: var(--pin-image, url("assets/images/the-hive/pins/pushpin-angle-3.png")) center / contain no-repeat;
-  content: "";
-  filter: saturate(0.9) brightness(0.96);
-  opacity: 0.88;
-  pointer-events: none;
+  display: none;
 }
 
 .hive-specialist__board::before {
@@ -164,11 +159,11 @@
   z-index: 1;
   justify-self: center;
   width: min(100%, 340px);
-  padding: 14px 14px 54px;
+  padding: 12px;
   background: #fffdf8;
   border: 1px solid rgba(23, 63, 95, 0.08);
-  box-shadow: 0 18px 34px rgba(46, 31, 16, 0.2);
-  transform: rotate(-2.6deg);
+  border-radius: 8px;
+  box-shadow: var(--premium-shadow);
 }
 
 .hive-specialist__portrait::before {
@@ -190,16 +185,13 @@
 }
 
 .hive-specialist__portrait p {
-  position: absolute;
-  right: 18px;
-  bottom: 14px;
-  left: 18px;
-  margin: 0;
+  position: static;
+  margin: 14px 4px 4px;
   color: var(--deep-blue);
-  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
-  font-size: clamp(1.45rem, 3.2vw, 2.15rem);
-  line-height: 1;
-  text-align: center;
+  font-family: var(--display-font);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  line-height: 1.1;
+  text-align: left;
 }
 
 .hive-specialist__bio {
@@ -210,8 +202,7 @@
   border: 1px solid rgba(78, 56, 38, 0.12);
   border-radius: 8px;
   background: rgba(255, 253, 248, 0.96);
-  box-shadow: 0 16px 30px rgba(46, 31, 16, 0.16);
-  transform: rotate(0.8deg);
+  box-shadow: var(--premium-shadow);
 }
 
 .hive-specialist__bio::before {
@@ -224,15 +215,7 @@
 }
 
 .hive-specialist__bio::after {
-  position: absolute;
-  top: -14px;
-  left: clamp(22px, 4vw, 44px);
-  width: 118px;
-  height: 26px;
-  background: rgba(234, 228, 205, 0.78);
-  box-shadow: 0 2px 8px rgba(46, 31, 16, 0.08);
-  content: "";
-  transform: rotate(-2deg);
+  display: none;
 }
 
 .hive-specialist__bio p:not(.eyebrow) {
@@ -241,7 +224,7 @@
 }
 
 .hive-specialist__bio h2 {
-  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  font-family: var(--display-font);
   font-size: clamp(2.1rem, 4vw, 3.4rem);
   letter-spacing: 0;
 }
@@ -257,8 +240,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-top: -26px;
-  transform: rotate(-1deg);
+  margin-top: -8px;
 }
 
 .hive-specialist__details::before {
@@ -279,7 +261,7 @@
   border-radius: 8px;
   color: var(--deep-blue);
   background: rgba(255, 253, 248, 0.93);
-  box-shadow: 0 12px 22px rgba(46, 31, 16, 0.12);
+  box-shadow: var(--premium-shadow);
   font-size: 0.9rem;
   font-weight: 800;
   line-height: 1.25;
@@ -287,12 +269,10 @@
 
 .hive-specialist__details span:nth-child(2) {
   background: rgba(246, 248, 241, 0.95);
-  transform: rotate(0.6deg);
 }
 
 .hive-specialist__details span:nth-child(3) {
   background: rgba(250, 246, 238, 0.95);
-  transform: rotate(-0.6deg);
 }
 
 .hive-specialist__bee {
@@ -302,23 +282,13 @@
 .hive-pricing {
   position: relative;
   overflow: hidden;
-  background-color: var(--soft-yellow);
-  background-image:
-    radial-gradient(circle at 10% 12%, rgba(255, 255, 255, 0.7) 0 10%, rgba(255, 255, 255, 0) 28%),
-    radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.62) 0 9%, rgba(255, 255, 255, 0) 24%),
-    linear-gradient(180deg, #fffdf8 0%, #fff0bd 100%);
+  background-color: var(--paper);
+  background-image: linear-gradient(180deg, #fffdf8 0%, #fff8f2 100%);
+  border-block: 1px solid rgba(23, 63, 95, 0.1);
 }
 
 .hive-pricing__bee {
-  position: absolute;
-  right: clamp(18px, 5vw, 72px);
-  top: clamp(22px, 4vw, 44px);
-  width: clamp(70px, 8vw, 110px);
-  object-fit: contain;
-  opacity: 0.24;
-  pointer-events: none;
-  transform: rotate(12deg);
-  user-select: none;
+  display: none;
 }
 
 .hive-pricing-carousel {
@@ -343,12 +313,12 @@
 
 .hive-pricing-carousel::before {
   left: clamp(46px, 6vw, 70px);
-  background: linear-gradient(90deg, rgba(255, 240, 189, 0.96), rgba(255, 240, 189, 0));
+  background: linear-gradient(90deg, rgba(255, 253, 248, 0.96), rgba(255, 253, 248, 0));
 }
 
 .hive-pricing-carousel::after {
   right: clamp(46px, 6vw, 70px);
-  background: linear-gradient(270deg, rgba(255, 240, 189, 0.96), rgba(255, 240, 189, 0));
+  background: linear-gradient(270deg, rgba(255, 253, 248, 0.96), rgba(255, 253, 248, 0));
 }
 
 .hive-pricing-carousel__button {
@@ -421,7 +391,7 @@
   border-top: 5px solid var(--yellow);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 14px 30px rgba(23, 63, 95, 0.08);
+  box-shadow: var(--premium-shadow);
   overflow: hidden;
   scroll-snap-align: center;
 }
@@ -474,11 +444,10 @@
   width: clamp(96px, 10vw, 126px);
   aspect-ratio: 1;
   padding: 14px;
-  border-radius: 50%;
+  border-radius: 8px;
   color: var(--deep-blue);
   background:
-    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 34%),
-    var(--soft-yellow);
+    linear-gradient(180deg, var(--soft-yellow), rgba(255, 253, 248, 0.95));
   box-shadow: inset 0 0 0 1px rgba(23, 63, 95, 0.12);
   text-align: center;
 }
@@ -492,7 +461,7 @@
 
 .hive-price-card__badge strong {
   margin-top: -18px;
-  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  font-family: var(--display-font);
   font-size: clamp(1.35rem, 2.3vw, 1.9rem);
   line-height: 1;
   text-transform: uppercase;
@@ -501,7 +470,7 @@
 .hive-price-card__details h3 {
   margin-bottom: 8px;
   color: var(--deep-blue);
-  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  font-family: var(--display-font);
   font-size: clamp(1.35rem, 2.6vw, 2rem);
   line-height: 1.1;
 }
@@ -532,7 +501,7 @@
 .hive-price-card__price {
   margin: 0;
   color: var(--deep-blue);
-  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  font-family: var(--display-font);
   font-size: clamp(3.4rem, 7vw, 5.8rem);
   line-height: 0.9;
   text-align: right;
@@ -551,11 +520,8 @@
 }
 
 .hive-benefits {
-  background-color: #fff3c4;
-  background-image:
-    radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.8) 0 11%, rgba(255, 255, 255, 0) 26%),
-    radial-gradient(circle at 88% 28%, rgba(255, 255, 255, 0.64) 0 10%, rgba(255, 255, 255, 0) 24%),
-    linear-gradient(180deg, #fff8dd 0%, #fff0bd 100%);
+  background-color: var(--cream);
+  background-image: linear-gradient(180deg, rgba(255, 248, 242, 0.98), rgba(255, 253, 248, 0.98));
 }
 
 .hive-card-grid {
@@ -583,15 +549,7 @@
 }
 
 .hive-card-grid article::after {
-  position: absolute;
-  right: -28px;
-  bottom: -34px;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: rgba(243, 198, 78, 0.22);
-  content: "";
-  pointer-events: none;
+  display: none;
 }
 
 .hive-card-icon {
@@ -604,7 +562,8 @@
   margin: 0;
   padding: clamp(9px, 1.1vw, 12px) clamp(11px, 1.4vw, 15px);
   background: var(--soft-yellow);
-  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  border-radius: 8px;
+  clip-path: none;
   box-shadow: none;
   filter: drop-shadow(0 10px 16px rgba(23, 63, 95, 0.14));
   transform: translate(-50%, -50%);
@@ -619,7 +578,8 @@
   height: auto;
   aspect-ratio: 1.16 / 1;
   background: var(--paper);
-  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  border-radius: 8px;
+  clip-path: none;
   content: "";
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -641,10 +601,7 @@
   grid-template-columns: minmax(320px, 1.05fr) minmax(280px, 0.95fr);
   gap: clamp(24px, 5vw, 60px);
   align-items: stretch;
-  background:
-    radial-gradient(circle at 90% 12%, rgba(243, 198, 78, 0.26), rgba(243, 198, 78, 0) 26%),
-    linear-gradient(135deg, rgba(223, 243, 255, 0.68) 0%, rgba(255, 253, 248, 0.96) 52%, rgba(255, 240, 189, 0.5) 100%),
-    var(--paper);
+  background: linear-gradient(135deg, rgba(255, 253, 248, 0.98) 0%, rgba(247, 251, 253, 0.92) 100%);
 }
 
 .hive-products__panel {
@@ -689,7 +646,7 @@
   border: 1px solid rgba(23, 63, 95, 0.12);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 8px 22px rgba(23, 63, 95, 0.08);
+  box-shadow: var(--premium-shadow);
   text-align: center;
 }
 
@@ -729,9 +686,8 @@
   gap: 24px;
   align-items: center;
   background-color: var(--soft-yellow);
-  background-image:
-    radial-gradient(circle at 16% 24%, rgba(255, 255, 255, 0.72) 0 12%, rgba(255, 255, 255, 0) 30%),
-    linear-gradient(135deg, #fff8dd 0%, #fff0bd 48%, #dff3ff 100%);
+  background-image: linear-gradient(135deg, rgba(255, 253, 248, 0.96) 0%, var(--soft-yellow) 100%);
+  border-block: 1px solid rgba(23, 63, 95, 0.1);
 }
 
 .hive-cta h2 {
@@ -745,29 +701,18 @@
 
 .site-footer {
   position: relative;
-  margin-top: clamp(74px, 10vw, 128px);
-  padding-top: clamp(26px, 4vw, 48px);
+  margin-top: 0;
+  padding-top: clamp(46px, 7vw, 72px);
 }
 
 .site-footer::before {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(clamp(86px, 11vw, 146px) * -1 + 2px);
-  z-index: 0;
-  height: clamp(86px, 11vw, 146px);
-  background-image: url("data:image/svg+xml,%3Csvg width='1440' height='150' viewBox='0 0 1440 150' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath fill='%23102d42' d='M0 150V72L190 0h1060l190 72v78H0Z'/%3E%3Cpath fill='none' stroke='%23f3c64e' stroke-width='5' stroke-linejoin='round' stroke-opacity='.82' d='M0 72 190 0h1060l190 72'/%3E%3C/svg%3E");
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  content: "";
-  pointer-events: none;
+  display: none;
 }
 
 .site-footer .hive-updates {
   position: relative;
   z-index: 1;
-  margin: calc(clamp(42px, 7.5vw, 87px) * -1) auto clamp(26px, 5vw, 48px);
+  margin: 0 auto clamp(26px, 5vw, 48px);
 }
 
 @media (max-width: 980px) {
