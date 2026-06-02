@@ -162,7 +162,7 @@ a {
   padding: clamp(96px, 13vw, 180px) clamp(18px, 5vw, 72px) clamp(72px, 8vw, 112px);
   color: var(--paper);
   background-color: rgba(16, 45, 66, 0.78);
-  background-image: url("assets/cottage616_hero_q70.webp");
+  background-image: url("assets/cottage616_hero_fast.webp");
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
