@@ -598,17 +598,11 @@ main section[id] {
 
 .venue-strip__rail {
   position: relative;
-  display: grid;
-  grid-auto-columns: clamp(180px, 18vw, 260px);
-  grid-auto-flow: column;
+  display: flex;
   gap: clamp(16px, 2.2vw, 28px);
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  padding: clamp(14px, 1.8vw, 22px) max(34px, calc((100% - min(100%, 980px)) / 2)) clamp(20px, 2.4vw, 30px);
-  scroll-behavior: smooth;
-  scroll-padding-inline: max(34px, calc((100% - min(100%, 980px)) / 2));
-  scroll-snap-type: inline mandatory;
-  scrollbar-width: none;
+  width: max-content;
+  padding-block: clamp(14px, 1.8vw, 22px) clamp(20px, 2.4vw, 30px);
+  will-change: transform;
   align-items: center;
 }
 
@@ -625,9 +619,11 @@ main section[id] {
   position: relative;
   z-index: 1;
   width: 100%;
+  overflow: hidden;
 }
 
 .venue-strip__image {
+  flex: 0 0 clamp(180px, 18vw, 260px);
   height: clamp(270px, 28vw, 400px);
   margin: 0;
   overflow: hidden;
@@ -635,7 +631,6 @@ main section[id] {
   border-radius: 2px;
   background: rgba(255, 255, 255, 0.04);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
-  scroll-snap-align: center;
 }
 
 .venue-strip__image img {
@@ -1701,9 +1696,7 @@ address > * {
   }
 
   .venue-strip__rail {
-    grid-auto-columns: clamp(168px, 27vw, 238px);
-    padding-inline: 44px;
-    scroll-padding-inline: 44px;
+    gap: 16px;
   }
 
   .venue-strip__copy span {
@@ -1792,10 +1785,11 @@ address > * {
   }
 
   .venue-strip__rail {
-    grid-auto-columns: clamp(168px, 56vw, 232px);
     gap: 12px;
-    padding-inline: 42px;
-    scroll-padding-inline: 42px;
+  }
+
+  .venue-strip__image {
+    flex-basis: clamp(168px, 56vw, 232px);
   }
 
   .venue-strip__image {
