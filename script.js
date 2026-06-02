@@ -45,9 +45,16 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       track.appendChild(clone);
     });
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const driftSpeed = 0.032;
+    const buttonGlideDuration = 620;
     let offset = 0;
     let loopWidth = 0;
-    let lastAutoplayTime = 0;
+    let lastFrameTime = 0;
+    let animationFrame = 0;
+    let glideStartTime = 0;
+    let glideFrom = 0;
+    let glideTo = 0;
 
     const measureLoop = () => {
       const firstClone = track.querySelector("[data-carousel-clone]");
@@ -75,45 +82,78 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       return card ? card.getBoundingClientRect().width + gap : 260;
     };
 
-    const setupLoop = () => {
+    const setupLoop = ({ resetOffset = true } = {}) => {
       measureLoop();
-      offset = loopWidth * 0.28;
+      if (resetOffset) {
+        offset = loopWidth * 0.28;
+      }
       renderLoop();
     };
 
-    const driftLoop = () => {
-      if (!isAutoplaying || loopWidth <= 0) {
+    const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
+
+    const glideBy = (distance) => {
+      if (loopWidth <= 0) {
         return;
       }
 
-      const now = window.performance.now();
-      const elapsed = lastAutoplayTime === 0 ? 32 : now - lastAutoplayTime;
-      lastAutoplayTime = now;
-      offset += elapsed * 0.035;
+      glideStartTime = window.performance.now();
+      glideFrom = offset;
+      glideTo = offset + distance;
+    };
+
+    const tickLoop = (now) => {
+      if (document.hidden) {
+        lastFrameTime = now;
+        animationFrame = window.requestAnimationFrame(tickLoop);
+        return;
+      }
+
+      const elapsed = lastFrameTime === 0 ? 16.7 : Math.min(now - lastFrameTime, 48);
+      lastFrameTime = now;
+
+      if (glideStartTime > 0) {
+        const progress = Math.min((now - glideStartTime) / buttonGlideDuration, 1);
+        offset = glideFrom + (glideTo - glideFrom) * easeOutCubic(progress);
+
+        if (progress === 1) {
+          glideStartTime = 0;
+        }
+      } else if (isAutoplaying && !prefersReducedMotion) {
+        offset += elapsed * driftSpeed;
+      }
+
       renderLoop();
+      animationFrame = window.requestAnimationFrame(tickLoop);
+    };
+
+    const startLoop = () => {
+      if (animationFrame === 0) {
+        animationFrame = window.requestAnimationFrame(tickLoop);
+      }
+    };
+
+    const scheduleMeasure = () => {
+      window.requestAnimationFrame(() => setupLoop({ resetOffset: false }));
     };
 
     setupLoop();
     requestAnimationFrame(setupLoop);
     window.setTimeout(setupLoop, 250);
     window.addEventListener("load", setupLoop, { once: true });
-    window.addEventListener("resize", setupLoop);
+    window.addEventListener("resize", scheduleMeasure);
 
     prevButton.addEventListener("click", () => {
       showPhotos();
-      offset -= getCardAdvance();
-      renderLoop();
+      glideBy(-getCardAdvance());
     });
 
     nextButton.addEventListener("click", () => {
       showPhotos();
-      offset += getCardAdvance();
-      renderLoop();
+      glideBy(getCardAdvance());
     });
 
-    if (isAutoplaying) {
-      window.setInterval(driftLoop, 32);
-    }
+    startLoop();
 
     return;
   }
