@@ -715,15 +715,17 @@
   border-block: 1px solid rgba(23, 63, 95, 0.1);
 }
 
-.hive-cta::before {
+.hive-cta::after {
   position: absolute;
-  inset: clamp(18px, 4vw, 54px) auto auto clamp(18px, 5vw, 70px);
-  width: min(40vw, 440px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(23, 63, 95, 0.08);
-  border-radius: 50%;
+  inset: auto 0 0;
+  height: min(72%, 430px);
+  background-image: url("assets/images/the-hive/hex-grid.svg");
+  background-position: 50% 100%;
+  background-repeat: no-repeat;
+  background-size: min(1180px, 150vw) auto;
   content: "";
-  opacity: 0.45;
+  opacity: 0.38;
+  pointer-events: none;
 }
 
 .hive-cta__mark,
@@ -807,10 +809,10 @@
     text-align: center;
   }
 
-  .hive-cta::before {
-    left: 50%;
-    width: min(70vw, 430px);
-    transform: translateX(-50%);
+  .hive-cta::after {
+    height: min(68%, 360px);
+    background-size: 980px auto;
+    opacity: 0.32;
   }
 
   .hive-cta__copy,
