@@ -21,7 +21,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const nextButton = carousel.querySelector("[data-carousel-next]");
   let browseTimeout;
 
-  if (!track || !prevButton || !nextButton) {
+  if (!track) {
     return;
   }
 
@@ -47,14 +47,10 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const driftSpeed = 0.032;
-    const buttonGlideDuration = 620;
     let offset = 0;
     let loopWidth = 0;
     let lastFrameTime = 0;
     let animationFrame = 0;
-    let glideStartTime = 0;
-    let glideFrom = 0;
-    let glideTo = 0;
 
     const measureLoop = () => {
       const firstClone = track.querySelector("[data-carousel-clone]");
@@ -74,32 +70,12 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       track.style.transform = `translate3d(${-offset}px, 0, 0)`;
     };
 
-    const getCardAdvance = () => {
-      const card = originalCards[0];
-      const styles = window.getComputedStyle(track);
-      const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
-
-      return card ? card.getBoundingClientRect().width + gap : 260;
-    };
-
     const setupLoop = ({ resetOffset = true } = {}) => {
       measureLoop();
       if (resetOffset) {
         offset = loopWidth * 0.28;
       }
       renderLoop();
-    };
-
-    const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
-
-    const glideBy = (distance) => {
-      if (loopWidth <= 0) {
-        return;
-      }
-
-      glideStartTime = window.performance.now();
-      glideFrom = offset;
-      glideTo = offset + distance;
     };
 
     const tickLoop = (now) => {
@@ -112,14 +88,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       const elapsed = lastFrameTime === 0 ? 16.7 : Math.min(now - lastFrameTime, 48);
       lastFrameTime = now;
 
-      if (glideStartTime > 0) {
-        const progress = Math.min((now - glideStartTime) / buttonGlideDuration, 1);
-        offset = glideFrom + (glideTo - glideFrom) * easeOutCubic(progress);
-
-        if (progress === 1) {
-          glideStartTime = 0;
-        }
-      } else if (isAutoplaying && !prefersReducedMotion) {
+      if (isAutoplaying && !prefersReducedMotion) {
         offset += elapsed * driftSpeed;
       }
 
@@ -143,18 +112,12 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     window.addEventListener("load", setupLoop, { once: true });
     window.addEventListener("resize", scheduleMeasure);
 
-    prevButton.addEventListener("click", () => {
-      showPhotos();
-      glideBy(-getCardAdvance());
-    });
-
-    nextButton.addEventListener("click", () => {
-      showPhotos();
-      glideBy(getCardAdvance());
-    });
-
     startLoop();
 
+    return;
+  }
+
+  if (!prevButton || !nextButton) {
     return;
   }
 

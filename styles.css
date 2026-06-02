@@ -599,7 +599,7 @@ main section[id] {
 .venue-strip__rail {
   position: relative;
   display: flex;
-  gap: clamp(16px, 2.2vw, 28px);
+  gap: clamp(10px, 1.4vw, 18px);
   width: max-content;
   padding-block: clamp(14px, 1.8vw, 22px) clamp(20px, 2.4vw, 30px);
   transform: translate3d(0, 0, 0);
@@ -625,8 +625,8 @@ main section[id] {
 }
 
 .venue-strip__image {
-  flex: 0 0 clamp(180px, 18vw, 260px);
-  height: clamp(270px, 28vw, 400px);
+  flex: 0 0 clamp(198px, 19.8vw, 286px);
+  height: clamp(297px, 30.8vw, 440px);
   margin: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 253, 248, 0.12);
@@ -1700,7 +1700,7 @@ address > * {
   }
 
   .venue-strip__rail {
-    gap: 16px;
+    gap: 10px;
   }
 
   .venue-strip__copy span {
@@ -1784,20 +1784,20 @@ address > * {
   }
 
   .venue-strip {
-    min-height: 420px;
-    padding-block: 50px;
+    min-height: 370px;
+    padding-block: 28px;
   }
 
   .venue-strip__rail {
-    gap: 12px;
+    gap: 8px;
   }
 
   .venue-strip__image {
-    flex-basis: clamp(168px, 56vw, 232px);
+    flex-basis: clamp(185px, 62vw, 255px);
   }
 
   .venue-strip__image {
-    height: 280px;
+    height: 308px;
   }
 
   .venue-strip__copy span {
