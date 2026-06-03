@@ -326,11 +326,7 @@
 
 .hive-pricing-carousel {
   position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: clamp(10px, 2vw, 18px);
-  align-items: center;
-  margin-top: clamp(12px, 2vw, 22px);
+  margin-top: clamp(12px, 2.2vw, 28px);
 }
 
 .hive-pricing-carousel::before,
@@ -338,44 +334,66 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 2;
-  width: clamp(20px, 4vw, 54px);
+  z-index: 4;
+  width: clamp(80px, 13vw, 180px);
   content: "";
   pointer-events: none;
 }
 
 .hive-pricing-carousel::before {
-  left: clamp(46px, 6vw, 70px);
-  background: linear-gradient(90deg, rgba(255, 253, 248, 0.96), rgba(255, 253, 248, 0));
+  left: 0;
+  background: linear-gradient(90deg, rgba(255, 253, 248, 0.98) 0%, rgba(255, 253, 248, 0.8) 38%, rgba(255, 253, 248, 0));
 }
 
 .hive-pricing-carousel::after {
-  right: clamp(46px, 6vw, 70px);
-  background: linear-gradient(270deg, rgba(255, 253, 248, 0.96), rgba(255, 253, 248, 0));
+  right: 0;
+  background: linear-gradient(270deg, rgba(255, 253, 248, 0.98) 0%, rgba(255, 253, 248, 0.8) 38%, rgba(255, 253, 248, 0));
 }
 
 .hive-pricing-carousel__button {
-  position: relative;
-  z-index: 3;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
   display: grid;
   place-items: center;
-  width: clamp(42px, 5vw, 54px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(23, 63, 95, 0.14);
-  border-radius: 999px;
-  color: var(--deep-blue);
-  background: rgba(255, 253, 248, 0.94);
-  box-shadow: 0 10px 22px rgba(23, 63, 95, 0.1);
+  width: clamp(58px, 9vw, 124px);
+  border: 0;
+  color: rgba(23, 63, 95, 0.52);
+  background: transparent;
   cursor: pointer;
-  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3vw, 2.6rem);
   line-height: 1;
+  opacity: 0.52;
+  transition: color 220ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+.hive-pricing-carousel__button[data-carousel-prev] {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255, 253, 248, 0.62), rgba(255, 253, 248, 0));
+}
+
+.hive-pricing-carousel__button[data-carousel-next] {
+  right: 0;
+  background: linear-gradient(270deg, rgba(255, 253, 248, 0.62), rgba(255, 253, 248, 0));
 }
 
 .hive-pricing-carousel__button:hover,
 .hive-pricing-carousel__button:focus-visible {
   outline: 0;
-  background: var(--yellow);
-  transform: translateY(-1px);
+  color: var(--deep-blue);
+  opacity: 1;
+}
+
+.hive-pricing-carousel__button[data-carousel-prev]:hover,
+.hive-pricing-carousel__button[data-carousel-prev]:focus-visible {
+  transform: translateX(-2px);
+}
+
+.hive-pricing-carousel__button[data-carousel-next]:hover,
+.hive-pricing-carousel__button[data-carousel-next]:focus-visible {
+  transform: translateX(2px);
 }
 
 .hive-pricing-grid {
@@ -385,12 +403,11 @@
   gap: clamp(18px, 2.4vw, 30px);
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  padding: 10px max(12px, calc((100% - min(100%, 1040px)) / 2)) clamp(24px, 3vw, 42px);
+  padding: 10px max(76px, calc((100% - clamp(420px, 38vw, 620px)) / 2)) clamp(30px, 3vw, 46px);
   scroll-behavior: smooth;
-  scroll-padding-inline: max(12px, calc((100% - min(100%, 1040px)) / 2));
+  scroll-padding-inline: max(76px, calc((100% - clamp(420px, 38vw, 620px)) / 2));
   scroll-snap-type: inline mandatory;
-  scrollbar-color: var(--deep-blue) rgba(255, 255, 255, 0.44);
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 .hive-pricing-grid:focus-visible {
@@ -399,18 +416,7 @@
 }
 
 .hive-pricing-grid::-webkit-scrollbar {
-  height: 10px;
-}
-
-.hive-pricing-grid::-webkit-scrollbar-track {
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.48);
-}
-
-.hive-pricing-grid::-webkit-scrollbar-thumb {
-  border: 2px solid rgba(255, 255, 255, 0.48);
-  border-radius: 999px;
-  background: var(--deep-blue);
+  display: none;
 }
 
 .hive-price-card {
@@ -429,6 +435,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
   overflow: hidden;
   scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 
 .hive-price-card::before {
@@ -501,6 +508,11 @@
   margin: clamp(10px, 1.4vw, 14px) auto 0;
   background: linear-gradient(90deg, transparent, rgba(185, 137, 48, 0.52), transparent);
   content: "";
+}
+
+.hive-price-card--botanical .hive-price-card__details h3 {
+  max-width: 11.4em;
+  font-size: clamp(2.35rem, 3vw, 2.78rem);
 }
 
 .hive-price-card__subhead {
@@ -576,11 +588,22 @@
   --feature-icon: url("assets/images/the-hive/icon-steam.svg");
 }
 
+.hive-price-card__feature--botanical-cleanse {
+  --feature-icon: url("assets/images/the-hive/icon-plant.svg");
+}
+
 .hive-price-card__feature--cleanse::after {
   top: calc(clamp(10px, 1.5vw, 14px) + clamp(8px, 0.8vw, 10px));
   left: clamp(15px, 1.5vw, 17px);
   width: clamp(20px, 2vw, 23px);
   aspect-ratio: 480.7865 / 724.2249;
+}
+
+.hive-price-card__feature--botanical-cleanse::after {
+  top: calc(clamp(10px, 1.5vw, 14px) + clamp(6px, 0.7vw, 8px));
+  left: clamp(10px, 1vw, 12px);
+  width: clamp(27px, 2.9vw, 32px);
+  aspect-ratio: 614.245 / 763.3392;
 }
 
 .hive-price-card__feature--steam::after {
@@ -1020,8 +1043,8 @@
   }
 
   .hive-price-card--botanical .hive-price-card__details h3 {
-    max-width: 11em;
-    font-size: clamp(2.05rem, 2.85vw, 2.35rem);
+    max-width: 11.8em;
+    font-size: clamp(1.95rem, 2.65vw, 2.24rem);
   }
 
   .hive-price-card__details h3::after {
@@ -1053,6 +1076,12 @@
     top: 15px;
     left: 13px;
     width: 19px;
+  }
+
+  .hive-price-card__feature--botanical-cleanse::after {
+    top: 13px;
+    left: 8px;
+    width: 27px;
   }
 
   .hive-price-card__feature--steam::after {
@@ -1261,6 +1290,12 @@
     font-size: 2.85rem;
   }
 
+  .hive-price-card--botanical .hive-price-card__details h3 {
+    max-width: 9.6em;
+    font-size: 2.18rem;
+    line-height: 1.02;
+  }
+
   .hive-price-card__details > ul > li {
     min-height: 96px;
     padding-left: 72px;
@@ -1269,6 +1304,12 @@
   .hive-price-card__details > ul > li > p,
   .hive-price-card__details p:not(.hive-price-card__subhead) {
     font-size: 1rem;
+  }
+
+  .hive-price-card__feature--botanical-cleanse::after {
+    top: 17px;
+    left: 10px;
+    width: 34px;
   }
 
   .hive-price-card__feature-group ul {

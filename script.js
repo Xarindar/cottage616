@@ -131,7 +131,30 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     return;
   }
 
-  const cards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
+  const shouldSnapToCards = carousel.hasAttribute("data-carousel-snap");
+  const shouldWrapCards = carousel.hasAttribute("data-carousel-wrap");
+  const shouldVisuallyWrap = shouldSnapToCards && shouldWrapCards;
+  let cards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
+  let firstRealIndex = 0;
+  let lastRealIndex = cards.length - 1;
+  let snapTimeout = 0;
+  let isProgrammaticScroll = false;
+
+  if (shouldVisuallyWrap && cards.length > 1) {
+    const firstClone = cards[0].cloneNode(true);
+    const lastClone = cards[cards.length - 1].cloneNode(true);
+
+    firstClone.setAttribute("aria-hidden", "true");
+    firstClone.dataset.carouselClone = "first";
+    lastClone.setAttribute("aria-hidden", "true");
+    lastClone.dataset.carouselClone = "last";
+    track.insertBefore(lastClone, cards[0]);
+    track.appendChild(firstClone);
+
+    cards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
+    firstRealIndex = 1;
+    lastRealIndex = cards.length - 2;
+  }
 
   const getScrollAmount = () => {
     const card = cards[0];
@@ -141,13 +164,79 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     return card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.85;
   };
 
+  const getCardLeft = (card) => {
+    const trackBox = track.getBoundingClientRect();
+    const cardBox = card.getBoundingClientRect();
+    const cardOffset = cardBox.left - trackBox.left + track.scrollLeft;
+
+    return cardOffset - (track.clientWidth - cardBox.width) / 2;
+  };
+
+  const getCurrentCardIndex = () => {
+    if (cards.length === 0) {
+      return 0;
+    }
+
+    return cards.reduce((closestIndex, card, index) => {
+      const closestDistance = Math.abs(getCardLeft(cards[closestIndex]) - track.scrollLeft);
+      const distance = Math.abs(getCardLeft(card) - track.scrollLeft);
+
+      return distance < closestDistance ? index : closestIndex;
+    }, 0);
+  };
+
+  const scrollToCard = (index, behavior = "smooth") => {
+    const nextIndex = shouldWrapCards && !shouldVisuallyWrap && cards.length > 0
+      ? ((index % cards.length) + cards.length) % cards.length
+      : Math.min(Math.max(index, 0), cards.length - 1);
+    const card = cards[nextIndex];
+
+    if (!card) {
+      return;
+    }
+
+    isProgrammaticScroll = true;
+    track.scrollTo({ left: getCardLeft(card), behavior });
+    window.setTimeout(() => {
+      isProgrammaticScroll = false;
+      normalizeVisualWrap();
+    }, behavior === "smooth" ? 620 : 0);
+  };
+
+  const normalizeVisualWrap = () => {
+    if (!shouldVisuallyWrap || cards.length < 3) {
+      return;
+    }
+
+    const currentIndex = getCurrentCardIndex();
+
+    if (currentIndex === 0) {
+      scrollToCard(lastRealIndex, "auto");
+    } else if (currentIndex === cards.length - 1) {
+      scrollToCard(firstRealIndex, "auto");
+    }
+  };
+
+  const snapToNearestCard = () => {
+    if (!shouldSnapToCards || isProgrammaticScroll || cards.length === 0) {
+      return;
+    }
+
+    scrollToCard(getCurrentCardIndex());
+  };
+
   const scrollToMiddle = () => {
     if (carousel.dataset.carouselStart !== "middle" || cards.length === 0) {
+      if (shouldVisuallyWrap) {
+        scrollToCard(firstRealIndex, "auto");
+      }
       return;
     }
 
     const middleCard = cards[Math.floor(cards.length / 2)];
-    const left = middleCard.offsetLeft - (track.clientWidth - middleCard.getBoundingClientRect().width) / 2;
+    const left = shouldSnapToCards
+      ? getCardLeft(middleCard)
+      : middleCard.offsetLeft - (track.clientWidth - middleCard.getBoundingClientRect().width) / 2;
     track.scrollTo({ left, behavior: "auto" });
   };
 
@@ -157,11 +246,31 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 
   prevButton.addEventListener("click", () => {
     showPhotos();
+    if (shouldSnapToCards) {
+      scrollToCard(getCurrentCardIndex() - 1);
+      return;
+    }
+
     track.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
   });
 
   nextButton.addEventListener("click", () => {
     showPhotos();
+    if (shouldSnapToCards) {
+      scrollToCard(getCurrentCardIndex() + 1);
+      return;
+    }
+
     track.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
   });
+
+  if (shouldSnapToCards) {
+    track.addEventListener("scroll", () => {
+      window.clearTimeout(snapTimeout);
+      snapTimeout = window.setTimeout(() => {
+        snapToNearestCard();
+        window.setTimeout(normalizeVisualWrap, 680);
+      }, 150);
+    }, { passive: true });
+  }
 });
