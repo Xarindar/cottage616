@@ -36,7 +36,9 @@ if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motio
 
   const getCenteredCardScrollTop = () => {
     const cardsBox = pricingCards.getBoundingClientRect();
-    return window.scrollY + cardsBox.top - ((window.innerHeight - cardsBox.height) / 2);
+    const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+    const availableHeight = window.innerHeight - headerHeight;
+    return window.scrollY + cardsBox.top - headerHeight - ((availableHeight - cardsBox.height) / 2);
   };
 
   const maybeCenterPricingCards = () => {
@@ -46,12 +48,13 @@ if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motio
 
     const sectionBox = pricingSection.getBoundingClientRect();
     const cardsBox = pricingCards.getBoundingClientRect();
+    const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
     const scrollingDown = window.scrollY > lastScrollY;
     const cardCenter = cardsBox.top + (cardsBox.height / 2);
-    const viewportCenter = window.innerHeight / 2;
+    const viewportCenter = headerHeight + ((window.innerHeight - headerHeight) / 2);
     const cardCenterDistance = Math.abs(cardCenter - viewportCenter);
-    const sectionMostlyEntered = sectionBox.top < window.innerHeight * 0.42 && sectionBox.bottom > window.innerHeight * 0.68;
-    const cardsCloseEnough = cardsBox.top < window.innerHeight * 0.58 && cardsBox.bottom > window.innerHeight * 0.42;
+    const sectionMostlyEntered = sectionBox.top < window.innerHeight * 0.28 && sectionBox.bottom > window.innerHeight * 0.76;
+    const cardsCloseEnough = cardsBox.top < window.innerHeight * 0.46 && cardsBox.bottom > window.innerHeight * 0.58;
 
     lastScrollY = window.scrollY;
 
