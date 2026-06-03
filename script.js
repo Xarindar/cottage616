@@ -48,11 +48,120 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   };
 
   if (isLooping) {
-    originalCards.forEach((card) => {
+    const isSteppedLoop = prevButton && nextButton && !isAutoplaying;
+    const cloneCard = (card) => {
       const clone = card.cloneNode(true);
       clone.setAttribute("aria-hidden", "true");
       clone.dataset.carouselClone = "true";
-      track.appendChild(clone);
+      clone.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((focusable) => {
+        focusable.setAttribute("tabindex", "-1");
+      });
+      return clone;
+    };
+
+    if (isSteppedLoop) {
+      let stepSize = 0;
+      let currentIndex = 0;
+      let isMoving = false;
+      let activeDirection = 0;
+      let fallbackTimer = 0;
+      const moveQueue = [];
+
+      const measureStep = () => {
+        const styles = window.getComputedStyle(track);
+        const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
+        stepSize = originalCards[0] ? originalCards[0].getBoundingClientRect().width + gap : 0;
+      };
+
+      const setTrackPosition = (step, transition = "none") => {
+        track.style.transition = transition;
+        track.style.transform = `translate3d(${-step * stepSize}px, 0, 0)`;
+
+        if (transition === "none") {
+          track.offsetHeight;
+          track.style.transition = "";
+        }
+      };
+
+      const rebuildEdgeClones = () => {
+        track.querySelectorAll("[data-carousel-clone]").forEach((clone) => clone.remove());
+
+        const previousIndex = (currentIndex - 1 + originalCards.length) % originalCards.length;
+        const nextIndex = (currentIndex + 1) % originalCards.length;
+
+        track.insertBefore(cloneCard(originalCards[previousIndex]), originalCards[0]);
+        track.appendChild(cloneCard(originalCards[nextIndex]));
+      };
+
+      const resetSteppedLoop = () => {
+        measureStep();
+        rebuildEdgeClones();
+        setTrackPosition(currentIndex + 1);
+      };
+
+      const runNextMove = () => {
+        if (isMoving || moveQueue.length === 0 || stepSize <= 0) {
+          return;
+        }
+
+        activeDirection = moveQueue.shift();
+        isMoving = true;
+        rebuildEdgeClones();
+
+        const targetStep = activeDirection > 0
+          ? currentIndex === originalCards.length - 1 ? originalCards.length + 1 : currentIndex + 2
+          : currentIndex === 0 ? 0 : currentIndex;
+
+        window.clearTimeout(fallbackTimer);
+        setTrackPosition(targetStep, "transform 360ms ease");
+        fallbackTimer = window.setTimeout(finishMove, 430);
+      };
+
+      function finishMove() {
+        if (!isMoving) {
+          return;
+        }
+
+        window.clearTimeout(fallbackTimer);
+        currentIndex = (currentIndex + activeDirection + originalCards.length) % originalCards.length;
+        isMoving = false;
+        activeDirection = 0;
+        resetSteppedLoop();
+        runNextMove();
+      }
+
+      const queueMove = (direction) => {
+        measureStep();
+        moveQueue.push(direction);
+        runNextMove();
+      };
+
+      resetSteppedLoop();
+      requestAnimationFrame(resetSteppedLoop);
+      window.setTimeout(resetSteppedLoop, 250);
+      window.addEventListener("load", resetSteppedLoop, { once: true });
+      window.addEventListener("resize", resetSteppedLoop);
+      track.addEventListener("transitionend", (event) => {
+        if (event.propertyName === "transform") {
+          finishMove();
+        }
+      });
+
+      prevButton.addEventListener("click", () => {
+        showPhotos();
+        queueMove(-1);
+      });
+
+      nextButton.addEventListener("click", () => {
+        showPhotos();
+        queueMove(1);
+      });
+
+      return;
+    }
+
+    originalCards.forEach((card) => {
+      track.appendChild(cloneCard(card));
     });
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -135,25 +244,38 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const shouldWrapCards = carousel.hasAttribute("data-carousel-wrap");
   const shouldVisuallyWrap = shouldSnapToCards && shouldWrapCards;
   let cards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
+  const realCardCount = cards.length;
   let firstRealIndex = 0;
   let lastRealIndex = cards.length - 1;
   let snapTimeout = 0;
   let isProgrammaticScroll = false;
 
   if (shouldVisuallyWrap && cards.length > 1) {
-    const firstClone = cards[0].cloneNode(true);
-    const lastClone = cards[cards.length - 1].cloneNode(true);
+    const beforeClones = document.createDocumentFragment();
+    const afterClones = document.createDocumentFragment();
 
-    firstClone.setAttribute("aria-hidden", "true");
-    firstClone.dataset.carouselClone = "first";
-    lastClone.setAttribute("aria-hidden", "true");
-    lastClone.dataset.carouselClone = "last";
-    track.insertBefore(lastClone, cards[0]);
-    track.appendChild(firstClone);
+    cards.forEach((card) => {
+      const beforeClone = card.cloneNode(true);
+      const afterClone = card.cloneNode(true);
+
+      [beforeClone, afterClone].forEach((clone) => {
+        clone.setAttribute("aria-hidden", "true");
+        clone.dataset.carouselClone = "true";
+        clone.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((focusable) => {
+          focusable.setAttribute("tabindex", "-1");
+        });
+      });
+
+      beforeClones.appendChild(beforeClone);
+      afterClones.appendChild(afterClone);
+    });
+
+    track.insertBefore(beforeClones, cards[0]);
+    track.appendChild(afterClones);
 
     cards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
-    firstRealIndex = 1;
-    lastRealIndex = cards.length - 2;
+    firstRealIndex = realCardCount;
+    lastRealIndex = (realCardCount * 2) - 1;
   }
 
   const getScrollAmount = () => {
@@ -185,6 +307,43 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     }, 0);
   };
 
+  const getNormalizedRealIndex = (index) => {
+    if (!shouldVisuallyWrap || realCardCount === 0) {
+      return index;
+    }
+
+    const realOffset = ((index - firstRealIndex) % realCardCount + realCardCount) % realCardCount;
+    return firstRealIndex + realOffset;
+  };
+
+  const jumpToCard = (index) => {
+    const card = cards[index];
+
+    if (!card) {
+      return;
+    }
+
+    track.scrollTo({ left: getCardLeft(card), behavior: "auto" });
+  };
+
+  const getNextVisualIndex = (direction) => {
+    if (!shouldVisuallyWrap || realCardCount === 0) {
+      return getCurrentCardIndex() + direction;
+    }
+
+    const currentRealIndex = getNormalizedRealIndex(getCurrentCardIndex());
+
+    if (direction > 0 && currentRealIndex === lastRealIndex) {
+      return lastRealIndex + 1;
+    }
+
+    if (direction < 0 && currentRealIndex === firstRealIndex) {
+      return firstRealIndex - 1;
+    }
+
+    return currentRealIndex + direction;
+  };
+
   const scrollToCard = (index, behavior = "smooth") => {
     const nextIndex = shouldWrapCards && !shouldVisuallyWrap && cards.length > 0
       ? ((index % cards.length) + cards.length) % cards.length
@@ -209,11 +368,10 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     }
 
     const currentIndex = getCurrentCardIndex();
+    const normalizedIndex = getNormalizedRealIndex(currentIndex);
 
-    if (currentIndex === 0) {
-      scrollToCard(lastRealIndex, "auto");
-    } else if (currentIndex === cards.length - 1) {
-      scrollToCard(firstRealIndex, "auto");
+    if (normalizedIndex !== currentIndex) {
+      jumpToCard(normalizedIndex);
     }
   };
 
@@ -247,7 +405,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   prevButton.addEventListener("click", () => {
     showPhotos();
     if (shouldSnapToCards) {
-      scrollToCard(getCurrentCardIndex() - 1);
+      scrollToCard(getNextVisualIndex(-1));
       return;
     }
 
@@ -257,7 +415,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   nextButton.addEventListener("click", () => {
     showPhotos();
     if (shouldSnapToCards) {
-      scrollToCard(getCurrentCardIndex() + 1);
+      scrollToCard(getNextVisualIndex(1));
       return;
     }
 
