@@ -1089,10 +1089,17 @@
   }
 
   .hive-pricing-grid {
-    grid-auto-columns: minmax(270px, 86vw);
+    --mobile-card-width: min(350px, calc(100vw - 40px));
+    --mobile-card-gutter: max(20px, calc((100vw - var(--mobile-card-width)) / 2));
+    grid-auto-columns: var(--mobile-card-width);
+    gap: 20px;
     padding-block: 10px 54px;
-    padding-inline: 18px;
-    scroll-padding-inline: 18px;
+    padding-inline: var(--mobile-card-gutter);
+    scroll-padding-inline: var(--mobile-card-gutter);
+  }
+
+  .hive-pricing-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .hive-price-card {
