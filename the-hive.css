@@ -397,15 +397,16 @@
 }
 
 .hive-pricing-grid {
+  --hive-price-card-width: clamp(340px, 30vw, 440px);
   display: grid;
-  grid-auto-columns: clamp(420px, 38vw, 620px);
+  grid-auto-columns: var(--hive-price-card-width);
   grid-auto-flow: column;
-  gap: clamp(18px, 2.4vw, 30px);
+  gap: clamp(16px, 2vw, 24px);
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  padding: 10px max(76px, calc((100% - clamp(420px, 38vw, 620px)) / 2)) clamp(30px, 3vw, 46px);
+  padding: 10px max(68px, calc((100% - var(--hive-price-card-width)) / 2)) clamp(26px, 2.6vw, 38px);
   scroll-behavior: smooth;
-  scroll-padding-inline: max(76px, calc((100% - clamp(420px, 38vw, 620px)) / 2));
+  scroll-padding-inline: max(68px, calc((100% - var(--hive-price-card-width)) / 2));
   scroll-snap-type: inline mandatory;
   scrollbar-width: none;
 }
@@ -423,8 +424,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: clamp(560px, calc(100vh - 210px), 700px);
-  padding: clamp(18px, 2.4vw, 28px) 0 0;
+  height: clamp(520px, calc(100vh - 230px), 640px);
+  padding: clamp(16px, 1.8vw, 22px) 0 0;
   border: 1px solid rgba(185, 137, 48, 0.24);
   border-radius: 8px;
   background:
@@ -460,11 +461,11 @@
 
 .hive-price-card__ornament {
   display: grid;
-  grid-template-columns: minmax(54px, 1fr) auto minmax(54px, 1fr);
-  gap: clamp(14px, 3vw, 24px);
+  grid-template-columns: minmax(44px, 1fr) auto minmax(44px, 1fr);
+  gap: clamp(12px, 2vw, 18px);
   align-items: center;
-  width: min(76%, 360px);
-  margin: 0 auto clamp(10px, 1.6vw, 16px);
+  width: min(68%, 280px);
+  margin: 0 auto clamp(8px, 1.1vw, 12px);
 }
 
 .hive-price-card__ornament span {
@@ -477,7 +478,7 @@
 }
 
 .hive-price-card__ornament img {
-  width: clamp(30px, 3.2vw, 40px);
+  width: clamp(28px, 2.6vw, 34px);
   aspect-ratio: 1;
   object-fit: contain;
   filter: drop-shadow(0 6px 10px rgba(185, 137, 48, 0.16));
@@ -487,15 +488,15 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 0 clamp(22px, 3vw, 36px) clamp(14px, 2vw, 20px);
+  padding: 0 clamp(20px, 2.2vw, 28px) clamp(12px, 1.6vw, 16px);
 }
 
 .hive-price-card__details h3 {
-  margin: 0 auto clamp(12px, 1.8vw, 18px);
+  margin: 0 auto clamp(10px, 1.3vw, 14px);
   max-width: 8.8em;
   color: var(--deep-blue);
   font-family: var(--display-font);
-  font-size: clamp(2.55rem, 3.3vw, 3rem);
+  font-size: clamp(2.25rem, 2.55vw, 2.72rem);
   font-weight: 400;
   line-height: 1.04;
   text-align: center;
@@ -503,16 +504,16 @@
 
 .hive-price-card__details h3::after {
   display: block;
-  width: min(78%, 250px);
+  width: min(68%, 190px);
   height: 1px;
-  margin: clamp(10px, 1.4vw, 14px) auto 0;
+  margin: clamp(8px, 1vw, 11px) auto 0;
   background: linear-gradient(90deg, transparent, rgba(185, 137, 48, 0.52), transparent);
   content: "";
 }
 
 .hive-price-card--botanical .hive-price-card__details h3 {
-  max-width: 11.4em;
-  font-size: clamp(2.35rem, 3vw, 2.78rem);
+  max-width: 10.6em;
+  font-size: clamp(2rem, 2.28vw, 2.38rem);
 }
 
 .hive-price-card__subhead {
@@ -541,8 +542,8 @@
 
 .hive-price-card__details > ul > li {
   position: relative;
-  min-height: 76px;
-  padding: clamp(10px, 1.5vw, 14px) 0 clamp(10px, 1.5vw, 14px) clamp(60px, 6vw, 72px);
+  min-height: 68px;
+  padding: clamp(9px, 1.1vw, 12px) 0 clamp(9px, 1.1vw, 12px) clamp(52px, 4.4vw, 60px);
 }
 
 .hive-price-card__details > ul > li + li {
@@ -551,9 +552,9 @@
 
 .hive-price-card__details > ul > li::before {
   position: absolute;
-  top: clamp(10px, 1.5vw, 14px);
+  top: clamp(9px, 1.1vw, 12px);
   left: 0;
-  width: clamp(46px, 4.8vw, 54px);
+  width: clamp(40px, 3.6vw, 46px);
   aspect-ratio: 1;
   border-radius: 50%;
   background:
@@ -565,9 +566,9 @@
 
 .hive-price-card__details > ul > li::after {
   position: absolute;
-  top: calc(clamp(10px, 1.5vw, 14px) + clamp(10px, 1vw, 12px));
-  left: clamp(11px, 1.1vw, 13px);
-  width: clamp(25px, 2.6vw, 29px);
+  top: calc(clamp(9px, 1.1vw, 12px) + clamp(8px, 0.8vw, 10px));
+  left: clamp(9px, 0.9vw, 11px);
+  width: clamp(23px, 2vw, 25px);
   aspect-ratio: 1;
   background-color: #b8872f;
   content: "";
@@ -593,31 +594,31 @@
 }
 
 .hive-price-card__feature--cleanse::after {
-  top: calc(clamp(10px, 1.5vw, 14px) + clamp(8px, 0.8vw, 10px));
-  left: clamp(15px, 1.5vw, 17px);
-  width: clamp(20px, 2vw, 23px);
+  top: calc(clamp(9px, 1.1vw, 12px) + clamp(7px, 0.7vw, 8px));
+  left: clamp(13px, 1.1vw, 14px);
+  width: clamp(18px, 1.6vw, 20px);
   aspect-ratio: 480.7865 / 724.2249;
 }
 
 .hive-price-card__feature--botanical-cleanse::after {
-  top: calc(clamp(10px, 1.5vw, 14px) + clamp(6px, 0.7vw, 8px));
-  left: clamp(10px, 1vw, 12px);
-  width: clamp(27px, 2.9vw, 32px);
+  top: calc(clamp(9px, 1.1vw, 12px) + clamp(5px, 0.6vw, 7px));
+  left: clamp(8px, 0.8vw, 10px);
+  width: clamp(25px, 2.3vw, 28px);
   aspect-ratio: 614.245 / 763.3392;
 }
 
 .hive-price-card__feature--steam::after {
-  top: calc(clamp(10px, 1.5vw, 14px) + clamp(9px, 0.9vw, 11px));
-  left: clamp(8px, 0.9vw, 10px);
-  width: clamp(32px, 3.2vw, 36px);
+  top: calc(clamp(9px, 1.1vw, 12px) + clamp(8px, 0.7vw, 9px));
+  left: clamp(7px, 0.7vw, 9px);
+  width: clamp(28px, 2.5vw, 31px);
 }
 
 .hive-price-card__details > ul > li > span,
 .hive-price-card__feature-group > span {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   color: var(--deep-blue);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 850;
   letter-spacing: 0.08em;
   line-height: 1.2;
@@ -628,8 +629,8 @@
 .hive-price-card__details p:not(.hive-price-card__subhead) {
   color: #273241;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.9rem;
-  line-height: 1.38;
+  font-size: 0.86rem;
+  line-height: 1.34;
 }
 
 .hive-price-card__details > ul > li > p {
@@ -638,18 +639,18 @@
 
 .hive-price-card__feature-group {
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
 
 .hive-price-card__feature-group ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 12px;
+  gap: 4px 10px;
   margin: 2px 0 0;
   padding: 0;
   color: #273241;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
 }
 
 .hive-price-card__feature-group ul li {
@@ -669,16 +670,16 @@
 .hive-price-card__details > p:not(.hive-price-card__subhead) {
   position: relative;
   margin: auto 0 0;
-  padding: clamp(10px, 1.4vw, 14px) clamp(10px, 1.6vw, 18px) 0 clamp(40px, 4vw, 52px);
+  padding: clamp(10px, 1.2vw, 12px) clamp(6px, 1vw, 10px) 0 clamp(34px, 3.2vw, 42px);
   color: #273241;
   font-style: italic;
 }
 
 .hive-price-card__details > p:not(.hive-price-card__subhead)::before {
   position: absolute;
-  top: clamp(10px, 1.4vw, 14px);
-  left: clamp(2px, 0.8vw, 8px);
-  width: clamp(20px, 2vw, 24px);
+  top: clamp(10px, 1.2vw, 12px);
+  left: clamp(2px, 0.5vw, 4px);
+  width: clamp(18px, 1.6vw, 21px);
   aspect-ratio: 1;
   background-color: #b8872f;
   content: "";
@@ -691,17 +692,17 @@
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
   align-items: center;
-  min-height: clamp(68px, 6.5vw, 82px);
+  min-height: clamp(62px, 5.6vw, 72px);
   border-top: 1px solid rgba(185, 137, 48, 0.44);
   background: linear-gradient(180deg, rgba(255, 251, 244, 0.82), rgba(255, 244, 222, 0.76));
 }
 
 .hive-price-card__price {
   margin: 0;
-  padding: 0 clamp(16px, 3vw, 28px);
+  padding: 0 clamp(14px, 2vw, 20px);
   color: var(--deep-blue);
   font-family: var(--display-font);
-  font-size: clamp(3rem, 4.2vw, 3.75rem);
+  font-size: clamp(2.8rem, 3.35vw, 3.3rem);
   line-height: 1;
   text-align: center;
 }
@@ -710,16 +711,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: clamp(48px, 5vw, 62px);
-  padding: 0 clamp(18px, 3vw, 34px);
+  align-self: stretch;
+  min-height: 100%;
+  padding: 0 clamp(14px, 2.2vw, 24px);
   border-left: 1px solid rgba(185, 137, 48, 0.44);
   color: #b17d28;
-  font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.13em;
+  font-family: var(--display-font);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
 .hive-price-card__book::after {
@@ -729,13 +733,20 @@
   font-size: 1.8em;
   font-weight: 400;
   line-height: 0.8;
+  transition: transform 180ms ease;
 }
 
 .hive-price-card__book:hover,
 .hive-price-card__book:focus-visible {
   outline: 0;
-  color: var(--deep-blue);
-  background: rgba(243, 198, 78, 0.14);
+  border-color: var(--deep-blue);
+  color: var(--paper);
+  background: var(--deep-blue);
+}
+
+.hive-price-card__book:hover::after,
+.hive-price-card__book:focus-visible::after {
+  transform: translateX(3px);
 }
 
 .hive-pricing__note {
@@ -953,7 +964,7 @@
   max-width: 560px;
   margin-bottom: clamp(14px, 2vw, 18px);
   color: var(--deep-blue);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--sans-font);
   font-size: clamp(1.65rem, 2.25vw, 2.25rem);
   font-weight: 850;
   line-height: 1.16;
@@ -1129,7 +1140,7 @@
   }
 
   .hive-price-card__book {
-    min-height: 46px;
+    min-height: 100%;
     font-size: 0.7rem;
   }
 }
