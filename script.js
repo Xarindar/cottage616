@@ -25,6 +25,57 @@ if (menuToggle && nav) {
   });
 }
 
+const pricingSection = document.querySelector(".hive-pricing");
+const pricingCards = document.querySelector(".hive-pricing-grid");
+
+if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  let lastScrollY = window.scrollY;
+  let magnetTimeout = 0;
+  let lastMagnetTime = 0;
+  let isMagnetScrolling = false;
+
+  const getCenteredCardScrollTop = () => {
+    const cardsBox = pricingCards.getBoundingClientRect();
+    return window.scrollY + cardsBox.top - ((window.innerHeight - cardsBox.height) / 2);
+  };
+
+  const maybeCenterPricingCards = () => {
+    if (isMagnetScrolling || Date.now() - lastMagnetTime < 1800) {
+      return;
+    }
+
+    const sectionBox = pricingSection.getBoundingClientRect();
+    const cardsBox = pricingCards.getBoundingClientRect();
+    const scrollingDown = window.scrollY > lastScrollY;
+    const cardCenter = cardsBox.top + (cardsBox.height / 2);
+    const viewportCenter = window.innerHeight / 2;
+    const cardCenterDistance = Math.abs(cardCenter - viewportCenter);
+    const sectionMostlyEntered = sectionBox.top < window.innerHeight * 0.42 && sectionBox.bottom > window.innerHeight * 0.68;
+    const cardsCloseEnough = cardsBox.top < window.innerHeight * 0.58 && cardsBox.bottom > window.innerHeight * 0.42;
+
+    lastScrollY = window.scrollY;
+
+    if (!scrollingDown || !sectionMostlyEntered || !cardsCloseEnough || cardCenterDistance < 38) {
+      return;
+    }
+
+    isMagnetScrolling = true;
+    lastMagnetTime = Date.now();
+    window.scrollTo({
+      top: getCenteredCardScrollTop(),
+      behavior: "smooth",
+    });
+    window.setTimeout(() => {
+      isMagnetScrolling = false;
+    }, 650);
+  };
+
+  window.addEventListener("scroll", () => {
+    window.clearTimeout(magnetTimeout);
+    magnetTimeout = window.setTimeout(maybeCenterPricingCards, 90);
+  }, { passive: true });
+}
+
 document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const track = carousel.querySelector("[data-carousel-track]");
   const prevButton = carousel.querySelector("[data-carousel-prev]");
