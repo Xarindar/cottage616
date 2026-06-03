@@ -34,11 +34,20 @@ if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motio
   let lastMagnetTime = 0;
   let isMagnetScrolling = false;
 
+  const getPricingCardBox = () => {
+    const visibleCard = Array.from(pricingCards.querySelectorAll(".hive-price-card")).find((card) => {
+      const box = card.getBoundingClientRect();
+      return box.width > 0 && box.height > 0 && box.right > 0 && box.left < window.innerWidth;
+    });
+
+    return visibleCard ? visibleCard.getBoundingClientRect() : pricingCards.getBoundingClientRect();
+  };
+
   const getCenteredCardScrollTop = () => {
-    const cardsBox = pricingCards.getBoundingClientRect();
+    const cardBox = getPricingCardBox();
     const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
     const availableHeight = window.innerHeight - headerHeight;
-    return window.scrollY + cardsBox.top - headerHeight - ((availableHeight - cardsBox.height) / 2);
+    return window.scrollY + cardBox.top - headerHeight - ((availableHeight - cardBox.height) / 2);
   };
 
   const maybeCenterPricingCards = () => {
@@ -47,14 +56,14 @@ if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motio
     }
 
     const sectionBox = pricingSection.getBoundingClientRect();
-    const cardsBox = pricingCards.getBoundingClientRect();
+    const cardBox = getPricingCardBox();
     const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
     const scrollingDown = window.scrollY > lastScrollY;
-    const cardCenter = cardsBox.top + (cardsBox.height / 2);
+    const cardCenter = cardBox.top + (cardBox.height / 2);
     const viewportCenter = headerHeight + ((window.innerHeight - headerHeight) / 2);
     const cardCenterDistance = Math.abs(cardCenter - viewportCenter);
     const sectionMostlyEntered = sectionBox.top < window.innerHeight * 0.28 && sectionBox.bottom > window.innerHeight * 0.76;
-    const cardsCloseEnough = cardsBox.top < window.innerHeight * 0.46 && cardsBox.bottom > window.innerHeight * 0.58;
+    const cardsCloseEnough = cardBox.top < window.innerHeight * 0.46 && cardBox.bottom > window.innerHeight * 0.58;
 
     lastScrollY = window.scrollY;
 
@@ -128,6 +137,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       let hasInteracted = false;
       let hintTimer = 0;
       let hintReturnTimer = 0;
+      let hasPlayedHint = false;
       const moveQueue = [];
 
       const measureStep = () => {
@@ -205,6 +215,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 
       const playSwipeHint = () => {
         if (
+          hasPlayedHint ||
           hasInteracted ||
           isMoving ||
           isDragging ||
@@ -215,6 +226,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
           return;
         }
 
+        hasPlayedHint = true;
         const hintDistance = Math.min(28, stepSize * 0.08);
         carousel.classList.add("is-swipe-hinting");
         track.style.transition = "transform 520ms ease";
@@ -303,9 +315,23 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       resetSteppedLoop();
       requestAnimationFrame(resetSteppedLoop);
       window.setTimeout(resetSteppedLoop, 250);
-      hintTimer = window.setTimeout(playSwipeHint, 950);
       window.addEventListener("load", resetSteppedLoop, { once: true });
       window.addEventListener("resize", resetSteppedLoop);
+      if ("IntersectionObserver" in window) {
+        const hintObserver = new IntersectionObserver((entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            window.clearTimeout(hintTimer);
+            hintTimer = window.setTimeout(playSwipeHint, 520);
+            hintObserver.disconnect();
+          }
+        }, {
+          threshold: 0.42,
+        });
+
+        hintObserver.observe(carousel);
+      } else {
+        hintTimer = window.setTimeout(playSwipeHint, 950);
+      }
       track.addEventListener("transitionend", (event) => {
         if (event.propertyName === "transform") {
           finishMove();
