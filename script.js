@@ -119,6 +119,15 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       let isMoving = false;
       let activeDirection = 0;
       let fallbackTimer = 0;
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let dragDeltaX = 0;
+      let dragPointerId = null;
+      let isDragging = false;
+      let hasHorizontalDrag = false;
+      let hasInteracted = false;
+      let hintTimer = 0;
+      let hintReturnTimer = 0;
       const moveQueue = [];
 
       const measureStep = () => {
@@ -185,14 +194,116 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       }
 
       const queueMove = (direction) => {
+        hasInteracted = true;
+        window.clearTimeout(hintTimer);
+        window.clearTimeout(hintReturnTimer);
+        carousel.classList.remove("is-swipe-hinting");
         measureStep();
         moveQueue.push(direction);
         runNextMove();
       };
 
+      const playSwipeHint = () => {
+        if (
+          hasInteracted ||
+          isMoving ||
+          isDragging ||
+          stepSize <= 0 ||
+          !window.matchMedia("(max-width: 720px)").matches ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          return;
+        }
+
+        const hintDistance = Math.min(28, stepSize * 0.08);
+        carousel.classList.add("is-swipe-hinting");
+        track.style.transition = "transform 520ms ease";
+        track.style.transform = `translate3d(${-(currentIndex + 1) * stepSize - hintDistance}px, 0, 0)`;
+        hintReturnTimer = window.setTimeout(() => {
+          if (hasInteracted || isMoving || isDragging) {
+            return;
+          }
+
+          setTrackPosition(currentIndex + 1, "transform 520ms ease");
+          window.setTimeout(() => {
+            carousel.classList.remove("is-swipe-hinting");
+          }, 560);
+        }, 560);
+      };
+
+      const endDrag = () => {
+        if (!isDragging) {
+          return;
+        }
+
+        const threshold = Math.min(92, Math.max(44, stepSize * 0.18));
+        isDragging = false;
+        dragPointerId = null;
+        carousel.classList.remove("is-dragging");
+
+        if (hasHorizontalDrag && Math.abs(dragDeltaX) > threshold) {
+          queueMove(dragDeltaX < 0 ? 1 : -1);
+          return;
+        }
+
+        setTrackPosition(currentIndex + 1, "transform 220ms ease");
+      };
+
+      track.addEventListener("pointerdown", (event) => {
+        if (isMoving || event.target.closest("a, button")) {
+          return;
+        }
+
+        hasInteracted = true;
+        window.clearTimeout(hintTimer);
+        window.clearTimeout(hintReturnTimer);
+        carousel.classList.remove("is-swipe-hinting");
+        measureStep();
+        rebuildEdgeClones();
+        isDragging = true;
+        hasHorizontalDrag = false;
+        dragPointerId = event.pointerId;
+        dragStartX = event.clientX;
+        dragStartY = event.clientY;
+        dragDeltaX = 0;
+        track.setPointerCapture(event.pointerId);
+        carousel.classList.add("is-dragging");
+      });
+
+      track.addEventListener("pointermove", (event) => {
+        if (!isDragging || event.pointerId !== dragPointerId || stepSize <= 0) {
+          return;
+        }
+
+        const deltaX = event.clientX - dragStartX;
+        const deltaY = event.clientY - dragStartY;
+
+        if (!hasHorizontalDrag && Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+          endDrag();
+          return;
+        }
+
+        if (Math.abs(deltaX) > 8) {
+          hasHorizontalDrag = true;
+        }
+
+        if (!hasHorizontalDrag) {
+          return;
+        }
+
+        event.preventDefault();
+        dragDeltaX = Math.max(Math.min(deltaX, stepSize * 0.58), -stepSize * 0.58);
+        track.style.transition = "none";
+        track.style.transform = `translate3d(${-(currentIndex + 1) * stepSize + dragDeltaX}px, 0, 0)`;
+      });
+
+      track.addEventListener("pointerup", endDrag);
+      track.addEventListener("pointercancel", endDrag);
+
       resetSteppedLoop();
       requestAnimationFrame(resetSteppedLoop);
       window.setTimeout(resetSteppedLoop, 250);
+      hintTimer = window.setTimeout(playSwipeHint, 950);
       window.addEventListener("load", resetSteppedLoop, { once: true });
       window.addEventListener("resize", resetSteppedLoop);
       track.addEventListener("transitionend", (event) => {
