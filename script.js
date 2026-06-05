@@ -27,8 +27,9 @@ if (menuToggle && nav) {
 
 const pricingSection = document.querySelector(".hive-pricing");
 const pricingCards = document.querySelector(".hive-pricing-grid");
+const canUsePricingMagnet = window.matchMedia("(min-width: 721px) and (pointer: fine)").matches;
 
-if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+if (pricingSection && pricingCards && canUsePricingMagnet && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   let lastScrollY = window.scrollY;
   let magnetTimeout = 0;
   let lastMagnetTime = 0;
@@ -88,10 +89,34 @@ if (pricingSection && pricingCards && !window.matchMedia("(prefers-reduced-motio
   }, { passive: true });
 }
 
+const prepareCarouselMedia = (root) => {
+  root.querySelectorAll("img").forEach((image) => {
+    image.loading = "eager";
+    image.decoding = "sync";
+    image.fetchPriority = image.fetchPriority || "low";
+
+    if (typeof image.decode === "function" && !image.complete) {
+      image.decode().catch(() => {});
+    }
+  });
+};
+
+const cloneCarouselCard = (card) => {
+  const clone = card.cloneNode(true);
+  clone.setAttribute("aria-hidden", "true");
+  clone.dataset.carouselClone = "true";
+  clone.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((focusable) => {
+    focusable.setAttribute("tabindex", "-1");
+  });
+  prepareCarouselMedia(clone);
+  return clone;
+};
+
 document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const track = carousel.querySelector("[data-carousel-track]");
   const prevButton = carousel.querySelector("[data-carousel-prev]");
   const nextButton = carousel.querySelector("[data-carousel-next]");
+  const progress = carousel.parentElement?.querySelector("[data-carousel-progress]");
   let browseTimeout;
 
   if (!track) {
@@ -101,6 +126,8 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const originalCards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
   const isLooping = carousel.hasAttribute("data-carousel-loop") && originalCards.length > 1;
   const isAutoplaying = carousel.hasAttribute("data-carousel-autoplay");
+
+  prepareCarouselMedia(track);
 
   const showPhotos = () => {
     carousel.classList.add("is-browsing");
@@ -113,20 +140,24 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   if (isLooping) {
     const isSteppedLoop = prevButton && nextButton && !isAutoplaying;
     const cloneCard = (card) => {
-      const clone = card.cloneNode(true);
-      clone.setAttribute("aria-hidden", "true");
-      clone.dataset.carouselClone = "true";
-      clone.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((focusable) => {
-        focusable.setAttribute("tabindex", "-1");
-      });
-      return clone;
+      return cloneCarouselCard(card);
     };
 
     if (isSteppedLoop) {
+      const cardCount = originalCards.length;
+      const beforeClones = document.createDocumentFragment();
+      const afterClones = document.createDocumentFragment();
+      originalCards.forEach((card) => {
+        beforeClones.appendChild(cloneCard(card));
+        afterClones.appendChild(cloneCard(card));
+      });
+      track.insertBefore(beforeClones, originalCards[0]);
+      track.appendChild(afterClones);
+
+      const loopCards = Array.from(track.querySelectorAll("[data-carousel-card], .hive-price-card"));
       let stepSize = 0;
-      let currentIndex = 0;
-      let isMoving = false;
-      let activeDirection = 0;
+      let activeSlot = cardCount;
+      let isAnimating = false;
       let fallbackTimer = 0;
       let dragStartX = 0;
       let dragStartY = 0;
@@ -139,16 +170,69 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       let hintReturnTimer = 0;
       let hasPlayedHint = false;
       const moveQueue = [];
+      const progressButtons = [];
+
+      const getRealIndex = () => {
+        return ((activeSlot - cardCount) % cardCount + cardCount) % cardCount;
+      };
+
+      const updateProgress = () => {
+        progressButtons.forEach((button, index) => {
+          button.setAttribute("aria-current", String(index === getRealIndex()));
+        });
+      };
+
+      if (progress) {
+        progress.textContent = "";
+        originalCards.forEach((card, index) => {
+          const button = document.createElement("button");
+          const title = card.querySelector(".hive-price-card__hero h3")?.textContent?.trim();
+          const duration = card.querySelector(".hive-price-card__duration")?.textContent?.trim();
+          const price = card.querySelector(".hive-price-card__cost")?.textContent?.trim();
+          button.type = "button";
+          button.setAttribute("aria-label", `Show ${[title, duration, price].filter(Boolean).join(", ")}`);
+          button.addEventListener("click", () => {
+            hasInteracted = true;
+            window.clearTimeout(hintTimer);
+            window.clearTimeout(hintReturnTimer);
+            carousel.classList.remove("is-swipe-hinting");
+            measureStep();
+
+            if (stepSize <= 0) {
+              return;
+            }
+
+            const currentIndex = getRealIndex();
+            let distance = index - currentIndex;
+
+            if (distance > cardCount / 2) {
+              distance -= cardCount;
+            } else if (distance < -cardCount / 2) {
+              distance += cardCount;
+            }
+
+            if (distance === 0) {
+              return;
+            }
+
+            moveQueue.length = 0;
+            moveQueue.push(distance);
+            runNextMove();
+          });
+          progress.appendChild(button);
+          progressButtons.push(button);
+        });
+      }
 
       const measureStep = () => {
         const styles = window.getComputedStyle(track);
         const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
-        stepSize = originalCards[0] ? originalCards[0].getBoundingClientRect().width + gap : 0;
+        stepSize = loopCards[0] ? loopCards[0].getBoundingClientRect().width + gap : 0;
       };
 
-      const setTrackPosition = (step, transition = "none") => {
+      const setTrackPosition = (step, transition = "none", dragOffset = 0) => {
         track.style.transition = transition;
-        track.style.transform = `translate3d(${-step * stepSize}px, 0, 0)`;
+        track.style.transform = `translate3d(${-step * stepSize + dragOffset}px, 0, 0)`;
 
         if (transition === "none") {
           track.offsetHeight;
@@ -156,50 +240,42 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
         }
       };
 
-      const rebuildEdgeClones = () => {
-        track.querySelectorAll("[data-carousel-clone]").forEach((clone) => clone.remove());
-
-        const previousIndex = (currentIndex - 1 + originalCards.length) % originalCards.length;
-        const nextIndex = (currentIndex + 1) % originalCards.length;
-
-        track.insertBefore(cloneCard(originalCards[previousIndex]), originalCards[0]);
-        track.appendChild(cloneCard(originalCards[nextIndex]));
-      };
-
       const resetSteppedLoop = () => {
         measureStep();
-        rebuildEdgeClones();
-        setTrackPosition(currentIndex + 1);
+        setTrackPosition(activeSlot);
+      };
+
+      const normalizeLoopSlot = () => {
+        if (activeSlot < cardCount) {
+          activeSlot += cardCount;
+        } else if (activeSlot >= cardCount * 2) {
+          activeSlot -= cardCount;
+        }
+
+        setTrackPosition(activeSlot);
+        updateProgress();
       };
 
       const runNextMove = () => {
-        if (isMoving || moveQueue.length === 0 || stepSize <= 0) {
+        if (isAnimating || moveQueue.length === 0 || stepSize <= 0) {
           return;
         }
 
-        activeDirection = moveQueue.shift();
-        isMoving = true;
-        rebuildEdgeClones();
-
-        const targetStep = activeDirection > 0
-          ? currentIndex === originalCards.length - 1 ? originalCards.length + 1 : currentIndex + 2
-          : currentIndex === 0 ? 0 : currentIndex;
-
+        activeSlot += moveQueue.shift();
+        isAnimating = true;
         window.clearTimeout(fallbackTimer);
-        setTrackPosition(targetStep, "transform 360ms ease");
-        fallbackTimer = window.setTimeout(finishMove, 430);
+        setTrackPosition(activeSlot, "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)");
+        fallbackTimer = window.setTimeout(finishMove, 520);
       };
 
       function finishMove() {
-        if (!isMoving) {
+        if (!isAnimating) {
           return;
         }
 
         window.clearTimeout(fallbackTimer);
-        currentIndex = (currentIndex + activeDirection + originalCards.length) % originalCards.length;
-        isMoving = false;
-        activeDirection = 0;
-        resetSteppedLoop();
+        isAnimating = false;
+        normalizeLoopSlot();
         runNextMove();
       }
 
@@ -217,7 +293,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
         if (
           hasPlayedHint ||
           hasInteracted ||
-          isMoving ||
+          isAnimating ||
           isDragging ||
           stepSize <= 0 ||
           !window.matchMedia("(max-width: 720px)").matches ||
@@ -230,13 +306,13 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
         const hintDistance = Math.min(28, stepSize * 0.08);
         carousel.classList.add("is-swipe-hinting");
         track.style.transition = "transform 520ms ease";
-        track.style.transform = `translate3d(${-(currentIndex + 1) * stepSize - hintDistance}px, 0, 0)`;
+        track.style.transform = `translate3d(${-activeSlot * stepSize - hintDistance}px, 0, 0)`;
         hintReturnTimer = window.setTimeout(() => {
-          if (hasInteracted || isMoving || isDragging) {
+          if (hasInteracted || isAnimating || isDragging) {
             return;
           }
 
-          setTrackPosition(currentIndex + 1, "transform 520ms ease");
+          setTrackPosition(activeSlot, "transform 520ms ease");
           window.setTimeout(() => {
             carousel.classList.remove("is-swipe-hinting");
           }, 560);
@@ -258,11 +334,14 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
           return;
         }
 
-        setTrackPosition(currentIndex + 1, "transform 220ms ease");
+        isAnimating = true;
+        window.clearTimeout(fallbackTimer);
+        setTrackPosition(activeSlot, "transform 260ms cubic-bezier(0.22, 1, 0.36, 1)");
+        fallbackTimer = window.setTimeout(finishMove, 320);
       };
 
       track.addEventListener("pointerdown", (event) => {
-        if (isMoving || event.target.closest("a, button")) {
+        if (isAnimating || event.target.closest("a, button")) {
           return;
         }
 
@@ -271,7 +350,6 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
         window.clearTimeout(hintReturnTimer);
         carousel.classList.remove("is-swipe-hinting");
         measureStep();
-        rebuildEdgeClones();
         isDragging = true;
         hasHorizontalDrag = false;
         dragPointerId = event.pointerId;
@@ -305,14 +383,14 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 
         event.preventDefault();
         dragDeltaX = Math.max(Math.min(deltaX, stepSize * 0.58), -stepSize * 0.58);
-        track.style.transition = "none";
-        track.style.transform = `translate3d(${-(currentIndex + 1) * stepSize + dragDeltaX}px, 0, 0)`;
+        setTrackPosition(activeSlot, "none", dragDeltaX);
       });
 
       track.addEventListener("pointerup", endDrag);
       track.addEventListener("pointercancel", endDrag);
 
       resetSteppedLoop();
+      updateProgress();
       requestAnimationFrame(resetSteppedLoop);
       window.setTimeout(resetSteppedLoop, 250);
       window.addEventListener("load", resetSteppedLoop, { once: true });
@@ -438,7 +516,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const realCardCount = cards.length;
   let firstRealIndex = 0;
   let lastRealIndex = cards.length - 1;
-  let snapTimeout = 0;
+  let scrollEndTimeout = 0;
   let isProgrammaticScroll = false;
 
   if (shouldVisuallyWrap && cards.length > 1) {
@@ -446,16 +524,8 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     const afterClones = document.createDocumentFragment();
 
     cards.forEach((card) => {
-      const beforeClone = card.cloneNode(true);
-      const afterClone = card.cloneNode(true);
-
-      [beforeClone, afterClone].forEach((clone) => {
-        clone.setAttribute("aria-hidden", "true");
-        clone.dataset.carouselClone = "true";
-        clone.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((focusable) => {
-          focusable.setAttribute("tabindex", "-1");
-        });
-      });
+      const beforeClone = cloneCarouselCard(card);
+      const afterClone = cloneCarouselCard(card);
 
       beforeClones.appendChild(beforeClone);
       afterClones.appendChild(afterClone);
@@ -566,14 +636,6 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     }
   };
 
-  const snapToNearestCard = () => {
-    if (!shouldSnapToCards || isProgrammaticScroll || cards.length === 0) {
-      return;
-    }
-
-    scrollToCard(getCurrentCardIndex());
-  };
-
   const scrollToMiddle = () => {
     if (carousel.dataset.carouselStart !== "middle" || cards.length === 0) {
       if (shouldVisuallyWrap) {
@@ -589,6 +651,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     track.scrollTo({ left, behavior: "auto" });
   };
 
+  scrollToMiddle();
   requestAnimationFrame(scrollToMiddle);
   window.addEventListener("load", scrollToMiddle, { once: true });
   window.addEventListener("resize", scrollToMiddle);
@@ -613,13 +676,20 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     track.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
   });
 
-  if (shouldSnapToCards) {
-    track.addEventListener("scroll", () => {
-      window.clearTimeout(snapTimeout);
-      snapTimeout = window.setTimeout(() => {
-        snapToNearestCard();
-        window.setTimeout(normalizeVisualWrap, 680);
-      }, 150);
-    }, { passive: true });
+  if (shouldVisuallyWrap) {
+    const settleScroll = () => {
+      if (!isProgrammaticScroll) {
+        normalizeVisualWrap();
+      }
+    };
+
+    if ("onscrollend" in track) {
+      track.addEventListener("scrollend", settleScroll);
+    } else {
+      track.addEventListener("scroll", () => {
+        window.clearTimeout(scrollEndTimeout);
+        scrollEndTimeout = window.setTimeout(settleScroll, 140);
+      }, { passive: true });
+    }
   }
 });

@@ -9,9 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="image" href="assets/images/the-hive/rustic_salon_hero_fast.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/the-hive/hive-logo.svg" type="image/svg+xml">
+    <link rel="preload" as="image" href="assets/images/the-hive/hex-grid.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=raleway-clean">
-    <link rel="stylesheet" href="the-hive.css?v=pricing-dark-match">
+    <link rel="stylesheet" href="the-hive.css?v=pricing-named-clean-meta">
   </head>
   <body class="hive-page">
     <header class="site-header">
@@ -95,11 +97,17 @@
             <article class="hive-price-card hive-price-card--comb">
               <div class="hive-price-card__ornament" aria-hidden="true">
                 <span></span>
-                <img src="assets/images/the-hive/hive-logo.svg" alt="">
+                <img src="assets/images/the-hive/hive-logo.svg" alt="" loading="eager" decoding="sync">
                 <span></span>
               </div>
+              <div class="hive-price-card__hero">
+                <h3>The Refresh</h3>
+                <div class="hive-price-card__meta" aria-label="30 min, $35">
+                  <span class="hive-price-card__duration">30 min</span>
+                  <span class="hive-price-card__cost">$35</span>
+                </div>
+              </div>
               <div class="hive-price-card__details">
-                <h3>30-Minute Head Spa</h3>
                 <ul>
                   <li class="hive-price-card__feature hive-price-card__feature--cleanse">
                     <span>Scalp cleanse</span>
@@ -117,18 +125,23 @@
                 <p>Includes leave-in conditioner and braid or an airy blow dry.</p>
               </div>
               <div class="hive-price-card__footer">
-                <p class="hive-price-card__price">$35</p>
-                <a class="hive-price-card__book" href="booking.html">Book Now</a>
+                <a class="hive-price-card__book" href="booking.html" aria-label="Book The Refresh head spa">Book The Refresh</a>
               </div>
             </article>
             <article class="hive-price-card hive-price-card--pot">
               <div class="hive-price-card__ornament" aria-hidden="true">
                 <span></span>
-                <img src="assets/images/the-hive/hive-logo.svg" alt="">
+                <img src="assets/images/the-hive/hive-logo.svg" alt="" loading="eager" decoding="sync">
                 <span></span>
               </div>
+              <div class="hive-price-card__hero">
+                <h3>The Unwind</h3>
+                <div class="hive-price-card__meta" aria-label="60 min, $65">
+                  <span class="hive-price-card__duration">60 min</span>
+                  <span class="hive-price-card__cost">$65</span>
+                </div>
+              </div>
               <div class="hive-price-card__details">
-                <h3>60-Minute Head Spa</h3>
                 <ul>
                   <li class="hive-price-card__feature hive-price-card__feature--cleanse">
                     <span>Scalp cleanse</span>
@@ -148,18 +161,23 @@
                 <p>Includes leave-in conditioner and braid or an airy blow dry.</p>
               </div>
               <div class="hive-price-card__footer">
-                <p class="hive-price-card__price">$65</p>
-                <a class="hive-price-card__book" href="booking.html">Book Now</a>
+                <a class="hive-price-card__book" href="booking.html" aria-label="Book The Unwind head spa">Book The Unwind</a>
               </div>
             </article>
             <article class="hive-price-card hive-price-card--bee">
               <div class="hive-price-card__ornament" aria-hidden="true">
                 <span></span>
-                <img src="assets/images/the-hive/hive-logo.svg" alt="">
+                <img src="assets/images/the-hive/hive-logo.svg" alt="" loading="eager" decoding="sync">
                 <span></span>
               </div>
+              <div class="hive-price-card__hero">
+                <h3>The Glow</h3>
+                <div class="hive-price-card__meta" aria-label="75 min, $75">
+                  <span class="hive-price-card__duration">75 min</span>
+                  <span class="hive-price-card__cost">$75</span>
+                </div>
+              </div>
               <div class="hive-price-card__details">
-                <h3>75-Minute Head Spa</h3>
                 <ul>
                   <li class="hive-price-card__feature hive-price-card__feature--cleanse">
                     <span>Scalp cleanse</span>
@@ -181,18 +199,23 @@
                 <p>Includes leave-in conditioner and braid or an airy blow dry.</p>
               </div>
               <div class="hive-price-card__footer">
-                <p class="hive-price-card__price">$75</p>
-                <a class="hive-price-card__book" href="booking.html">Book Now</a>
+                <a class="hive-price-card__book" href="booking.html" aria-label="Book The Glow head spa">Book The Glow</a>
               </div>
             </article>
             <article class="hive-price-card hive-price-card--wand">
               <div class="hive-price-card__ornament" aria-hidden="true">
                 <span></span>
-                <img src="assets/images/the-hive/hive-logo.svg" alt="">
+                <img src="assets/images/the-hive/hive-logo.svg" alt="" loading="eager" decoding="sync">
                 <span></span>
               </div>
+              <div class="hive-price-card__hero">
+                <h3>The Full Ritual</h3>
+                <div class="hive-price-card__meta" aria-label="90 min, $90">
+                  <span class="hive-price-card__duration">90 min</span>
+                  <span class="hive-price-card__cost">$90</span>
+                </div>
+              </div>
               <div class="hive-price-card__details">
-                <h3>90-Minute Head Spa</h3>
                 <ul>
                   <li class="hive-price-card__feature hive-price-card__feature--cleanse">
                     <span>Scalp cleanse</span>
@@ -216,18 +239,23 @@
                 <p>Includes leave-in conditioner and braid or an airy blow dry.</p>
               </div>
               <div class="hive-price-card__footer">
-                <p class="hive-price-card__price">$90</p>
-                <a class="hive-price-card__book" href="booking.html">Book Now</a>
+                <a class="hive-price-card__book" href="booking.html" aria-label="Book The Full Ritual head spa">Book The Full Ritual</a>
               </div>
             </article>
             <article class="hive-price-card hive-price-card--botanical hive-price-card--pot">
               <div class="hive-price-card__ornament" aria-hidden="true">
                 <span></span>
-                <img src="assets/images/the-hive/hive-logo.svg" alt="">
+                <img src="assets/images/the-hive/hive-logo.svg" alt="" loading="eager" decoding="sync">
                 <span></span>
               </div>
+              <div class="hive-price-card__hero">
+                <h3>The Botanical</h3>
+                <div class="hive-price-card__meta" aria-label="75 min, $75">
+                  <span class="hive-price-card__duration">75 min</span>
+                  <span class="hive-price-card__cost">$75</span>
+                </div>
+              </div>
               <div class="hive-price-card__details">
-                <h3>Botanical 75-Minute Head Spa</h3>
                 <ul>
                   <li class="hive-price-card__feature hive-price-card__feature--cleanse hive-price-card__feature--botanical-cleanse">
                     <span>Botanical Scalp Cleanse</span>
@@ -250,14 +278,14 @@
                 <p>Includes leave-in conditioner and braid or an airy blow dry.</p>
               </div>
               <div class="hive-price-card__footer">
-                <p class="hive-price-card__price">$75</p>
-                <a class="hive-price-card__book" href="booking.html">Book Now</a>
+                <a class="hive-price-card__book" href="booking.html" aria-label="Book The Botanical head spa">Book The Botanical</a>
               </div>
             </article>
           </div>
           <button class="hive-pricing-carousel__button" type="button" data-carousel-next aria-label="Next pricing package">&rsaquo;</button>
           <span class="hive-pricing-swipe-cue" aria-hidden="true"><span></span></span>
         </div>
+        <div class="hive-pricing-progress" aria-label="Head spa package progress" data-carousel-progress></div>
         <p class="hive-pricing__note">Textured, thick, or long hair may need extra detangling and blow-dry time. A $10 upcharge may apply and will be discussed before booking.</p>
       </section>
 
@@ -355,6 +383,6 @@
       </address>
     </footer>
 
-    <script src="script.js?v=hive-pricing-view-swipe-hint"></script>
+    <script src="script.js?v=hive-pricing-named-no-pill"></script>
   </body>
 </html>
