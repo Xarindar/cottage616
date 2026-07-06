@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Request a date for Cottage 616 events and head-spa appointments in Bay, Arkansas.">
+    <meta name="description" content="Book Cottage 616 events and head-spa appointments in Bay, Arkansas.">
     <title>Cottage 616 | Booking</title>
     <link rel="preconnect" href="https://www.cottage616.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,35 +42,31 @@
         <h1>Let's get this party started!</h1>
       </section>
 
-      <section class="booking-page section">
-        <form class="booking-request" action="mailto:info@cottage616.com" method="post" enctype="text/plain" data-booking>
-          <input type="hidden" name="Requested date" data-booking-date-input>
-          <input type="hidden" name="Requested time" data-booking-time-input>
-          <input type="hidden" name="Event type" data-event-type-input>
-          <input type="hidden" name="Event duration" data-event-duration-input>
+      <section
+        class="booking-page section"
+        data-booking
+        data-api-base="https://showrunner-beta-production.up.railway.app/api/public/v1"
+        data-api-key="pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8"
+      >
+        <div class="booking-request">
+          <p class="booking-status" role="status" aria-live="polite" data-booking-status>Loading Cottage 616 services...</p>
 
           <div class="booking-options" aria-label="Event details">
             <label>
-              <span>Event Type</span>
-              <select data-event-type>
-                <option value="Birthday Party">Birthday Party</option>
-                <option value="Baby Shower">Baby Shower</option>
-                <option value="Intimate Wedding">Intimate Wedding</option>
-                <option value="Head Spa">Head Spa</option>
-                <option value="Other Celebration">Other Celebration</option>
+              <span>Category</span>
+              <select data-category-filter disabled>
+                <option value="">All Cottage 616 services</option>
               </select>
             </label>
             <label>
-              <span>Event Duration</span>
-              <select data-event-duration>
-                <option value="2 hours">2 hours</option>
-                <option value="3 hours">3 hours</option>
-                <option value="4 hours">4 hours</option>
-                <option value="Full day">Full day</option>
-                <option value="Overnight">Overnight</option>
+              <span>Service</span>
+              <select data-service-select disabled>
+                <option value="">Loading services...</option>
               </select>
             </label>
           </div>
+
+          <div class="booking-service-detail" data-service-detail hidden></div>
 
           <div class="booking-scheduler" aria-label="Booking scheduler">
             <div class="booking-scheduler__group booking-scheduler__group--dates">
@@ -99,14 +95,15 @@
                 <h3>Select a time</h3>
               </div>
               <div class="time-picker" role="list" aria-label="Available times" data-time-picker></div>
+              <p class="booking-empty" data-time-empty hidden>No times are available for this date.</p>
             </div>
 
             <aside class="booking-summary" aria-label="Selected booking">
               <div>
                 <p>Selected request</p>
-                <strong data-booking-summary>Date selected, time pending</strong>
+                <strong data-booking-summary>Choose a service to begin</strong>
               </div>
-              <button class="booking-summary__button" type="button" disabled data-booking-continue>Continue</button>
+              <button class="booking-summary__button" type="button" disabled data-booking-continue>Review request</button>
             </aside>
           </div>
 
@@ -134,7 +131,41 @@
               </div>
             </section>
           </div>
-        </form>
+
+          <form class="booking-contact" data-booking-form>
+            <input class="booking-honeypot" name="companyWebsite" type="text" tabindex="-1" autocomplete="off">
+            <div class="booking-contact__heading">
+              <p>Almost there</p>
+              <h2>Where should we send your confirmation?</h2>
+            </div>
+            <div class="booking-contact__grid">
+              <label>
+                <span>Name</span>
+                <input name="customerName" type="text" autocomplete="name" required>
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="customerEmail" type="email" autocomplete="email" required>
+              </label>
+              <label>
+                <span>Phone</span>
+                <input name="customerPhone" type="tel" autocomplete="tel">
+              </label>
+              <label>
+                <span>Notes</span>
+                <textarea name="notes" rows="4" placeholder="Guest count, preferred setup, sensitivities, or anything we should know."></textarea>
+              </label>
+            </div>
+            <label class="booking-policy" data-policy-field hidden>
+              <input name="policyAccepted" type="checkbox">
+              <span data-policy-text></span>
+            </label>
+            <div class="booking-submit-row">
+              <button class="booking-submit" type="submit" disabled data-submit-booking>Send request</button>
+              <p class="booking-form-status" role="status" aria-live="polite" data-form-status></p>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
 
