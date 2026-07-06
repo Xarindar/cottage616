@@ -1,207 +1,218 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Book Cottage 616 events and head-spa appointments in Bay, Arkansas.">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Book Cottage 616 events and head-spa appointments in Bay, Arkansas." />
     <title>Cottage 616 | Booking</title>
-    <link rel="preconnect" href="https://www.cottage616.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=raleway-clean">
-    <link rel="stylesheet" href="booking.css?v=raleway-clean">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/booking-theme.css" />
+    <link rel="stylesheet" href="./styles/booking.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="index.html#top" aria-label="Cottage 616 home">
-        <img class="brand-logo" src="assets/images/logo.svg" alt="">
-        <span>Cottage 616</span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <div class="site-nav__group site-nav__group--left">
-          <a href="index.html#events">Events</a>
-          <a href="the-hive.html">The Hive</a>
-          <a href="index.html#team">Team</a>
-          <a href="vendors.html">Vendors</a>
-        </div>
-        <div class="site-nav__group site-nav__group--right">
-          <a href="index.html#contact">Contact</a>
-          <a class="nav-cta" href="booking.html">Book</a>
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <section class="subpage-hero booking-page-hero">
-        <h1>Let's get this party started!</h1>
-      </section>
-
-      <section
-        class="booking-page section"
-        data-booking
-        data-api-base="https://showrunner-beta-production.up.railway.app/api/public/v1"
-        data-api-key="pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8"
-      >
-        <div class="booking-request">
-          <p class="booking-status" role="status" aria-live="polite" data-booking-status>Loading Cottage 616 services...</p>
-
-          <div class="booking-options" aria-label="Event details">
-            <label>
-              <span>Category</span>
-              <select data-category-filter disabled>
-                <option value="">All Cottage 616 services</option>
-              </select>
-            </label>
-            <label>
-              <span>Service</span>
-              <select data-service-select disabled>
-                <option value="">Loading services...</option>
-              </select>
-            </label>
+    <div class="booking-page" data-active-step="categories" data-booking-root>
+      <main class="booking-main">
+        <section class="booking-intro" aria-labelledby="booking-title">
+          <div>
+            <h1 id="booking-title" data-business-heading>Book with us</h1>
           </div>
+        </section>
 
-          <div class="booking-service-detail" data-service-detail hidden></div>
-
-          <div class="booking-scheduler" aria-label="Booking scheduler">
-            <div class="booking-scheduler__group booking-scheduler__group--dates">
-              <div class="booking-scheduler__heading">
+        <section class="booking-workspace">
+          <div class="booking-stage">
+            <section class="booking-panel is-active" data-step-panel="categories" aria-labelledby="category-title">
+              <div class="booking-panel-head">
                 <div>
-                  <h3>Select a date</h3>
-                  <p data-earliest-date>Earliest booking date loading...</p>
+                  <span class="booking-kicker">Categories</span>
+                  <h2 id="category-title">What are you booking?</h2>
                 </div>
               </div>
 
-              <div class="date-strip">
-                <button class="date-strip__arrow" type="button" aria-label="Show earlier dates" data-date-prev>&lt;</button>
-                <div class="date-picker" role="list" aria-label="Available dates" data-date-picker></div>
-                <button class="date-strip__arrow" type="button" aria-label="Show later dates" data-date-next>&gt;</button>
+              <div class="booking-discovery">
+                <button class="booking-promo" type="button" data-promo-card hidden>
+                  <span>
+                    <strong data-promo-title></strong>
+                    <small data-promo-copy></small>
+                  </span>
+                  <em data-promo-cta></em>
+                </button>
+
+                <div class="booking-category-strip-head">
+                  <h3>Category</h3>
+                  <button class="booking-plain-link" type="button" data-clear-category-filter>See all</button>
+                </div>
+                <div class="booking-home-search-row">
+                  <label class="booking-home-search">
+                    <span class="booking-visually-hidden">Search services and categories</span>
+                    <input data-home-search type="search" placeholder="Search services, specialists" autocomplete="off" />
+                  </label>
+                </div>
+                <div class="booking-pill-rail" data-category-pills aria-label="Service categories"></div>
               </div>
 
-              <div class="booking-calendar-row">
-                <p class="booking-notice" role="status" data-booking-notice></p>
-                <button class="booking-calendar-button" type="button" aria-expanded="false" data-calendar-toggle>Show full calendar</button>
+              <div class="booking-category-grid" data-category-grid></div>
+              <p class="booking-empty" data-category-empty hidden>No categories match that search.</p>
+            </section>
+
+            <section class="booking-panel" data-step-panel="services" aria-labelledby="service-title" hidden>
+              <div class="booking-panel-head">
+                <div>
+                  <span class="booking-kicker" data-selected-category-kicker>Services</span>
+                  <h2 id="service-title">Choose a service</h2>
+                </div>
+                <button class="booking-plain-button" type="button" data-back-to-categories>Back</button>
               </div>
 
-            </div>
-
-            <div class="booking-scheduler__group">
-              <div class="booking-scheduler__heading">
-                <h3>Select a time</h3>
+              <div class="booking-service-toolbar">
+                <label class="booking-search">
+                  <span>Search services</span>
+                  <input data-service-search type="search" placeholder="Search by name or detail" autocomplete="off" />
+                </label>
+                <label class="booking-select">
+                  <span>Sort</span>
+                  <select data-service-sort>
+                    <option value="recommended">Recommended</option>
+                    <option value="name">A to Z</option>
+                    <option value="duration">Duration</option>
+                    <option value="price">Price</option>
+                  </select>
+                </label>
               </div>
-              <div class="time-picker" role="list" aria-label="Available times" data-time-picker></div>
-              <p class="booking-empty" data-time-empty hidden>No times are available for this date.</p>
-            </div>
 
-            <aside class="booking-summary" aria-label="Selected booking">
-              <div>
-                <p>Selected request</p>
-                <strong data-booking-summary>Choose a service to begin</strong>
+              <div class="booking-table-wrap">
+                <table class="booking-service-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Service</th>
+                      <th scope="col">Length</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Details</th>
+                      <th scope="col"><span class="booking-visually-hidden">Select</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-service-list></tbody>
+                </table>
               </div>
-              <button class="booking-summary__button" type="button" disabled data-booking-continue>Review request</button>
-            </aside>
-          </div>
+              <p class="booking-empty" data-service-empty hidden>No services match that search.</p>
+            </section>
 
-          <div class="booking-calendar-modal" data-calendar hidden>
-            <section class="booking-calendar" role="dialog" aria-modal="true" aria-label="Full calendar">
-              <div class="booking-calendar__header">
-                <h3 data-calendar-month>Month</h3>
-                <button class="booking-calendar__close" type="button" aria-label="Close calendar" data-calendar-close>x</button>
+            <section class="booking-panel" data-step-panel="time" aria-labelledby="time-title" hidden>
+              <div class="booking-panel-head">
+                <div>
+                  <span class="booking-kicker" data-selected-service-kicker>Time</span>
+                  <h2 id="time-title">Pick a date and time</h2>
+                </div>
+                <button class="booking-plain-button" type="button" data-back-to-services>Back</button>
               </div>
-              <div class="booking-calendar__body">
-                <button class="booking-calendar__rail" type="button" aria-label="Previous month" data-calendar-prev>&lt;</button>
-                <div class="booking-calendar__dates">
-                  <div class="booking-calendar__weekdays" aria-hidden="true">
-                    <span>Sun</span>
-                    <span>Mon</span>
-                    <span>Tue</span>
-                    <span>Wed</span>
-                    <span>Thu</span>
-                    <span>Fri</span>
-                    <span>Sat</span>
+
+              <div class="booking-time-controls">
+                <label class="booking-select" data-staff-control hidden>
+                  <span>Provider</span>
+                  <select data-staff-select></select>
+                </label>
+              </div>
+
+              <div class="booking-time-card">
+                <div class="booking-calendar-section">
+                  <div class="booking-calendar-head">
+                    <h3 data-month-heading>Month</h3>
+                    <div class="booking-calendar-nav">
+                      <button class="booking-week-arrow" type="button" data-week-prev aria-label="Earlier dates"></button>
+                      <button class="booking-week-arrow booking-week-arrow-next" type="button" data-week-next aria-label="Later dates"></button>
+                    </div>
+                    <label class="booking-date-input booking-date-jump">
+                      <span>Date</span>
+                      <input data-date-input type="date" />
+                    </label>
                   </div>
-                  <div class="booking-calendar__grid" data-calendar-grid></div>
+                  <div class="booking-date-rail" data-date-rail aria-label="Available dates"></div>
                 </div>
-                <button class="booking-calendar__rail" type="button" aria-label="Next month" data-calendar-next>&gt;</button>
+
+                <div class="booking-time-section">
+                  <div class="booking-slot-head">
+                    <h3 data-slot-heading>Time</h3>
+                    <span data-timezone-label></span>
+                  </div>
+                  <div class="booking-slot-grid" data-slot-grid></div>
+                  <p class="booking-empty" data-slot-empty hidden>No times are available for this date.</p>
+                  <button class="booking-earliest-button" type="button" data-earliest-available hidden>Earliest Available Date</button>
+                  <div class="booking-status" data-availability-status role="status" aria-live="polite"></div>
+                </div>
               </div>
             </section>
-          </div>
 
-          <form class="booking-contact" data-booking-form>
-            <input class="booking-honeypot" name="companyWebsite" type="text" tabindex="-1" autocomplete="off">
-            <div class="booking-contact__heading">
-              <p>Almost there</p>
-              <h2>Where should we send your confirmation?</h2>
-            </div>
-            <div class="booking-contact__grid">
-              <label>
-                <span>Name</span>
-                <input name="customerName" type="text" autocomplete="name" required>
-              </label>
-              <label>
-                <span>Email</span>
-                <input name="customerEmail" type="email" autocomplete="email" required>
-              </label>
-              <label>
-                <span>Phone</span>
-                <input name="customerPhone" type="tel" autocomplete="tel">
-              </label>
-              <label>
-                <span>Notes</span>
-                <textarea name="notes" rows="4" placeholder="Guest count, preferred setup, sensitivities, or anything we should know."></textarea>
-              </label>
-            </div>
-            <label class="booking-policy" data-policy-field hidden>
-              <input name="policyAccepted" type="checkbox">
-              <span data-policy-text></span>
-            </label>
-            <div class="booking-submit-row">
-              <button class="booking-submit" type="submit" disabled data-submit-booking>Send request</button>
-              <p class="booking-form-status" role="status" aria-live="polite" data-form-status></p>
-            </div>
-          </form>
+            <section class="booking-panel" data-step-panel="confirm" aria-labelledby="confirm-title" hidden>
+              <div class="booking-panel-head">
+                <div>
+                  <span class="booking-kicker">Confirmation</span>
+                  <h2 id="confirm-title">Confirm your booking</h2>
+                </div>
+                <button class="booking-plain-button" type="button" data-back-to-time>Back</button>
+              </div>
+
+              <div class="booking-confirm-layout">
+                <div class="booking-confirm-summary" data-confirm-summary></div>
+                <form class="booking-form" data-booking-form>
+                  <input data-honeypot class="booking-honeypot" name="companyWebsite" type="text" tabindex="-1" autocomplete="off" />
+
+                  <label>
+                    <span>Name</span>
+                    <input name="customerName" type="text" autocomplete="name" required />
+                  </label>
+                  <label>
+                    <span>Email</span>
+                    <input name="customerEmail" type="email" autocomplete="email" required />
+                  </label>
+                  <label>
+                    <span>Phone</span>
+                    <input name="customerPhone" type="tel" autocomplete="tel" />
+                  </label>
+                  <label data-intake-field hidden>
+                    <span data-intake-label>Appointment notes</span>
+                    <textarea name="intakeResponse" rows="3"></textarea>
+                  </label>
+                  <label>
+                    <span>Notes</span>
+                    <textarea name="notes" rows="3" placeholder="Anything we should know before you arrive?"></textarea>
+                  </label>
+                  <label class="booking-policy" data-policy-field hidden>
+                    <input name="policyAccepted" type="checkbox" />
+                    <span data-policy-text></span>
+                  </label>
+
+                  <div class="booking-form-actions">
+                    <button class="booking-button" type="submit" data-submit-booking>Confirm booking</button>
+                    <p class="booking-form-status" data-form-status role="status" aria-live="polite"></p>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+            <section class="booking-panel booking-success" data-step-panel="success" aria-labelledby="success-title" hidden>
+              <span class="booking-success-icon" aria-hidden="true"></span>
+              <span class="booking-kicker">Confirmed</span>
+              <h2 id="success-title">You're booked</h2>
+              <p data-success-copy>Your appointment request has been received.</p>
+              <div class="booking-confirm-summary" data-success-summary></div>
+              <div class="booking-success-links" data-success-links></div>
+              <button class="booking-button booking-button-secondary" type="button" data-new-booking>Book another service</button>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer class="booking-flow-footer" data-flow-footer hidden>
+        <div class="booking-flow-footer-inner">
+          <p class="booking-flow-summary" data-flow-summary aria-live="polite"></p>
+          <button class="booking-button booking-flow-review" type="button" data-review-booking disabled>Review booking</button>
         </div>
-      </section>
-    </main>
+      </footer>
+    </div>
 
-    <footer id="contact" class="site-footer">
-      <div class="hive-updates" aria-labelledby="hive-updates-title">
-        <h2 id="hive-updates-title">Let's stay in touch, gorgeous</h2>
-        <p>Sign up for Cottage 616 deals and updates</p>
-        <form class="hive-updates__form" action="mailto:info@cottage616.com" method="post" enctype="text/plain">
-          <label for="hive-updates-email">Email address</label>
-          <div class="hive-updates__field">
-            <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            <button type="submit">Sign Up</button>
-          </div>
-        </form>
-      </div>
-      <div class="site-footer__logos" aria-label="Site links">
-        <a class="brand" href="index.html">
-          <img class="brand-logo" src="assets/images/logo.svg" alt="">
-          <span>Cottage 616</span>
-        </a>
-        <span class="site-footer__logo-separator" aria-hidden="true">|</span>
-        <a class="site-footer__hive-wordmark" href="the-hive.html" aria-label="The Hive landing page">
-          <img class="site-footer__hive-icon" src="assets/images/the-hive/hive-logo.svg" alt="">
-          <span class="brand--hive__script">the hive</span>
-          <span class="brand--hive__tagline">at cottage 616</span>
-        </a>
-      </div>
-      <address>
-        <a href="tel:+18702196982">(870) 219-6982</a>
-        <a href="mailto:info@cottage616.com">info@cottage616.com</a>
-        <span>3773 County Road 616, Bay, AR 72411</span>
-        <span class="site-credit">Site design by Admit One Design Studio</span>
-      </address>
-    </footer>
-
-    <script src="script.js"></script>
-    <script src="booking.js"></script>
+    <script src="./scripts/booking-assets.js"></script>
+    <script src="./scripts/booking-data.js"></script>
+    <script src="./scripts/booking.js"></script>
   </body>
 </html>
