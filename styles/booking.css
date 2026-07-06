@@ -42,6 +42,105 @@ img {
   max-width: 100%;
 }
 
+.site-header {
+  align-items: center;
+  background: rgba(255, 248, 242, 0.94);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(23, 63, 95, 0.14);
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  padding: 16px clamp(18px, 4vw, 56px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.brand {
+  align-items: center;
+  color: var(--booking-color-text);
+  display: inline-flex;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.site-header > .brand {
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.brand span {
+  font-family: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+.brand-logo {
+  display: block;
+  height: 42px;
+  object-fit: contain;
+  width: 42px;
+}
+
+.site-header .brand-logo {
+  display: none;
+}
+
+.site-nav {
+  align-items: center;
+  display: flex;
+  gap: clamp(24px, 18vw, 360px);
+  justify-content: space-between;
+  width: 100%;
+}
+
+.site-nav__group {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.site-nav__group--left {
+  justify-content: flex-start;
+}
+
+.site-nav__group--right {
+  justify-content: flex-end;
+}
+
+.site-nav a {
+  border-radius: 4px;
+  color: var(--booking-color-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav .nav-cta {
+  background: #102d42;
+  color: var(--booking-color-page);
+}
+
+.menu-toggle {
+  background: var(--booking-color-page);
+  border: 1px solid var(--booking-color-line);
+  border-radius: 50%;
+  display: none;
+  height: 42px;
+  padding: 10px;
+  width: 42px;
+}
+
+.menu-toggle span {
+  background: var(--booking-color-text);
+  display: block;
+  height: 2px;
+  margin: 5px 0;
+}
+
 h1,
 h2,
 h3,
@@ -76,7 +175,7 @@ p {
 }
 
 .booking-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 74px);
 }
 
 .booking-main {
@@ -1131,6 +1230,65 @@ p {
 }
 
 @media (max-width: 760px) {
+  .site-header {
+    align-items: center;
+    justify-content: center;
+    min-height: 78px;
+  }
+
+  .site-header > .brand {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .menu-toggle {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    display: grid;
+    height: 34px;
+    left: clamp(18px, 5vw, 28px);
+    padding: 7px;
+    place-content: center;
+    position: absolute;
+    width: 34px;
+  }
+
+  .menu-toggle span {
+    height: 2px;
+    margin: 3px 0;
+    width: 24px;
+  }
+
+  .site-nav {
+    background: var(--booking-color-page);
+    border: 1px solid var(--booking-color-line);
+    border-radius: 8px;
+    box-shadow: var(--booking-shadow-panel);
+    display: none;
+    gap: 4px;
+    inset: 74px 18px auto;
+    justify-content: flex-start;
+    padding: 14px;
+    position: absolute;
+    width: auto;
+  }
+
+  .site-nav.is-open {
+    display: grid;
+  }
+
+  .site-nav__group {
+    display: grid;
+    gap: 4px;
+    justify-content: stretch;
+  }
+
+  .site-nav a {
+    border-radius: 8px;
+  }
+
   h1 {
     font-size: 2rem;
   }

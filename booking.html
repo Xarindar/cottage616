@@ -12,6 +12,30 @@
     <link rel="stylesheet" href="./styles/booking.css" />
   </head>
   <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Cottage 616 home">
+        <img class="brand-logo" src="assets/images/logo.svg" alt="">
+        <span>Cottage 616</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <div class="site-nav__group site-nav__group--left">
+          <a href="index.html#events">Events</a>
+          <a href="the-hive.html">The Hive</a>
+          <a href="index.html#team">Team</a>
+          <a href="vendors.html">Vendors</a>
+        </div>
+        <div class="site-nav__group site-nav__group--right">
+          <a href="index.html#contact">Contact</a>
+          <a class="nav-cta" href="booking.html" aria-current="page">Book</a>
+        </div>
+      </nav>
+    </header>
+
     <div class="booking-page" data-active-step="categories" data-booking-root>
       <main class="booking-main">
         <section class="booking-intro" aria-labelledby="booking-title">
@@ -214,5 +238,6 @@
     <script src="./scripts/booking-assets.js"></script>
     <script src="./scripts/booking-data.js"></script>
     <script src="./scripts/booking.js"></script>
+    <script src="./script.js?v=booking-nav"></script>
   </body>
 </html>
