@@ -569,7 +569,8 @@ if (bookingRoot) {
 
   function minBookableDateFor(service) {
     const noticeHours = Math.max(0, Number(service.minimumNoticeHours || 24));
-    return startOfDay(new Date(Date.now() + noticeHours * 60 * 60 * 1000));
+    const noticeDays = Math.ceil(noticeHours / 24);
+    return addDays(startOfDay(new Date()), noticeDays > 0 ? noticeDays + 1 : 0);
   }
 
   function setStatus(message, isError = false) {
