@@ -13,7 +13,7 @@
     <link rel="preload" as="image" href="assets/images/the-hive/hex-grid.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=raleway-clean">
-    <link rel="stylesheet" href="the-hive.css?v=pricing-named-clean-meta">
+    <link rel="stylesheet" href="the-hive.css?v=hive-team-strip">
   </head>
   <body class="hive-page">
     <header class="site-header">
@@ -66,24 +66,29 @@
         </div>
       </section>
 
-      <section class="hive-specialist section" aria-labelledby="hive-specialist-title">
-        <div class="hive-specialist__board" aria-label="About Deanna pin board">
-          <div class="hive-specialist__portrait">
-            <img src="assets/images/the-hive/deanna-head-spa-specialist.jpg" alt="Deanna, Head-Spa Specialist at Cottage 616">
-            <p>Deanna</p>
-          </div>
-          <div class="hive-specialist__bio">
-            <p class="eyebrow">Head-Spa Specialist</p>
-            <h2 id="hive-specialist-title">Meet Deanna.</h2>
-            <p>Deanna is a cosmetologist and certified lash tech who joined The Hive after experiencing a head spa with Jo and falling in love with the service. She brings a calm, confidence-focused approach to scalp care and relaxation.</p>
-          </div>
-          <div class="hive-specialist__details" aria-label="Deanna's credentials">
-            <span>Cosmetologist for 2 years</span>
-            <span>Certified lash tech</span>
-            <span>Lash services coming soon</span>
-          </div>
+      <section class="hive-team section" aria-labelledby="hive-team-title">
+        <div class="hive-team__intro">
+          <p class="eyebrow">The Hive Spa People</p>
+          <h2 id="hive-team-title">Meet the team.</h2>
+          <p>Jo and Deanna bring a calm, confidence-focused approach to every head-spa service, from scalp care and massage to the softer hair, lighter shoulders part everyone comes in hoping for.</p>
         </div>
-        <img class="hive-specialist__bee" src="assets/images/the-hive/bee.svg" alt="" aria-hidden="true">
+        <div class="hive-team__strip" aria-label="The Hive head-spa team">
+          <article class="hive-team-card" data-initials="JS">
+            <img src="https://www.cottage616.com/wp-content/uploads/go-x/u/e240b829-0633-4bec-aba1-d07d08415dd0/l572,t767,w694,h694/image-455x455.jpg" alt="Jo Lynne Skaggs" onerror="this.closest('.hive-team-card').classList.add('hive-team-card--image-missing')">
+            <div class="hive-team-card__copy">
+              <h3>Jo Lynne Skaggs</h3>
+              <p>Founder/CEO<br>Head-Spa Specialist</p>
+            </div>
+          </article>
+          <article class="hive-team-card" data-initials="D">
+            <img src="assets/images/the-hive/deanna-head-spa-specialist.jpg" alt="Deanna, Head-Spa Specialist at Cottage 616" onerror="this.closest('.hive-team-card').classList.add('hive-team-card--image-missing')">
+            <div class="hive-team-card__copy">
+              <h3>Deanna</h3>
+              <p>Head-Spa Specialist<br>Cosmetologist and certified lash tech</p>
+            </div>
+          </article>
+        </div>
+        <img class="hive-team__bee" src="assets/images/the-hive/bee.svg" alt="" aria-hidden="true">
       </section>
 
       <section class="hive-pricing section" aria-labelledby="hive-pricing-title">

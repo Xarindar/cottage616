@@ -151,156 +151,137 @@
   mask: var(--hive-hex-mask) center / contain no-repeat;
 }
 
-.hive-specialist {
+.hive-team {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(58px, 8vw, 112px);
-  background: linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(255, 248, 242, 0.96));
-}
-
-.hive-specialist__board {
-  position: relative;
   display: grid;
-  grid-template-columns: minmax(220px, 0.38fr) minmax(300px, 0.62fr);
-  gap: clamp(22px, 5vw, 58px);
+  grid-template-columns: minmax(260px, 0.38fr) minmax(420px, 0.62fr);
+  gap: clamp(24px, 5vw, 64px);
   align-items: center;
-  min-height: clamp(390px, 44vw, 560px);
+  padding-block: clamp(56px, 7vw, 94px);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(255, 248, 242, 0.96)),
+    var(--paper);
 }
 
-.hive-specialist__board::before,
-.hive-specialist__portrait::before,
-.hive-specialist__bio::before,
-.hive-specialist__details::before {
-  display: none;
+.hive-team::before {
+  content: "";
+  position: absolute;
+  inset: auto clamp(18px, 5vw, 72px) 0;
+  height: 1px;
+  background: rgba(23, 63, 95, 0.1);
 }
 
-.hive-specialist__board::before {
-  display: none;
-}
-
-.hive-specialist__portrait {
+.hive-team__intro {
   position: relative;
   z-index: 1;
-  justify-self: center;
-  width: min(100%, 340px);
-  padding: 12px;
-  background: #fffdf8;
-  border: 1px solid rgba(23, 63, 95, 0.08);
-  border-radius: 8px;
-  box-shadow: var(--premium-shadow);
+  max-width: 500px;
 }
 
-.hive-specialist__portrait::before {
-  --pin-image: url("assets/images/the-hive/pins/pushpin-angle-2.png");
-  --pin-width: 30px;
-  --pin-height: 50px;
-  top: -22px;
-  left: calc(50% - 14px);
-  z-index: 2;
-  transform: rotate(4deg);
-}
-
-.hive-specialist__portrait img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center 26%;
-  filter: saturate(0.96) contrast(1.02);
-}
-
-.hive-specialist__portrait p {
-  position: static;
-  margin: 14px 4px 4px;
-  color: var(--deep-blue);
-  font-family: var(--display-font);
-  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
-  line-height: 1.1;
-  text-align: left;
-}
-
-.hive-specialist__bio {
-  position: relative;
-  z-index: 1;
-  max-width: 690px;
-  padding: clamp(24px, 4vw, 38px);
-  border: 1px solid rgba(78, 56, 38, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 253, 248, 0.96);
-  box-shadow: var(--premium-shadow);
-}
-
-.hive-specialist__bio::before {
-  --pin-image: url("assets/images/the-hive/pins/pushpin-angle-5.png");
-  --pin-width: 34px;
-  --pin-height: 44px;
-  top: -18px;
-  right: clamp(70px, 8vw, 118px);
-  transform: rotate(-8deg);
-}
-
-.hive-specialist__bio::after {
-  display: none;
-}
-
-.hive-specialist__bio p:not(.eyebrow) {
-  max-width: 660px;
+.hive-team__intro p:not(.eyebrow) {
+  max-width: 470px;
   color: var(--muted);
 }
 
-.hive-specialist__bio h2 {
+.hive-team__intro h2 {
   font-family: var(--display-font);
-  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  font-size: clamp(2.2rem, 4.2vw, 3.5rem);
   letter-spacing: 0;
 }
 
-.hive-specialist__bio .eyebrow {
+.hive-team__intro .eyebrow {
   color: var(--clay);
 }
 
-.hive-specialist__details {
+.hive-team__strip {
   position: relative;
   z-index: 1;
-  grid-column: 2;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: -8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 26px);
 }
 
-.hive-specialist__details::before {
-  --pin-image: url("assets/images/the-hive/pins/pushpin-angle-2.png");
-  --pin-width: 28px;
-  --pin-height: 46px;
-  top: -22px;
-  left: 44px;
-  transform: rotate(2deg);
-}
-
-.hive-specialist__details span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 72px;
-  padding: 14px 15px;
+.hive-team-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(116px, 0.48fr) minmax(0, 0.52fr);
+  align-items: stretch;
+  min-height: 210px;
+  overflow: hidden;
   border: 1px solid rgba(23, 63, 95, 0.1);
   border-radius: 8px;
-  color: var(--deep-blue);
-  background: rgba(255, 253, 248, 0.93);
+  background: rgba(255, 253, 248, 0.94);
   box-shadow: var(--premium-shadow);
-  font-size: 0.9rem;
-  font-weight: 800;
-  line-height: 1.25;
 }
 
-.hive-specialist__details span:nth-child(2) {
+.hive-team-card:nth-child(2) {
   background: rgba(246, 248, 241, 0.95);
 }
 
-.hive-specialist__details span:nth-child(3) {
-  background: rgba(250, 246, 238, 0.95);
+.hive-team-card::before {
+  content: attr(data-initials);
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  min-height: 210px;
+  color: var(--deep-blue);
+  background:
+    linear-gradient(135deg, rgba(246, 248, 241, 0.94), rgba(255, 248, 242, 0.98)),
+    var(--paper);
+  font-family: var(--display-font);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1;
 }
 
-.hive-specialist__bee {
+.hive-team-card img {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  object-fit: cover;
+  object-position: center 24%;
+  filter: saturate(0.96) contrast(1.02);
+}
+
+.hive-team-card--image-missing img {
   display: none;
+}
+
+.hive-team-card__copy {
+  grid-column: 2;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  padding: clamp(18px, 2.6vw, 28px);
+}
+
+.hive-team-card h3 {
+  color: var(--deep-blue);
+  font-family: var(--display-font);
+  font-size: clamp(1.24rem, 2.2vw, 1.72rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.hive-team-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.hive-team__bee {
+  position: absolute;
+  right: clamp(18px, 4vw, 58px);
+  bottom: clamp(18px, 3vw, 42px);
+  width: clamp(62px, 8vw, 110px);
+  opacity: 0.24;
+  transform: rotate(-10deg);
 }
 
 .hive-pricing {
@@ -1290,13 +1271,13 @@
     grid-template-columns: 1fr;
   }
 
-  .hive-specialist__board {
+  .hive-team {
     grid-template-columns: 1fr;
   }
 
-  .hive-specialist__details {
-    grid-column: auto;
-    margin-top: 0;
+  .hive-team__intro,
+  .hive-team__intro p:not(.eyebrow) {
+    max-width: 720px;
   }
 
   .hive-cta {
@@ -1334,33 +1315,33 @@
     display: none;
   }
 
-  .hive-specialist {
+  .hive-team {
     padding-top: 104px;
   }
 
-  .hive-specialist__board {
-    min-height: 0;
-  }
-
-  .hive-specialist__portrait {
-    width: min(88%, 310px);
-    padding: 12px 12px 48px;
-  }
-
-  .hive-specialist__bio {
-    transform: rotate(0.8deg);
-  }
-
-  .hive-specialist__details {
+  .hive-team__strip {
     grid-template-columns: 1fr;
-    gap: 10px;
   }
 
-  .hive-specialist__details span {
-    min-height: 58px;
+  .hive-team-card {
+    grid-template-columns: minmax(108px, 0.42fr) minmax(0, 0.58fr);
+    min-height: 176px;
   }
 
-  .hive-specialist__bee {
+  .hive-team-card::before,
+  .hive-team-card img {
+    min-height: 176px;
+  }
+
+  .hive-team-card__copy {
+    padding: 18px;
+  }
+
+  .hive-team-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .hive-team__bee {
     top: 24px;
     right: 16px;
     bottom: auto;
