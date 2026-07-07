@@ -2149,3 +2149,84 @@ address > * {
     right: 0;
   }
 }
+
+/* Showrunner canvas hero: positioned layers streamed from the Content module.
+   The static .hero-copy markup stays as the fallback and is hidden only when
+   the canvas renders successfully. */
+.hero.sr-canvas-active .hero-copy {
+  display: none;
+}
+
+.sr-hero-screens,
+.sr-hero-screen,
+.sr-hero-bg,
+.sr-hero-layers {
+  position: absolute;
+  inset: 0;
+}
+
+.sr-hero-screen {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.sr-hero-screen.is-active {
+  opacity: 1;
+}
+
+.sr-hero-bg {
+  background-position: center;
+  background-size: cover;
+}
+
+.sr-hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 32, 48, 0.45), rgba(12, 32, 48, 0.16) 48%, rgba(12, 32, 48, 0.38));
+}
+
+.sr-hero-layers {
+  z-index: 1;
+}
+
+.sr-hero-layer {
+  position: absolute;
+  margin: 0;
+  width: max-content;
+  color: var(--paper);
+}
+
+.sr-hero-headline {
+  margin-bottom: 0;
+}
+
+.sr-hero-caption {
+  max-width: 660px;
+}
+
+.sr-hero-cta {
+  margin-top: 0;
+}
+
+@media (max-width: 720px) {
+  .sr-hero-layers {
+    position: relative;
+    inset: auto;
+    display: grid;
+    gap: 18px;
+    align-content: center;
+    justify-items: start;
+    min-height: 78svh;
+    padding: 24px 18px 48px;
+  }
+
+  .sr-hero-layer {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
