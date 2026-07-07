@@ -42,12 +42,12 @@
     </header>
 
     <main>
-      <section class="hero hive-hero" aria-label="The Hive head spa">
+      <section class="hero hive-hero" aria-label="The Hive head spa" data-showrunner-profile="the-hive">
         <div class="hero-copy">
-          <h1>Buzz off, stress.</h1>
-          <p class="hero-text">A quiet head-spa retreat for scalp care, deep relaxation, hydration, and healthy shine at Cottage 616.</p>
+          <h1 data-content-header-headline>Buzz off, stress.</h1>
+          <p class="hero-text" data-content-header-copy>A quiet head-spa retreat for scalp care, deep relaxation, hydration, and healthy shine at Cottage 616.</p>
           <div class="hero-actions" aria-label="The Hive actions">
-            <a class="button primary" href="booking.html">Book The Hive</a>
+            <a class="button primary" href="booking.html" data-content-header-cta>Book The Hive</a>
           </div>
         </div>
       </section>
@@ -64,6 +64,15 @@
           <img class="hive-photo-main" src="assets/spa1.jpg" alt="Cottage 616 head-spa water treatment">
           <img class="hive-photo-secondary" src="assets/spa2.jpg" alt="Head-spa tools and relaxing treatment setup">
         </div>
+      </section>
+
+      <section class="section profile-testimonials hive-profile-testimonials" data-showrunner-testimonials hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Testimonials</p>
+          <h2 data-content-testimonial-heading>What Hive guests are saying</h2>
+          <p data-content-testimonial-intro></p>
+        </div>
+        <div class="profile-testimonials__grid" data-content-testimonial-list></div>
       </section>
 
       <section class="hive-team section" aria-labelledby="hive-team-title">
@@ -388,6 +397,7 @@
       </address>
     </footer>
 
+    <script src="showrunner-content.js?v=content-profile-1"></script>
     <script src="script.js?v=hive-pricing-named-no-pill"></script>
   </body>
 </html>

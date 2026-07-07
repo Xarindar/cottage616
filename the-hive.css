@@ -164,6 +164,21 @@
     var(--paper);
 }
 
+.hive-profile-testimonials {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(246, 248, 241, 0.96)),
+    var(--paper);
+}
+
+.hive-profile-testimonials .eyebrow,
+.hive-profile-testimonials .profile-testimonial-card__stars {
+  color: var(--clay);
+}
+
+.hive-profile-testimonials .profile-testimonial-card__avatar {
+  background: var(--soft-yellow);
+}
+
 .hive-team::before {
   content: "";
   position: absolute;

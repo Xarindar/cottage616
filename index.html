@@ -39,12 +39,12 @@
     </header>
 
     <main id="top">
-      <section class="hero" aria-label="Cottage 616 venue">
+      <section class="hero" aria-label="Cottage 616 venue" data-showrunner-profile="cottage616">
         <div class="hero-copy">
-          <h1>Cottage 616</h1>
-          <p class="hero-text">A peaceful indoor and outdoor event venue and head-spa retreat for intimate weddings, baby showers, birthday parties, girls' nights, and relaxing appointments surrounded by serene country views.</p>
+          <h1 data-content-header-headline>Cottage 616</h1>
+          <p class="hero-text" data-content-header-copy>A peaceful indoor and outdoor event venue and head-spa retreat for intimate weddings, baby showers, birthday parties, girls' nights, and relaxing appointments surrounded by serene country views.</p>
           <div class="hero-actions" aria-label="Main actions">
-            <a class="button primary" href="booking.html">Book Now</a>
+            <a class="button primary" href="booking.html" data-content-header-cta>Book Now</a>
           </div>
         </div>
       </section>
@@ -76,6 +76,15 @@
             <p>A soft reset for scalp care, stress relief, and girls' day relaxation.</p>
           </article>
         </div>
+      </section>
+
+      <section class="section profile-testimonials" data-showrunner-testimonials hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Testimonials</p>
+          <h2 data-content-testimonial-heading>Sweet words from Cottage guests</h2>
+          <p data-content-testimonial-intro></p>
+        </div>
+        <div class="profile-testimonials__grid" data-content-testimonial-list></div>
       </section>
 
       <section id="events" class="section event-showcase">
@@ -258,6 +267,7 @@
       </address>
     </footer>
 
+    <script src="showrunner-content.js?v=content-profile-1"></script>
     <script src="script.js?v=carousel-loop"></script>
   </body>
 </html>

@@ -26,6 +26,10 @@
       autoSelectFirstStaff: true,
       showStaffFilter: false
     },
+    content: {
+      enabled: true,
+      profile: "cottage616"
+    },
     promotion: {
       enabled: true,
       title: "Let's get this party started",

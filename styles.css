@@ -893,6 +893,100 @@ main section[id] {
   margin-bottom: 32px;
 }
 
+.profile-testimonials {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(255, 248, 242, 0.98)),
+    var(--paper);
+  border-top: 1px solid rgba(23, 63, 95, 0.1);
+  border-bottom: 1px solid rgba(23, 63, 95, 0.1);
+}
+
+.profile-testimonials[hidden] {
+  display: none;
+}
+
+.profile-testimonials .section-heading p:not(.eyebrow) {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.profile-testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+}
+
+.profile-testimonial-card {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 18px;
+  min-height: 280px;
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid rgba(23, 63, 95, 0.12);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--premium-shadow);
+}
+
+.profile-testimonial-card__stars {
+  color: var(--pink);
+  font-size: 0.94rem;
+  letter-spacing: 0.08em;
+}
+
+.profile-testimonial-card > p {
+  margin: 0;
+  color: var(--deep-blue);
+  font-family: var(--display-font);
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+  line-height: 1.35;
+}
+
+.profile-testimonial-card__person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--deep-blue);
+}
+
+.profile-testimonial-card__avatar {
+  display: inline-flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--soft-pink);
+  color: var(--deep-blue);
+  font-weight: 800;
+}
+
+.profile-testimonial-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-testimonial-card__person span:last-child {
+  display: grid;
+  min-width: 0;
+}
+
+.profile-testimonial-card__person strong,
+.profile-testimonial-card__person small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-testimonial-card__person small {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1811,6 +1905,7 @@ address > * {
   }
 
   .service-grid,
+  .profile-testimonials__grid,
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1960,6 +2055,7 @@ address > * {
   }
 
   .service-grid,
+  .profile-testimonials__grid,
   .team-grid,
   .contact-form {
     grid-template-columns: 1fr;
