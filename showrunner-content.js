@@ -94,11 +94,15 @@
     }
   }
 
+  // A screen is only canvas-renderable once a real hero image is chosen in
+  // the studio. The /hero.svg placeholder means "not configured yet", so the
+  // page keeps its static hero photo and the text-only updates instead.
   function screenHasContent(screen) {
     if (!screen || typeof screen !== "object") return false;
-    const hasBackground = Array.isArray(screen.backgrounds) && screen.backgrounds.some((background) => background?.url);
-    const hasLayers = Array.isArray(screen.canvasLayers) && screen.canvasLayers.length > 0;
-    return hasBackground || hasLayers;
+    const background = Array.isArray(screen.backgrounds) ? screen.backgrounds.find((entry) => entry?.url) : null;
+    if (!background) return false;
+    if (/\/hero\.svg(\?|#|$)/i.test(String(background.url))) return false;
+    return true;
   }
 
   function buildScreen(screen, isActive) {
