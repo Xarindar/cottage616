@@ -157,10 +157,13 @@
     const colStart = clampNumber(layout.colStart, 1, GRID_COLUMNS);
     const colEnd = clampNumber(layout.colEnd, colStart + 1, GRID_COLUMNS + 1);
     const rowStart = clampNumber(layout.rowStart, 1, GRID_ROWS);
+    // Text wraps at its editor footprint width so the live layout matches the
+    // studio preview; buttons keep their natural width up to the image edge.
+    const spanWidth = ((colEnd - colStart) / GRID_COLUMNS) * 100;
+    const remainingWidth = ((GRID_COLUMNS - colStart + 1) / GRID_COLUMNS) * 100;
     element.style.left = `${(((colStart - 1) / GRID_COLUMNS) * 100).toFixed(3)}%`;
     element.style.top = `${(((rowStart - 1) / GRID_ROWS) * 100).toFixed(3)}%`;
-    element.style.maxWidth = `${(((GRID_COLUMNS - colStart + 1) / GRID_COLUMNS) * 100).toFixed(3)}%`;
-    element.style.minWidth = `${(((colEnd - colStart) / GRID_COLUMNS) * 100).toFixed(3)}%`;
+    element.style.maxWidth = `${(layer.type === "button" ? remainingWidth : spanWidth).toFixed(3)}%`;
 
     return element;
   }
