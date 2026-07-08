@@ -12,14 +12,19 @@
   let slideshowTimer = null;
 
   if (!root) return;
+  root.classList.add("sr-content-loading");
 
   loadProfile()
     .then((content) => {
       applyHeader(content?.header || {});
-      applyCanvasHero(content?.hero || null);
+      const canvasRendered = applyCanvasHero(content?.hero || null);
+      if (!canvasRendered) root.classList.add("sr-fallback-active");
+      root.classList.remove("sr-content-loading");
       applyTestimonials(content?.testimonials || {});
     })
     .catch((error) => {
+      root.classList.add("sr-fallback-active");
+      root.classList.remove("sr-content-loading");
       if (window.console?.warn) window.console.warn("Showrunner content could not load.", error);
     });
 
@@ -55,7 +60,7 @@
   // markup stays in the document as the fallback and is hidden only after the
   // canvas builds successfully.
   function applyCanvasHero(hero) {
-    if (!hero || typeof hero !== "object") return;
+    if (!hero || typeof hero !== "object") return false;
 
     try {
       const screens =
@@ -65,7 +70,7 @@
             ? [hero.hero]
             : [];
       const renderable = screens.filter((screen) => screenHasContent(screen));
-      if (!renderable.length) return;
+      if (!renderable.length) return false;
 
       const container = document.createElement("div");
       container.className = "sr-hero-screens";
@@ -76,6 +81,7 @@
       root.querySelector(".sr-hero-screens")?.remove();
       root.appendChild(container);
       root.classList.add("sr-canvas-active");
+      root.classList.remove("sr-fallback-active");
 
       if (slideshowTimer) window.clearInterval(slideshowTimer);
       if (renderable.length > 1) {
@@ -88,9 +94,11 @@
           nodes.forEach((node, index) => node.classList.toggle("is-active", index === active));
         }, interval);
       }
+      return true;
     } catch (error) {
       root.classList.remove("sr-canvas-active");
       if (window.console?.warn) window.console.warn("Showrunner hero canvas could not render.", error);
+      return false;
     }
   }
 

@@ -160,6 +160,7 @@ a {
   min-height: 78svh;
   display: grid;
   align-items: center;
+  container-type: inline-size;
   padding: clamp(96px, 13vw, 180px) clamp(18px, 5vw, 72px) clamp(72px, 8vw, 112px);
   color: var(--paper);
   background-color: rgba(16, 45, 66, 0.78);
@@ -2153,8 +2154,17 @@ address > * {
 /* Showrunner canvas hero: positioned layers streamed from the Content module.
    The static .hero-copy markup stays as the fallback and is hidden only when
    the canvas renders successfully. */
+.showrunner-js .hero[data-showrunner-profile] .hero-copy {
+  visibility: hidden;
+}
+
+.showrunner-js .hero[data-showrunner-profile].sr-fallback-active:not(.sr-canvas-active) .hero-copy {
+  visibility: visible;
+}
+
 .hero.sr-canvas-active .hero-copy {
   display: none;
+  visibility: hidden;
 }
 
 .sr-hero-screens,
@@ -2187,7 +2197,7 @@ address > * {
 }
 
 .sr-hero-layers {
-  inset: clamp(96px, 13vw, 180px) clamp(18px, 5vw, 72px) clamp(72px, 8vw, 112px);
+  inset: clamp(96px, 13cqw, 180px) clamp(18px, 5cqw, 72px) clamp(72px, 8cqw, 112px);
   z-index: 1;
 }
 
@@ -2199,10 +2209,12 @@ address > * {
 }
 
 .sr-hero-headline {
+  font-size: clamp(2.65rem, 5.8cqw, 5.2rem);
   margin-bottom: 0;
 }
 
 .sr-hero-caption {
+  font-size: clamp(1.05rem, 2cqw, 1.35rem);
   max-width: 660px;
 }
 
