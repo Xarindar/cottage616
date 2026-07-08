@@ -2203,6 +2203,7 @@ address > * {
 }
 
 .sr-hero-layer {
+  overflow: visible;
   position: absolute;
   margin: 0;
   width: max-content;
@@ -2211,12 +2212,16 @@ address > * {
 
 .sr-hero-headline {
   font-size: clamp(2.65rem, 5.8cqw, 5.2rem);
+  line-height: 1.16;
   margin-bottom: 0;
+  padding-bottom: 0.08em;
 }
 
 .sr-hero-caption {
   font-size: clamp(1.05rem, 2cqw, 1.35rem);
   max-width: 660px;
+  overflow: visible;
+  white-space: pre-wrap;
 }
 
 .sr-hero-cta {
