@@ -79,27 +79,73 @@
       });
 
       root.querySelector(".sr-hero-screens")?.remove();
+      root.querySelector(".sr-hero-nav")?.remove();
       root.appendChild(container);
       root.classList.add("sr-canvas-active");
       root.classList.remove("sr-canvas-unavailable");
 
       if (slideshowTimer) window.clearInterval(slideshowTimer);
+      slideshowTimer = null;
       if (renderable.length > 1) {
         const interval = Math.max(2500, Number(hero.slideshow?.autoplayIntervalMs) || 6500);
+        const nodes = Array.from(container.querySelectorAll(".sr-hero-screen"));
         let active = 0;
-        slideshowTimer = window.setInterval(() => {
-          const nodes = container.querySelectorAll(".sr-hero-screen");
+
+        const setActiveSlide = (index) => {
           if (!nodes.length) return;
-          active = (active + 1) % nodes.length;
+          active = (index + nodes.length) % nodes.length;
           nodes.forEach((node, index) => node.classList.toggle("is-active", index === active));
-        }, interval);
+        };
+
+        const startAutoplay = () => {
+          if (slideshowTimer) window.clearInterval(slideshowTimer);
+          slideshowTimer = window.setInterval(() => setActiveSlide(active + 1), interval);
+        };
+
+        root.appendChild(
+          buildSlideNav({
+            onNext: () => {
+              setActiveSlide(active + 1);
+              startAutoplay();
+            },
+            onPrevious: () => {
+              setActiveSlide(active - 1);
+              startAutoplay();
+            }
+          })
+        );
+        startAutoplay();
       }
       return true;
     } catch (error) {
       root.classList.remove("sr-canvas-active");
+      root.querySelector(".sr-hero-nav")?.remove();
       if (window.console?.warn) window.console.warn("Showrunner hero canvas could not render.", error);
       return false;
     }
+  }
+
+  function buildSlideNav({ onNext, onPrevious }) {
+    const nav = document.createElement("div");
+    nav.className = "sr-hero-nav";
+    nav.setAttribute("aria-label", "Hero slides");
+
+    const previous = document.createElement("button");
+    previous.className = "sr-hero-nav-button sr-hero-nav-button--previous";
+    previous.type = "button";
+    previous.setAttribute("aria-label", "Previous slide");
+    previous.textContent = "‹";
+    previous.addEventListener("click", onPrevious);
+
+    const next = document.createElement("button");
+    next.className = "sr-hero-nav-button sr-hero-nav-button--next";
+    next.type = "button";
+    next.setAttribute("aria-label", "Next slide");
+    next.textContent = "›";
+    next.addEventListener("click", onNext);
+
+    nav.append(previous, next);
+    return nav;
   }
 
   // A screen is only canvas-renderable once a real hero image is chosen in
