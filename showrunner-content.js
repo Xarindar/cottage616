@@ -18,12 +18,12 @@
     .then((content) => {
       applyHeader(content?.header || {});
       const canvasRendered = applyCanvasHero(content?.hero || null);
-      if (!canvasRendered) root.classList.add("sr-fallback-active");
+      if (!canvasRendered) root.classList.add("sr-canvas-unavailable");
       root.classList.remove("sr-content-loading");
       applyTestimonials(content?.testimonials || {});
     })
     .catch((error) => {
-      root.classList.add("sr-fallback-active");
+      root.classList.add("sr-canvas-unavailable");
       root.classList.remove("sr-content-loading");
       if (window.console?.warn) window.console.warn("Showrunner content could not load.", error);
     });
@@ -81,7 +81,7 @@
       root.querySelector(".sr-hero-screens")?.remove();
       root.appendChild(container);
       root.classList.add("sr-canvas-active");
-      root.classList.remove("sr-fallback-active");
+      root.classList.remove("sr-canvas-unavailable");
 
       if (slideshowTimer) window.clearInterval(slideshowTimer);
       if (renderable.length > 1) {

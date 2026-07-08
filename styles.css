@@ -2151,20 +2151,21 @@ address > * {
   }
 }
 
-/* Showrunner canvas hero: positioned layers streamed from the Content module.
-   The static .hero-copy markup stays as the fallback and is hidden only when
-   the canvas renders successfully. */
-.showrunner-js .hero[data-showrunner-profile] .hero-copy {
-  visibility: hidden;
+/* Showrunner canvas hero: the modular header is the only JS-enabled hero.
+   Static background/copy remain only for no-JS fallback, so there is no
+   hard-coded hero flash while the content module loads. */
+.showrunner-js .hero[data-showrunner-profile] {
+  background-color: var(--navy);
+  background-image: none;
+  background-blend-mode: normal;
 }
 
-.showrunner-js .hero[data-showrunner-profile].sr-fallback-active:not(.sr-canvas-active) .hero-copy {
-  visibility: visible;
+.showrunner-js .hero[data-showrunner-profile] .hero-copy {
+  display: none;
 }
 
 .hero.sr-canvas-active .hero-copy {
   display: none;
-  visibility: hidden;
 }
 
 .sr-hero-screens,
