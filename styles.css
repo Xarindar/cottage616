@@ -2197,7 +2197,7 @@ address > * {
 }
 
 .sr-hero-layers {
-  inset: clamp(96px, 13cqw, 180px) clamp(18px, 5cqw, 72px) clamp(72px, 8cqw, 112px);
+  inset: 0 clamp(18px, 5cqw, 72px);
   z-index: 1;
 }
 
