@@ -228,7 +228,14 @@
   // both resolve to the same page on this static site.
   function normalizeHref(value) {
     const href = String(value || "").trim();
-    if (!href) return "booking.html";
+    if (!href) return `booking.html?profile=${encodeURIComponent(profile)}`;
+    if (/(^|\/)booking\.html(?:[?#]|$)/i.test(href) && !/[?&]profile=/i.test(href)) {
+      const hashIndex = href.indexOf("#");
+      const path = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+      const hash = hashIndex >= 0 ? href.slice(hashIndex) : "";
+      const separator = path.includes("?") ? "&" : "?";
+      return `${path}${separator}profile=${encodeURIComponent(profile)}${hash}`;
+    }
     return href;
   }
 

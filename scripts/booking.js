@@ -1,6 +1,7 @@
 (function () {
   const config = window.BookingClientConfig || {};
   const assets = window.BookingAssets || {};
+  const bookingProfile = resolveBookingProfile();
 
   const state = {
     activeStep: "categories",
@@ -21,8 +22,10 @@
   document.addEventListener("DOMContentLoaded", init);
 
   async function init() {
+    applyBookingProfile();
     cacheElements();
     applyBusinessCopy();
+    applyProfileNavigation();
     bindEvents();
     setStatus("Loading services...");
 
@@ -99,6 +102,27 @@
   function applyBusinessCopy() {
     const business = config.business || {};
     setText("[data-business-heading]", business.heading || "Book with us");
+  }
+
+  function applyBookingProfile() {
+    config.content = { ...(config.content || {}), profile: bookingProfile.key };
+    config.business = {
+      ...(config.business || {}),
+      heading: bookingProfile.heading,
+      name: bookingProfile.name
+    };
+    if (bookingProfile.promotion) {
+      config.promotion = { ...(config.promotion || {}), ...bookingProfile.promotion };
+    }
+    document.body.dataset.bookingProfile = bookingProfile.key;
+    document.title = `${bookingProfile.name} | Booking`;
+  }
+
+  function applyProfileNavigation() {
+    document.querySelectorAll("[data-booking-home]").forEach((link) => link.setAttribute("href", bookingProfile.homeHref));
+    document
+      .querySelectorAll("[data-booking-nav]")
+      .forEach((link) => link.setAttribute("href", `booking.html?profile=${encodeURIComponent(bookingProfile.key)}`));
   }
 
   function bindEvents() {
@@ -689,18 +713,18 @@
 
   async function loadServices(useApi = true) {
     if (!useApi || !config.api?.enabled) {
-      return {
+      return filterCatalogForProfile({
         categories: config.categories || [],
         services: normalizeServices(config.services || [])
-      };
+      });
     }
     const response = await apiRequest("/services");
     const liveCategories = Array.isArray(response.categories) ? response.categories : [];
     const liveServices = response.services || [];
-    return {
+    return filterCatalogForProfile({
       categories: liveCategories,
       services: normalizeServices(liveServices.map(mergeServicePresentation))
-    };
+    });
   }
 
   async function loadContentProfileSafely() {
@@ -712,10 +736,11 @@
           ...profile.bookingPromotion
         };
       }
-      if (profile?.header?.headline) {
+      if (profile?.label) {
         config.business = {
           ...(config.business || {}),
-          heading: profile.header.headline
+          heading: bookingProfile.heading || `Book ${profile.label}`,
+          name: profile.label
         };
         applyBusinessCopy();
       }
@@ -728,8 +753,44 @@
 
   async function loadContentProfile() {
     if (!config.api?.enabled || config.content?.enabled === false) return null;
-    const profile = config.content?.profile || config.contentProfile || "cottage616";
+    const profile = bookingProfile.key;
     return apiRequest(`/content/profile?profile=${encodeURIComponent(profile)}`);
+  }
+
+  function filterCatalogForProfile(catalog) {
+    const allowedCategoryIds = new Set(bookingProfile.categoryIds);
+    if (!allowedCategoryIds.size) return catalog;
+
+    return {
+      categories: (catalog.categories || []).filter((category) =>
+        allowedCategoryIds.has(String(category.id || category.slug || ""))
+      ),
+      services: (catalog.services || []).filter((service) => allowedCategoryIds.has(service.categoryId))
+    };
+  }
+
+  function resolveBookingProfile() {
+    const requested = new URLSearchParams(window.location.search).get("profile") || config.content?.profile || config.contentProfile;
+    const normalized = normalizeBookingProfileKey(requested);
+    const profiles = config.bookingProfiles || {};
+    const selected = profiles[normalized] || profiles.cottage616 || {};
+
+    return {
+      categoryIds: Array.isArray(selected.categoryIds) ? selected.categoryIds.map(String) : [],
+      heading: selected.heading || (normalized === "the-hive" ? "Book The Hive" : "Book Cottage 616"),
+      homeHref: selected.homeHref || (normalized === "the-hive" ? "the-hive.html" : "index.html"),
+      key: normalized,
+      name: selected.name || (normalized === "the-hive" ? "The Hive" : "Cottage 616"),
+      promotion: selected.promotion || null
+    };
+  }
+
+  function normalizeBookingProfileKey(value) {
+    const normalized = String(value || "").trim().toLowerCase();
+    if (normalized === "the-hive" || normalized === "the_hive" || normalized === "thehive" || normalized === "hive") {
+      return "the-hive";
+    }
+    return "cottage616";
   }
 
   async function loadSlots(service) {

@@ -30,10 +30,38 @@
       enabled: true,
       profile: "cottage616"
     },
+    bookingProfiles: {
+      cottage616: {
+        categoryIds: ["events"],
+        heading: "Book Cottage 616",
+        homeHref: "index.html",
+        name: "Cottage 616",
+        promotion: {
+          enabled: true,
+          title: "Let's get this party started",
+          copy: "Request celebrations, showers, and intimate weddings at Cottage 616.",
+          cta: "Start booking",
+          categoryId: "events"
+        }
+      },
+      "the-hive": {
+        categoryIds: ["the-hive"],
+        heading: "Book The Hive",
+        homeHref: "the-hive.html",
+        name: "The Hive",
+        promotion: {
+          enabled: true,
+          title: "Book your Hive reset",
+          copy: "Choose a restorative head-spa appointment inside The Hive at Cottage 616.",
+          cta: "Book The Hive",
+          categoryId: "the-hive"
+        }
+      }
+    },
     promotion: {
       enabled: true,
       title: "Let's get this party started",
-      copy: "Request celebrations, showers, intimate weddings, and Hive head-spa appointments.",
+      copy: "Request celebrations, showers, and intimate weddings at Cottage 616.",
       cta: "Start booking",
       categoryId: "events"
     },
