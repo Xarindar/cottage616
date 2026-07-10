@@ -90,11 +90,13 @@
         const interval = Math.max(2500, Number(hero.slideshow?.autoplayIntervalMs) || 6500);
         const nodes = Array.from(container.querySelectorAll(".sr-hero-screen"));
         let active = 0;
+        let slideNav = null;
 
         const setActiveSlide = (index) => {
           if (!nodes.length) return;
           active = (index + nodes.length) % nodes.length;
           nodes.forEach((node, index) => node.classList.toggle("is-active", index === active));
+          slideNav?.setActive(active);
         };
 
         const startAutoplay = () => {
@@ -102,18 +104,15 @@
           slideshowTimer = window.setInterval(() => setActiveSlide(active + 1), interval);
         };
 
-        root.appendChild(
-          buildSlideNav({
-            onNext: () => {
-              setActiveSlide(active + 1);
-              startAutoplay();
-            },
-            onPrevious: () => {
-              setActiveSlide(active - 1);
-              startAutoplay();
-            }
-          })
-        );
+        slideNav = buildSlideNav({
+          onSelect: (index) => {
+            setActiveSlide(index);
+            startAutoplay();
+          },
+          slideCount: nodes.length
+        });
+        root.appendChild(slideNav.element);
+        slideNav.setActive(active);
         startAutoplay();
       }
       return true;
@@ -125,27 +124,30 @@
     }
   }
 
-  function buildSlideNav({ onNext, onPrevious }) {
-    const nav = document.createElement("div");
+  function buildSlideNav({ onSelect, slideCount }) {
+    const nav = document.createElement("nav");
     nav.className = "sr-hero-nav";
-    nav.setAttribute("aria-label", "Hero slides");
+    nav.setAttribute("aria-label", "Choose hero image");
 
-    const previous = document.createElement("button");
-    previous.className = "sr-hero-nav-button sr-hero-nav-button--previous";
-    previous.type = "button";
-    previous.setAttribute("aria-label", "Previous slide");
-    previous.textContent = "‹";
-    previous.addEventListener("click", onPrevious);
+    const dots = Array.from({ length: slideCount }, (_, index) => {
+      const dot = document.createElement("button");
+      dot.className = "sr-hero-nav-dot";
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Show hero image ${index + 1} of ${slideCount}`);
+      dot.addEventListener("click", () => onSelect(index));
+      nav.appendChild(dot);
+      return dot;
+    });
 
-    const next = document.createElement("button");
-    next.className = "sr-hero-nav-button sr-hero-nav-button--next";
-    next.type = "button";
-    next.setAttribute("aria-label", "Next slide");
-    next.textContent = "›";
-    next.addEventListener("click", onNext);
-
-    nav.append(previous, next);
-    return nav;
+    return {
+      element: nav,
+      setActive(index) {
+        dots.forEach((dot, dotIndex) => {
+          if (dotIndex === index) dot.setAttribute("aria-current", "true");
+          else dot.removeAttribute("aria-current");
+        });
+      }
+    };
   }
 
   // A screen is only canvas-renderable once a real hero image is chosen in

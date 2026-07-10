@@ -2229,48 +2229,59 @@ address > * {
 }
 
 .sr-hero-nav {
-  inset: 0;
-  pointer-events: none;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(16, 45, 66, 0.34);
+  border: 1px solid rgba(255, 253, 248, 0.28);
+  border-radius: 999px;
+  bottom: clamp(16px, 2.4cqw, 26px);
+  box-shadow: 0 8px 24px rgba(7, 21, 31, 0.18);
+  display: flex;
+  gap: 0;
+  left: 50%;
+  padding: 4px 6px;
   position: absolute;
+  transform: translateX(-50%);
   z-index: 3;
 }
 
-.sr-hero-nav-button {
+.sr-hero-nav-dot {
+  appearance: none;
   align-items: center;
-  background: rgba(16, 45, 66, 0.84);
-  border: 1px solid rgba(255, 253, 248, 0.54);
+  background: transparent;
+  border: 0;
   border-radius: 999px;
-  color: var(--paper);
   cursor: pointer;
-  display: inline-flex;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2.25rem;
-  height: 52px;
+  display: flex;
+  height: 30px;
   justify-content: center;
-  line-height: 1;
-  padding: 0 0 5px;
-  pointer-events: auto;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-  width: 52px;
+  padding: 0;
+  width: 30px;
 }
 
-.sr-hero-nav-button:hover,
-.sr-hero-nav-button:focus-visible {
-  background: rgba(16, 45, 66, 0.96);
-  border-color: rgba(255, 253, 248, 0.82);
-  outline: 0;
-  transform: translateY(-50%) scale(1.04);
+.sr-hero-nav-dot::before {
+  background: rgba(255, 253, 248, 0.58);
+  border-radius: 999px;
+  content: "";
+  height: 7px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  width: 7px;
 }
 
-.sr-hero-nav-button--previous {
-  left: clamp(12px, 2vw, 28px);
+.sr-hero-nav-dot:hover::before {
+  background: rgba(255, 253, 248, 0.84);
+  transform: scale(1.18);
 }
 
-.sr-hero-nav-button--next {
-  right: clamp(12px, 2vw, 28px);
+.sr-hero-nav-dot[aria-current="true"]::before {
+  background: var(--paper);
+  box-shadow: 0 1px 8px rgba(255, 253, 248, 0.24);
+  transform: scale(1.35);
+}
+
+.sr-hero-nav-dot:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 1px;
 }
 
 @media (max-width: 720px) {
@@ -2294,8 +2305,7 @@ address > * {
     min-width: 0 !important;
   }
 
-  .sr-hero-nav-button {
-    height: 44px;
-    width: 44px;
+  .sr-hero-nav {
+    bottom: 14px;
   }
 }
