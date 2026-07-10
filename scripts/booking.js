@@ -32,13 +32,16 @@
     try {
       const catalog = await loadServices();
       state.services = catalog.services;
-      state.categories = normalizeCategories([...(catalog.categories || []), ...(config.categories || [])], state.services);
+      state.categories = normalizeCategories(
+        [...(catalog.categories || []), ...filterCategoriesForProfile(config.categories || [])],
+        state.services
+      );
       setStatus("");
     } catch (error) {
       if (config.api?.demoFallback !== false) {
         const fallbackCatalog = await loadServices(false);
         state.services = fallbackCatalog.services;
-        state.categories = normalizeCategories(config.categories || [], state.services);
+        state.categories = normalizeCategories(filterCategoriesForProfile(config.categories || []), state.services);
         setStatus("Using demo services because live services could not load.");
       } else {
         state.services = [];
@@ -762,11 +765,15 @@
     if (!allowedCategoryIds.size) return catalog;
 
     return {
-      categories: (catalog.categories || []).filter((category) =>
-        allowedCategoryIds.has(String(category.id || category.slug || ""))
-      ),
+      categories: filterCategoriesForProfile(catalog.categories || []),
       services: (catalog.services || []).filter((service) => allowedCategoryIds.has(service.categoryId))
     };
+  }
+
+  function filterCategoriesForProfile(categories) {
+    const allowedCategoryIds = new Set(bookingProfile.categoryIds);
+    if (!allowedCategoryIds.size) return categories;
+    return categories.filter((category) => allowedCategoryIds.has(String(category.id || category.slug || "")));
   }
 
   function resolveBookingProfile() {
