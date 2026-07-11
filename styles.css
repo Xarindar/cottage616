@@ -2213,6 +2213,7 @@ address > * {
 .sr-hero-headline {
   font-size: clamp(2.65rem, 5.8cqw, 5.2rem);
   line-height: 1.16;
+  margin-left: -0.06em;
   margin-bottom: 0;
   padding-bottom: 0.08em;
 }
