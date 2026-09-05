@@ -18,7 +18,7 @@
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Cottage 616 home">
         <img class="brand-logo" src="assets/images/logo.svg" alt="">
-        <span>Cottage 616</span>
+        <span data-business-name>Cottage 616</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span></span>
@@ -240,7 +240,7 @@
       <div class="hive-updates" aria-labelledby="hive-updates-title">
         <h2 id="hive-updates-title">Let's stay in touch, gorgeous</h2>
         <p>Sign up for Cottage 616 deals and updates</p>
-        <form class="hive-updates__form" action="mailto:info@cottage616.com" method="post" enctype="text/plain">
+        <form class="hive-updates__form" data-business-email-action action="mailto:info@cottage616.com" method="post" enctype="text/plain">
           <label for="hive-updates-email">Email address</label>
           <div class="hive-updates__field">
             <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
@@ -251,7 +251,7 @@
       <div class="site-footer__logos" aria-label="Site links">
         <a class="brand" href="index.html">
           <img class="brand-logo" src="assets/images/logo.svg" alt="">
-          <span>Cottage 616</span>
+          <span data-business-name>Cottage 616</span>
         </a>
         <span class="site-footer__logo-separator" aria-hidden="true">|</span>
         <a class="site-footer__hive-wordmark" href="the-hive.html" aria-label="The Hive landing page">
@@ -261,14 +261,16 @@
         </a>
       </div>
       <address>
-        <a href="tel:+18702196982">(870) 219-6982</a>
-        <a href="mailto:info@cottage616.com">info@cottage616.com</a>
-        <span>3773 County Road 616, Bay, AR 72411</span>
+        <a data-business-phone href="tel:+18702196982">(870) 219-6982</a>
+        <a data-business-email href="mailto:info@cottage616.com">info@cottage616.com</a>
+        <span data-business-address>3773 County Road 616, Bay, AR 72411</span>
         <span class="site-credit">Site design by Admit One Design Studio</span>
       </address>
+      <div data-business-social class="site-footer__social"></div>
     </footer>
 
     <script src="showrunner-content.js?v=content-profile-10"></script>
     <script src="script.js?v=carousel-loop"></script>
+    <script src="showrunner-business.js?v=1"></script>
   </body>
 </html>
