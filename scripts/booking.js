@@ -268,10 +268,10 @@
 
     const allActive = !state.categoryFocusId;
     els.categoryPills.innerHTML = [
-      `<button class="booking-pill ${allActive ? "is-active" : ""}" type="button" data-pill-category="">All</button>`,
+      `<button class="booking-pill button button--secondary button--small ${allActive ? "is-active" : ""}" type="button" data-pill-category="">All</button>`,
       ...categories.map(
         (category) => `
-          <button class="booking-pill ${state.categoryFocusId === category.id ? "is-active" : ""}" type="button" data-pill-category="${escapeAttribute(category.id)}">
+          <button class="booking-pill button button--secondary button--small ${state.categoryFocusId === category.id ? "is-active" : ""}" type="button" data-pill-category="${escapeAttribute(category.id)}">
             ${escapeHtml(category.name)}
           </button>
         `
@@ -330,7 +330,7 @@
             <td><span class="booking-service-meta">${service.durationMinutes || 0} min</span></td>
             <td><span class="booking-service-meta">${formatPrice(service.priceCents)}</span></td>
             <td><span class="booking-service-detail">${escapeHtml(detail)}</span></td>
-            <td><button class="booking-row-button" type="button" data-service-id="${escapeAttribute(service.id)}">Select</button></td>
+            <td><button class="booking-row-button button button--primary button--small" type="button" data-service-id="${escapeAttribute(service.id)}">Select</button></td>
           </tr>
         `;
       })
@@ -514,7 +514,7 @@
       .map((slot, index) => {
         const selected = state.selectedSlot?.startsAt === slot.startsAt && (state.selectedSlot?.staffId || "") === (slot.staffId || "");
         return `
-          <button class="booking-slot-button ${selected ? "is-selected" : ""}" type="button" data-slot-index="${index}" aria-pressed="${selected}">${formatSlotTime(slot.startsAt)}</button>
+          <button class="booking-slot-button button button--secondary ${selected ? "is-selected" : ""}" type="button" data-slot-index="${index}" aria-pressed="${selected}">${formatSlotTime(slot.startsAt)}</button>
         `;
       })
       .join("");
@@ -629,14 +629,14 @@
 
     const links = [];
     if (bookingResult?.booking?.calendarUrl) {
-      links.push(`<a class="booking-button booking-button-secondary" href="${escapeAttribute(bookingResult.booking.calendarUrl)}">Add to calendar</a>`);
+      links.push(`<a class="booking-button booking-button-secondary button button--secondary" href="${escapeAttribute(bookingResult.booking.calendarUrl)}">Add to calendar</a>`);
     }
     if (bookingResult?.booking?.manageUrl) {
-      links.push(`<a class="booking-button booking-button-secondary" href="${escapeAttribute(bookingResult.booking.manageUrl)}">Manage booking</a>`);
+      links.push(`<a class="booking-button booking-button-secondary button button--secondary" href="${escapeAttribute(bookingResult.booking.manageUrl)}">Manage booking</a>`);
     }
     if (bookingResult?.booking?.formLinks?.length) {
       bookingResult.booking.formLinks.forEach((form) => {
-        links.push(`<a class="booking-button booking-button-secondary" href="${escapeAttribute(form.href)}">${escapeHtml(form.name)}</a>`);
+        links.push(`<a class="booking-button booking-button-secondary button button--secondary" href="${escapeAttribute(form.href)}">${escapeHtml(form.name)}</a>`);
       });
     }
     els.successLinks.innerHTML = links.join("");

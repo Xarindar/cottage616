@@ -342,22 +342,7 @@
 .hive-price-card__details-trigger {
   grid-column: 1;
   justify-self: start;
-  min-height: 44px;
-  min-width: 0;
-  padding: 8px 0;
-  border: 0;
-  color: inherit;
-  background: transparent;
-  cursor: pointer;
-  font: 600 0.875rem/1.4 var(--sans-font);
   text-align: left;
-  text-decoration: underline;
-  text-decoration-color: #b7a27a;
-  text-underline-offset: 4px;
-}
-
-.hive-price-card__details-trigger:hover {
-  text-decoration-color: currentColor;
 }
 
 html:has(.hive-service-dialog) {
@@ -403,19 +388,6 @@ html:has(.hive-service-dialog[open]) {
   margin: 0 0 0 auto;
 }
 
-.hive-service-dialog__close {
-  min-width: 44px;
-  min-height: 44px;
-  padding: 8px 0 8px 8px;
-  border: 0;
-  color: inherit;
-  background: transparent;
-  cursor: pointer;
-  font: 600 0.875rem/1.4 var(--sans-font);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
 .hive-service-dialog__meta {
   display: flex;
   flex-wrap: wrap;
@@ -446,54 +418,11 @@ html:has(.hive-service-dialog[open]) {
 }
 
 .hive-service-dialog__book {
-  display: block;
-  padding: 14px 20px;
-  border-radius: 3px;
-  color: var(--paper);
-  background: var(--deep-blue);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.5;
-  text-align: center;
-  text-decoration: none;
-}
-
-.hive-service-dialog__book:hover {
-  background: var(--navy);
-}
-
-.hive-service-dialog a:focus-visible,
-.hive-service-dialog button:focus-visible {
-  outline: 2px solid #92713b;
-  outline-offset: 4px;
+  width: 100%;
 }
 
 .hive-price-card__book {
-  display: inline-flex;
   grid-column: 2;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 10px 16px;
-  border: 1px solid var(--deep-blue);
-  border-radius: 3px;
-  color: var(--paper);
-  background: var(--deep-blue);
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.4;
-  text-decoration: none;
-  transition: background 150ms ease;
-}
-
-.hive-price-card__book:hover {
-  background: var(--navy);
-}
-
-.hive-price-card__book:focus-visible,
-.hive-price-card__details-trigger:focus-visible {
-  outline: 2px solid #92713b;
-  outline-offset: 4px;
 }
 
 .hive-price-card--botanical {
@@ -687,28 +616,6 @@ html:has(.hive-service-dialog[open]) {
 
 .hive-foot-spa__price strong {
   font: 400 2rem/1.1 var(--display-font);
-}
-
-.hive-foot-spa__book {
-  padding: 14px 20px;
-  border: 1px solid var(--deep-blue);
-  border-radius: 3px;
-  color: var(--paper);
-  background: var(--deep-blue);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.5;
-  text-align: center;
-  text-decoration: none;
-}
-
-.hive-foot-spa__book:hover {
-  background: var(--navy);
-}
-
-.hive-foot-spa__book:focus-visible {
-  outline: 2px solid #92713b;
-  outline-offset: 4px;
 }
 
 @media (max-width: 720px) {

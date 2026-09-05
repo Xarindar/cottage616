@@ -109,7 +109,7 @@ img {
   justify-content: flex-end;
 }
 
-.site-nav a {
+.site-nav a:not(.button) {
   border-radius: 4px;
   color: var(--booking-color-text);
   font-size: 0.95rem;
@@ -118,8 +118,7 @@ img {
   text-decoration: none;
 }
 
-.site-nav a:hover,
-.site-nav .nav-cta {
+.site-nav a:not(.button):hover {
   background: #102d42;
   color: var(--booking-color-page);
 }
@@ -366,19 +365,7 @@ p {
 }
 
 .booking-promo em {
-  align-items: center;
-  background: var(--booking-color-primary);
-  border-radius: 999px;
-  color: var(--booking-color-primary-text);
-  display: inline-flex;
-  font-size: 0.92rem;
   font-style: normal;
-  font-weight: 800;
-  justify-content: center;
-  min-height: 42px;
-  min-width: 112px;
-  padding: 0 16px;
-  white-space: nowrap;
 }
 
 .booking-category-strip-head {
@@ -391,19 +378,6 @@ p {
 
 .booking-category-strip-head h3 {
   font-size: 1.1rem;
-}
-
-.booking-plain-link {
-  background: transparent;
-  border: 0;
-  color: var(--booking-color-muted);
-  cursor: pointer;
-  font-weight: 760;
-  padding: 0;
-}
-
-.booking-plain-link:hover {
-  color: var(--booking-color-accent);
 }
 
 .booking-pill-rail {
@@ -422,37 +396,8 @@ p {
 }
 
 .booking-pill {
-  background: color-mix(in srgb, var(--booking-color-surface-raised) 88%, var(--booking-color-soft));
-  border: 1px solid color-mix(in srgb, var(--booking-color-line) 74%, transparent);
-  border-radius: 999px;
-  color: var(--booking-color-muted);
-  cursor: pointer;
   flex: 0 0 auto;
-  font-weight: 760;
-  min-height: 44px;
-  padding: 0 20px;
   white-space: nowrap;
-}
-
-.booking-pill.is-active {
-  background: var(--booking-color-primary);
-  border-color: var(--booking-color-primary);
-  color: var(--booking-color-primary-text);
-}
-
-.booking-plain-button {
-  background: color-mix(in srgb, var(--booking-color-soft) 72%, white);
-  border: 1px solid color-mix(in srgb, var(--booking-color-line) 88%, transparent);
-  border-radius: 999px;
-  color: var(--booking-color-text);
-  cursor: pointer;
-  font-weight: 760;
-  min-height: 38px;
-  padding: 0 18px;
-}
-
-.booking-plain-button:hover {
-  background: var(--booking-color-surface-raised);
 }
 
 .booking-category-grid {
@@ -683,46 +628,6 @@ p {
   max-width: 290px;
 }
 
-.booking-row-button,
-.booking-button {
-  align-items: center;
-  background: var(--booking-color-primary);
-  border: 1px solid var(--booking-color-primary);
-  border-radius: 999px;
-  color: var(--booking-color-primary-text);
-  cursor: pointer;
-  display: inline-flex;
-  font-weight: 800;
-  justify-content: center;
-  min-height: 42px;
-  min-width: 112px;
-  padding: 0 15px;
-  text-decoration: none;
-}
-
-.booking-row-button:hover,
-.booking-button:hover {
-  background: var(--booking-color-primary-strong);
-  border-color: var(--booking-color-primary-strong);
-}
-
-.booking-button:disabled,
-.booking-row-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
-}
-
-.booking-button-secondary {
-  background: var(--booking-color-surface-raised);
-  border-color: var(--booking-color-line);
-  color: var(--booking-color-text);
-}
-
-.booking-button-secondary:hover {
-  background: var(--booking-color-soft);
-  border-color: var(--booking-color-line);
-}
-
 .booking-button {
   max-width: 100%;
 }
@@ -762,22 +667,9 @@ p {
   gap: 8px;
 }
 
-.booking-week-arrow {
-  align-items: center;
-  background: var(--booking-color-chip);
-  border: 0;
-  border-radius: 999px;
-  cursor: pointer;
-  display: inline-flex;
-  height: 40px;
-  justify-content: center;
-  transition: background-color 160ms ease;
-  width: 40px;
-}
-
 .booking-week-arrow::before {
-  border-bottom: 2px solid var(--booking-color-text);
-  border-left: 2px solid var(--booking-color-text);
+  border-bottom: 1px solid currentColor;
+  border-left: 1px solid currentColor;
   content: "";
   height: 8px;
   margin-left: 4px;
@@ -788,15 +680,6 @@ p {
 .booking-week-arrow-next::before {
   margin-left: -4px;
   transform: rotate(225deg);
-}
-
-.booking-week-arrow:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--booking-color-chip) 76%, var(--booking-color-line));
-}
-
-.booking-week-arrow:disabled {
-  cursor: default;
-  opacity: 0.35;
 }
 
 .booking-calendar-head h3,
@@ -828,7 +711,7 @@ p {
   align-items: center;
   background: var(--booking-color-chip);
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--button-radius);
   color: var(--booking-color-text);
   cursor: pointer;
   display: flex;
@@ -856,7 +739,7 @@ p {
 .booking-date-button strong {
   align-items: center;
   background: var(--booking-color-surface-raised);
-  border-radius: 999px;
+  border-radius: var(--button-radius);
   display: inline-flex;
   font-size: 1rem;
   font-weight: 650;
@@ -900,56 +783,13 @@ p {
 }
 
 .booking-slot-button {
-  align-items: center;
-  background: var(--booking-color-chip);
-  border: 0;
-  border-radius: 999px;
-  color: var(--booking-color-muted);
-  cursor: pointer;
-  display: inline-flex;
   flex: 0 0 auto;
-  font-size: 0.95rem;
-  font-weight: 600;
-  justify-content: center;
-  min-height: 52px;
-  min-width: 106px;
-  padding: 0 26px;
   scroll-snap-align: start;
-  text-align: center;
   white-space: nowrap;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease;
-}
-
-.booking-slot-button.is-selected {
-  background: var(--booking-color-primary);
-  color: var(--booking-color-primary-text);
 }
 
 .booking-earliest-button {
-  align-items: center;
-  background: var(--booking-color-chip);
-  border: 0;
-  border-radius: 999px;
-  color: var(--booking-color-text);
-  cursor: pointer;
-  display: inline-flex;
-  font-weight: 700;
-  justify-content: center;
   justify-self: start;
-  min-height: 46px;
-  padding: 0 22px;
-  transition: background-color 160ms ease;
-}
-
-.booking-earliest-button:hover {
-  background: color-mix(in srgb, var(--booking-color-chip) 76%, var(--booking-color-line));
-}
-
-.booking-earliest-button:disabled {
-  cursor: wait;
-  opacity: 0.62;
 }
 
 .booking-earliest-button[hidden] {
@@ -1323,7 +1163,7 @@ p {
     justify-content: stretch;
   }
 
-  .site-nav a {
+  .site-nav a:not(.button) {
     border-radius: 8px;
   }
 

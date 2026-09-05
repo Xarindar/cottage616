@@ -1,0 +1,186 @@
+/* Shared action styles. Page styles may position buttons, but do not restyle them. */
+:root {
+  --button-ink: var(--navy, #102d42);
+  --button-paper: var(--paper, #fffdf8);
+  --button-hover-ink: var(--deep-blue, #173f5f);
+  --button-soft: color-mix(in srgb, var(--button-ink) 6%, var(--button-paper));
+  --button-border: color-mix(in srgb, var(--button-ink) 45%, transparent);
+  --button-font: var(--sans-font, "Raleway", sans-serif);
+  --button-font-size: 0.875rem;
+  --button-font-size-small: 0.8125rem;
+  --button-font-weight: 600;
+  --button-line-height: 1.4;
+  --button-letter-spacing: 0.015em;
+  --button-radius: 2px;
+  --button-border-width: 1px;
+  --button-height: 48px;
+  --button-height-small: 44px;
+  --button-padding-block: 11px;
+  --button-padding-inline: 22px;
+  --button-padding-inline-small: 16px;
+  --button-padding-block-small: 9px;
+  --button-gap: 12px;
+  --button-focus-width: 2px;
+  --button-focus-offset: 4px;
+  --button-disabled-opacity: 0.45;
+  --button-transition: 160ms ease;
+}
+
+.button {
+  --action-background: var(--button-ink);
+  --action-color: var(--button-paper);
+  --action-border: var(--button-ink);
+  --action-hover-background: var(--button-hover-ink);
+  --action-hover-color: var(--button-paper);
+  --action-hover-border: var(--button-hover-ink);
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap);
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--button-height);
+  padding: var(--button-padding-block) var(--button-padding-inline);
+  border: var(--button-border-width) solid var(--action-border);
+  border-radius: var(--button-radius);
+  color: var(--action-color);
+  background: var(--action-background);
+  box-shadow: none;
+  cursor: pointer;
+  font: var(--button-font-weight) var(--button-font-size)/var(--button-line-height) var(--button-font);
+  letter-spacing: var(--button-letter-spacing);
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  overflow-wrap: anywhere;
+  transition: background-color var(--button-transition), color var(--button-transition), border-color var(--button-transition);
+}
+
+.button--secondary {
+  --action-background: transparent;
+  --action-color: var(--button-ink);
+  --action-border: var(--button-border);
+  --action-hover-background: var(--button-soft);
+  --action-hover-color: var(--button-ink);
+  --action-hover-border: var(--button-ink);
+}
+
+.button--text {
+  --action-background: transparent;
+  --action-color: var(--button-ink);
+  --action-border: transparent;
+  --action-hover-background: transparent;
+  --action-hover-color: var(--button-hover-ink);
+  --action-hover-border: transparent;
+  padding-inline: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.button--inverse {
+  --action-background: var(--button-paper);
+  --action-color: var(--button-ink);
+  --action-border: var(--button-paper);
+  --action-hover-background: var(--cream, #fff8f2);
+  --action-hover-color: var(--button-ink);
+  --action-hover-border: var(--cream, #fff8f2);
+}
+
+.button--small {
+  min-height: var(--button-height-small);
+  padding-block: var(--button-padding-block-small);
+  padding-inline: var(--button-padding-inline-small);
+  font-size: var(--button-font-size-small);
+}
+
+.button--text.button--small {
+  padding-inline: 0;
+}
+
+.button--icon {
+  flex: none;
+  width: var(--button-height-small);
+  min-height: var(--button-height-small);
+  padding: 0;
+}
+
+.button > svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.button:hover:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--action-hover-color);
+  background: var(--action-hover-background);
+  border-color: var(--action-hover-border);
+}
+
+.button:active:not(:disabled):not([aria-disabled="true"]) {
+  border-color: currentColor;
+}
+
+.button:focus-visible {
+  outline: var(--button-focus-width) solid var(--button-ink);
+  outline-offset: var(--button-focus-offset);
+}
+
+.button--inverse:focus-visible {
+  outline-color: var(--button-paper);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: var(--button-disabled-opacity);
+  cursor: not-allowed;
+}
+
+.button[aria-pressed="true"],
+.button.is-active,
+.button.is-selected {
+  --action-background: var(--button-ink);
+  --action-color: var(--button-paper);
+  --action-border: var(--button-ink);
+  --action-hover-background: var(--button-hover-ink);
+  --action-hover-color: var(--button-paper);
+  --action-hover-border: var(--button-hover-ink);
+}
+
+.button[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}
+
+/* Navigation and calendar controls share the same touch target and focus treatment. */
+.menu-toggle {
+  width: var(--button-height-small);
+  height: var(--button-height-small);
+  border-radius: var(--button-radius);
+}
+
+:is(.menu-toggle, .booking-category-card, .booking-promo, .booking-date-button):focus-visible {
+  outline: var(--button-focus-width) solid var(--button-ink);
+  outline-offset: var(--button-focus-offset);
+}
+
+.sr-hero-nav-dot {
+  width: var(--button-height-small);
+  height: var(--button-height-small);
+}
+
+.sr-hero-nav-dot:focus-visible {
+  outline: var(--button-focus-width) solid var(--button-paper);
+  outline-offset: var(--button-focus-offset);
+}
+
+.booking-category-card,
+.booking-promo {
+  border-radius: var(--button-radius);
+}

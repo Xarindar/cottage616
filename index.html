@@ -12,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script>document.documentElement.classList.add("showrunner-js");</script>
-    <link rel="stylesheet" href="styles.css?v=design-credit-20260905">
+    <link rel="stylesheet" href="styles.css?v=shared-buttons-20260905">
+    <link rel="stylesheet" href="styles/buttons.css?v=quiet-luxury-20260905">
   </head>
   <body>
     <header class="site-header">
@@ -34,7 +35,7 @@
         </div>
         <div class="site-nav__group site-nav__group--right">
           <a href="#contact">Contact</a>
-          <a class="nav-cta" href="booking.html?profile=cottage616">Book</a>
+          <a class="nav-cta button button--primary button--small" href="booking.html?profile=cottage616">Book</a>
         </div>
       </nav>
     </header>
@@ -45,36 +46,42 @@
           <h1 data-content-header-headline>Cottage 616</h1>
           <p class="hero-text" data-content-header-copy>A peaceful indoor and outdoor event venue and head-spa retreat for intimate weddings, baby showers, birthday parties, girls' nights, and relaxing appointments surrounded by serene country views.</p>
           <div class="hero-actions" aria-label="Main actions">
-            <a class="button primary" href="booking.html?profile=cottage616" data-content-header-cta>Book Now</a>
+            <a class="button button--primary" href="booking.html?profile=cottage616" data-content-header-cta>Book now</a>
           </div>
         </div>
       </section>
 
       <section class="intro section">
         <div class="intro-heading">
-          <h2>Get to know Cottage 616!</h2>
+          <h2>Get to know us</h2>
         </div>
         <div class="icon-story" aria-label="Cottage 616 highlights">
           <article>
-            <div class="sketch-icon" aria-hidden="true">
-              <img src="assets/images/cottage616/icons/heart.png" alt="">
+            <div class="highlight-label">
+              <div class="sketch-icon" aria-hidden="true">
+                <img src="assets/images/cottage616/icons/heart.png" alt="">
+              </div>
+              <h3>Local love</h3>
             </div>
-            <h3>Local love</h3>
-            <p>Country charm, nearby partners, and a team that knows how to make it feel personal.</p>
+            <p>Our country charm is home grown from a love for our community and the people in it.</p>
           </article>
           <article>
-            <div class="sketch-icon" aria-hidden="true">
-              <img src="assets/images/cottage616/icons/party-popper.svg" alt="">
+            <div class="highlight-label">
+              <div class="sketch-icon" aria-hidden="true">
+                <img src="assets/images/cottage616/icons/party-popper.svg" alt="">
+              </div>
+              <h3>Small venue, lots to love</h3>
             </div>
-            <h3>Small venue, lots to love</h3>
-            <p>Packed with so much love there's no room left for bad vibes.</p>
+            <p>The Cottage is a small but cozy space to celebrate special days and events with the people who matter most.</p>
           </article>
           <article>
-            <div class="sketch-icon" aria-hidden="true">
-              <img src="assets/images/cottage616/icons/stars.svg" alt="">
+            <div class="highlight-label">
+              <div class="sketch-icon" aria-hidden="true">
+                <img src="assets/images/cottage616/icons/stars.svg" alt="">
+              </div>
+              <h3>Indoor / Outdoor</h3>
             </div>
-            <h3>Indoor / Outdoor</h3>
-            <p>Stay comfy inside or enjoy the southern nature in our spacious outdoor area</p>
+            <p>Enjoy indoor comfort or relax under the country stars in our spacious outdoor area.</p>
           </article>
         </div>
       </section>
@@ -99,7 +106,7 @@
               <h2>Celebrations with room to breathe.</h2>
             </div>
           </div>
-          <p class="event-showcase__intro">Host up to 50 guests depending on decorations, setup, and outdoor use. Each celebration can be planned around the flow, add-ons, and timing that best fits the day.</p>
+          <p class="event-showcase__intro">Depending on your decorations, set up, and outdoor use Cottage 616 can comfortably seat up to 50 guests at any given time.</p>
           <div class="service-grid event-card-grid">
             <article class="service-card event-card">
               <div class="service-media event-card__media">
@@ -108,7 +115,7 @@
               <div class="event-card__body">
                 <h3>Birthday Parties</h3>
                 <p>A cozy setting for milestone birthdays, kids' parties, and easy add-ons.</p>
-                <a class="event-card__button" href="booking.html?profile=cottage616">Book Birthday Party</a>
+                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616">Book birthday party</a>
               </div>
             </article>
             <article class="service-card event-card">
@@ -118,7 +125,7 @@
               <div class="event-card__body">
                 <h3>Intimate Weddings</h3>
                 <p>A peaceful backdrop for close-knit ceremonies and relaxed receptions.</p>
-                <a class="event-card__button" href="booking.html?profile=cottage616">Book Wedding</a>
+                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616">Book wedding</a>
               </div>
             </article>
             <article class="service-card event-card">
@@ -128,7 +135,7 @@
               <div class="event-card__body">
                 <h3>Baby Showers</h3>
                 <p>A welcoming place for family, friends, and sweet details.</p>
-                <a class="event-card__button" href="booking.html?profile=cottage616">Book Baby Shower</a>
+                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616">Book baby shower</a>
               </div>
             </article>
           </div>
@@ -176,29 +183,26 @@
         </div>
       </section>
 
-      <section class="section vendor vendor-showcase">
-        <div class="vendor-showcase__photo vendor-showcase__photo--left" aria-hidden="true">
-          <img src="assets/images/vendors/vendor-showcase-party.jpg" alt="">
+      <section id="vendor-partners" class="section vendor-partners" aria-labelledby="vendor-partners-title">
+        <div class="vendor-partners__layout">
+          <div class="vendor-partners__copy">
+            <h2 id="vendor-partners-title">Vendor partners.</h2>
+            <p>Meet our local partners, with exclusive offers for Cottage 616 guests.</p>
+            <ul class="vendor-partners__categories" aria-label="Vendor services">
+              <li>Florals &amp; styling</li>
+              <li>Catering &amp; cakes</li>
+              <li>Soft play rentals</li>
+              <li>Music &amp; photo booths</li>
+            </ul>
+            <a class="vendor-partners__link button button--secondary" href="vendors.html">
+              <span>Explore our vendors</span>
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M3 12h17m-6-6 6 6-6 6"/></svg>
+            </a>
+          </div>
+          <figure class="vendor-partners__image">
+            <img src="assets/images/vendors/vendor-showcase-party.jpg" width="2048" height="1365" loading="lazy" decoding="async" alt="White soft play rentals and pale blue balloons arranged for a celebration">
+          </figure>
         </div>
-        <div class="vendor-showcase__photo vendor-showcase__photo--right" aria-hidden="true">
-          <img src="assets/images/vendors/vendor-showcase-celebration.jpg" alt="">
-        </div>
-        <div class="vendor-showcase__photo vendor-showcase__photo--upper" aria-hidden="true">
-          <img src="assets/images/vendors/vendor-showcase-extra-1.jpg" alt="">
-        </div>
-        <div class="vendor-showcase__photo vendor-showcase__photo--lower" aria-hidden="true">
-          <img src="assets/images/vendors/vendor-showcase-extra-2.jpg" alt="">
-        </div>
-        <div class="vendor-showcase__copy">
-          <h2>Vendor Partners</h2>
-          <p>Use our vendor partners for exclusive discounts and perks!</p>
-          <a class="button primary vendor-button" href="vendors.html">
-            <i class="bx bxs-store-alt" aria-hidden="true"></i>
-            <span>View All Vendors</span>
-            <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
-          </a>
-        </div>
-        <p class="vendor-categories">Soft Play | Catering &amp; Cakes | Party Styling | DJ and Photobooth</p>
       </section>
 
       <section id="team" class="section team">
@@ -230,10 +234,6 @@
         </div>
       </section>
 
-      <section id="book" class="section booking">
-        <h2>Looks pretty good, right?</h2>
-        <a class="button primary" href="booking.html?profile=cottage616">Let's book it!</a>
-      </section>
     </main>
 
     <footer id="contact" class="site-footer">
@@ -244,7 +244,7 @@
           <label for="hive-updates-email">Email address</label>
           <div class="hive-updates__field">
             <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            <button type="submit">Sign Up</button>
+            <button class="button button--inverse button--small" type="submit">Sign up</button>
           </div>
         </form>
       </div>
@@ -269,7 +269,7 @@
       <div data-business-social class="site-footer__social"></div>
     </footer>
 
-    <script src="showrunner-content.js?v=content-profile-10"></script>
+    <script src="showrunner-content.js?v=shared-buttons-20260905"></script>
     <script src="script.js?v=carousel-loop"></script>
     <script src="showrunner-business.js?v=1"></script>
   </body>

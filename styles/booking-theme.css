@@ -11,9 +11,9 @@
   --booking-color-soft: #fff1eb;
   --booking-color-chip: #f7ecdf;
   --booking-color-line: rgba(31, 39, 34, 0.16);
-  --booking-color-primary: #ff7f73;
-  --booking-color-primary-strong: #e76258;
-  --booking-color-primary-text: #173f5f;
+  --booking-color-primary: var(--button-ink);
+  --booking-color-primary-strong: var(--button-hover-ink);
+  --booking-color-primary-text: var(--button-paper);
   --booking-color-accent: #aa8a50;
   --booking-color-accent-soft: #fff7c4;
   --booking-color-danger: #ba2f24;

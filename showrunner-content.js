@@ -202,7 +202,7 @@
       element.textContent = layer.content || "";
     } else if (layer.type === "button") {
       element = document.createElement("a");
-      element.className = "sr-hero-layer sr-hero-cta button primary";
+      element.className = "sr-hero-layer sr-hero-cta button button--primary";
       element.textContent = layer.content || "Book now";
       element.setAttribute("href", normalizeHref(layer.link || "booking.html"));
     }

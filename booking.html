@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles/booking-theme.css" />
-    <link rel="stylesheet" href="./styles/booking.css?v=category-layout-1" />
+    <link rel="stylesheet" href="./styles/booking-theme.css?v=shared-buttons-20260905" />
+    <link rel="stylesheet" href="./styles/booking.css?v=shared-buttons-20260905" />
+    <link rel="stylesheet" href="styles/buttons.css?v=quiet-luxury-20260905">
   </head>
   <body>
     <header class="site-header">
@@ -31,7 +32,7 @@
         </div>
         <div class="site-nav__group site-nav__group--right">
           <a href="index.html#contact">Contact</a>
-          <a class="nav-cta" href="booking.html?profile=cottage616" aria-current="page" data-booking-nav>Book</a>
+          <a class="nav-cta button button--primary button--small" href="booking.html?profile=cottage616" aria-current="page" data-booking-nav>Book</a>
         </div>
       </nav>
     </header>
@@ -60,12 +61,12 @@
                     <strong data-promo-title></strong>
                     <small data-promo-copy></small>
                   </span>
-                  <em data-promo-cta></em>
+                  <em class="button button--inverse button--small" data-promo-cta></em>
                 </button>
 
                 <div class="booking-category-strip-head">
                   <h3>Category</h3>
-                  <button class="booking-plain-link" type="button" data-clear-category-filter>See all</button>
+                  <button class="booking-plain-link button button--text button--small" type="button" data-clear-category-filter>See all</button>
                 </div>
                 <div class="booking-home-search-row">
                   <label class="booking-home-search">
@@ -86,7 +87,7 @@
                   <span class="booking-kicker" data-selected-category-kicker>Services</span>
                   <h2 id="service-title">Choose a service</h2>
                 </div>
-                <button class="booking-plain-button" type="button" data-back-to-categories>Back</button>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-to-categories>Back</button>
               </div>
 
               <div class="booking-service-toolbar">
@@ -128,7 +129,7 @@
                   <span class="booking-kicker" data-selected-service-kicker>Time</span>
                   <h2 id="time-title">Pick a date and time</h2>
                 </div>
-                <button class="booking-plain-button" type="button" data-back-to-services>Back</button>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-to-services>Back</button>
               </div>
 
               <div class="booking-time-controls">
@@ -143,8 +144,8 @@
                   <div class="booking-calendar-head">
                     <h3 data-month-heading>Month</h3>
                     <div class="booking-calendar-nav">
-                      <button class="booking-week-arrow" type="button" data-week-prev aria-label="Earlier dates"></button>
-                      <button class="booking-week-arrow booking-week-arrow-next" type="button" data-week-next aria-label="Later dates"></button>
+                      <button class="booking-week-arrow button button--secondary button--icon" type="button" data-week-prev aria-label="Earlier dates"></button>
+                      <button class="booking-week-arrow booking-week-arrow-next button button--secondary button--icon" type="button" data-week-next aria-label="Later dates"></button>
                     </div>
                     <label class="booking-date-input booking-date-jump">
                       <span>Date</span>
@@ -161,7 +162,7 @@
                   </div>
                   <div class="booking-slot-grid" data-slot-grid></div>
                   <p class="booking-empty" data-slot-empty hidden>No times are available for this date.</p>
-                  <button class="booking-earliest-button" type="button" data-earliest-available hidden>Earliest Available Date</button>
+                  <button class="booking-earliest-button button button--secondary" type="button" data-earliest-available hidden>Earliest available date</button>
                   <div class="booking-status" data-availability-status role="status" aria-live="polite"></div>
                 </div>
               </div>
@@ -173,7 +174,7 @@
                   <span class="booking-kicker">Confirmation</span>
                   <h2 id="confirm-title">Confirm your booking</h2>
                 </div>
-                <button class="booking-plain-button" type="button" data-back-to-time>Back</button>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-to-time>Back</button>
               </div>
 
               <div class="booking-confirm-layout">
@@ -207,7 +208,7 @@
                   </label>
 
                   <div class="booking-form-actions">
-                    <button class="booking-button" type="submit" data-submit-booking>Confirm booking</button>
+                    <button class="booking-button button button--primary" type="submit" data-submit-booking>Confirm booking</button>
                     <p class="booking-form-status" data-form-status role="status" aria-live="polite"></p>
                   </div>
                 </form>
@@ -221,7 +222,7 @@
               <p data-success-copy>Your appointment request has been received.</p>
               <div class="booking-confirm-summary" data-success-summary></div>
               <div class="booking-success-links" data-success-links></div>
-              <button class="booking-button booking-button-secondary" type="button" data-new-booking>Book another service</button>
+              <button class="booking-button booking-button-secondary button button--secondary" type="button" data-new-booking>Book another service</button>
             </section>
           </div>
         </section>
@@ -230,14 +231,14 @@
       <footer class="booking-flow-footer" data-flow-footer hidden>
         <div class="booking-flow-footer-inner">
           <p class="booking-flow-summary" data-flow-summary aria-live="polite"></p>
-          <button class="booking-button booking-flow-review" type="button" data-review-booking disabled>Review booking</button>
+          <button class="booking-button booking-flow-review button button--primary" type="button" data-review-booking disabled>Review booking</button>
         </div>
       </footer>
     </div>
 
     <script src="./scripts/booking-assets.js"></script>
     <script src="./scripts/booking-data.js?v=profile-routing-1"></script>
-    <script src="./scripts/booking.js?v=profile-routing-2"></script>
+    <script src="./scripts/booking.js?v=shared-buttons-20260905"></script>
     <script src="./script.js?v=booking-nav"></script>
     <script src="showrunner-business.js?v=1"></script>
   </body>

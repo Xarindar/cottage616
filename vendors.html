@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=design-credit-20260905">
+    <link rel="stylesheet" href="styles.css?v=shared-buttons-20260905">
+    <link rel="stylesheet" href="vendors.css?v=shared-buttons-20260905">
+    <link rel="stylesheet" href="styles/buttons.css?v=quiet-luxury-20260905">
   </head>
   <body>
     <header class="site-header">
@@ -31,19 +33,111 @@
         </div>
         <div class="site-nav__group site-nav__group--right">
           <a href="index.html#contact">Contact</a>
-          <a class="nav-cta" href="booking.html?profile=cottage616">Book</a>
+          <a class="nav-cta button button--primary button--small" href="booking.html?profile=cottage616">Book</a>
         </div>
       </nav>
     </header>
 
-    <main>
-      <section class="subpage-hero">
-        <h1>Preferred Vendors</h1>
+    <main class="vendors-page">
+      <section class="vendors-hero">
+        <div class="vendors-hero__copy">
+          <p class="eyebrow">Cottage 616 partner guide</p>
+          <h1>Our preferred partners.</h1>
+          <p>Thoughtful, local businesses we trust to bring beautiful celebrations together.</p>
+        </div>
+        <figure class="vendors-hero__image">
+          <img src="assets/images/vendors/vendor-showcase-celebration.jpg" alt="An intimate Cottage 616 celebration set with florals and candles">
+        </figure>
       </section>
 
-      <section class="vendor-intro" aria-label="Local vendor note">
-        <img src="assets/images/vendors/welovelocal.svg" alt="We love local">
-        <p>Cottage 616 loves supporting the locals who support us. We've partnered with select, quality vendors with proven track records of trust and great service to offer exclusive discounts when you book with us. Check out the offers from our fabulous vendors, then use their contact info to book!</p>
+      <section class="vendors-intro section" aria-labelledby="vendors-intro-title">
+        <p class="eyebrow">Made close to home</p>
+        <h2 id="vendors-intro-title">The details deserve good people.</h2>
+        <p>Cottage 616 is proud to work alongside local partners with a genuine eye for hospitality. Explore their offerings and contact them directly to make your celebration your own.</p>
+      </section>
+
+      <section class="vendors-directory section" aria-labelledby="vendors-directory-title">
+        <header class="vendors-directory__heading">
+          <p class="eyebrow">The Cottage edit</p>
+          <h2 id="vendors-directory-title">A few of our favorites.</h2>
+        </header>
+
+        <div class="vendors-directory__grid">
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/fleurish.jpg" alt="Fleurish Flowers floral design"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">Florals</p>
+              <h3>Fleurish Flowers</h3>
+              <p class="vendor-entry__offer">Cottage guests receive free delivery, a toss bouquet, and a groom's boutonniere.</p>
+              <p>Custom floristry for weddings, events, prom, birthdays, and everyday floral moments.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="Fleurish Flowers" data-contact-target="fleurish-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/yessuh-bbq.jpg" alt="Yessuh BBQ and More Catering"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">Catering</p>
+              <h3>Yessuh BBQ &amp; More</h3>
+              <p class="vendor-entry__offer">Cottage guests receive free delivery.</p>
+              <p>BBQ and catering focused on quality food and service for gatherings and celebrations.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="Yessuh BBQ &amp; More" data-contact-target="yessuh-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/victorias-soft-play.jpg" alt="Victoria's Soft Play Rentals setup"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">Soft play rentals</p>
+              <h3>Victoria's Soft Play</h3>
+              <p class="vendor-entry__offer">Cottage guests receive 15% off.</p>
+              <p>Soft play rentals for birthdays, baby showers, and kid-friendly celebration setups.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="Victoria's Soft Play" data-contact-target="victorias-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/biscuits-grace.jpg" alt="Biscuits and Grace LLC catering"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">Catering</p>
+              <h3>Biscuits &amp; Grace LLC</h3>
+              <p class="vendor-entry__offer">Cottage guests receive 15% off.</p>
+              <p>Catering, family-sized take-out meals, and cakes for events and special occasions.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="Biscuits &amp; Grace LLC" data-contact-target="biscuits-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/nea-popup-party-cover.jpg" alt="NEA Pop Up Party balloon styling"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">Party styling</p>
+              <h3>NEA Pop Up Party</h3>
+              <p class="vendor-entry__offer">Cottage guests receive 15% off.</p>
+              <p>Picture-perfect balloon moments, custom garlands, arches, and party styling.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="NEA Pop Up Party" data-contact-target="nea-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/top-notch-entertainment.jpg" alt="Top Notch Entertainment DJ and photobooth"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">DJ &amp; photobooth</p>
+              <h3>Top Notch Entertainment</h3>
+              <p>Professional DJs, photobooths, 360 booth, uplighting, glow parties, karaoke, and event entertainment.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="Top Notch Entertainment" data-contact-target="top-notch-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+
+          <article class="vendor-entry">
+            <figure class="vendor-entry__image"><img src="assets/images/vendors/parties-platters.jpg" alt="Parties and Platters grazing and party food"></figure>
+            <div class="vendor-entry__body">
+              <p class="eyebrow">Grazing &amp; party food</p>
+              <h3>Parties &amp; Platters</h3>
+              <p>Balloon arches, grazing tables, food, and party details for memorable events.</p>
+              <button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="Parties &amp; Platters" data-contact-target="parties-contact">Get in touch <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+        </div>
       </section>
 
       <svg class="svg-defs" aria-hidden="true" focusable="false">
@@ -70,12 +164,12 @@
             <p>Custom floristry for weddings, events, prom, birthdays, and everyday floral moments.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="Fleurish Flowers" data-contact-target="fleurish-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="Fleurish Flowers" data-contact-target="fleurish-contact">Learn more</button>
             <div id="fleurish-contact" class="vendor-contact-data" hidden>
-              <a href="tel:+18702733838">(870) 273-3838</a>
-              <a href="mailto:Fleurishjonesboro@gmail.com">Fleurishjonesboro@gmail.com</a>
+              <a class="button button--secondary" href="tel:+18702733838">(870) 273-3838</a>
+              <a class="button button--secondary" href="mailto:Fleurishjonesboro@gmail.com">Fleurishjonesboro@gmail.com</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.facebook.com/FleurishJonesboro" aria-label="Fleurish Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/FleurishJonesboro" aria-label="Fleurish Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
@@ -99,21 +193,21 @@
             <p>BBQ and catering focused on quality food and service for events, gatherings, and celebrations.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="Yessuh BBQ &amp; More" data-contact-target="yessuh-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="Yessuh BBQ &amp; More" data-contact-target="yessuh-contact">Learn more</button>
             <div id="yessuh-contact" class="vendor-contact-data" hidden>
-              <a href="tel:+18706278811">(870) 627-8811</a>
-              <a href="tel:+18707619169">(870) 761-9169</a>
-              <a href="mailto:yessuhbmc@gmail.com">yessuhbmc@gmail.com</a>
+              <a class="button button--secondary" href="tel:+18706278811">(870) 627-8811</a>
+              <a class="button button--secondary" href="tel:+18707619169">(870) 761-9169</a>
+              <a class="button button--secondary" href="mailto:yessuhbmc@gmail.com">yessuhbmc@gmail.com</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.yessuhbmc.com/" aria-label="Yessuh BBQ website">
+                <a class="icon-link button button--secondary button--icon" href="https://www.yessuhbmc.com/" aria-label="Yessuh BBQ website">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
                   <span>Website</span>
                 </a>
-                <a class="icon-link" href="https://www.facebook.com/YESSUHBMC" aria-label="Yessuh BBQ Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/YESSUHBMC" aria-label="Yessuh BBQ Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
-                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=2401%20E%20Parker%20Rd%2C%20Jonesboro%2C%20AR" aria-label="Navigate to Yessuh BBQ">
+                <a class="location-link button button--secondary button--icon" href="https://www.google.com/maps/search/?api=1&query=2401%20E%20Parker%20Rd%2C%20Jonesboro%2C%20AR" aria-label="Navigate to Yessuh BBQ">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
                   <span>Navigate</span>
                 </a>
@@ -137,11 +231,11 @@
             <p>Soft play rentals for birthdays, baby showers, and kid-friendly celebration setups.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="Victoria's Soft Play" data-contact-target="victorias-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="Victoria's Soft Play" data-contact-target="victorias-contact">Learn more</button>
             <div id="victorias-contact" class="vendor-contact-data" hidden>
-              <a href="mailto:victoriassoftplayrentals@gmail.com">victoriassoftplayrentals@gmail.com</a>
+              <a class="button button--secondary" href="mailto:victoriassoftplayrentals@gmail.com">victoriassoftplayrentals@gmail.com</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.facebook.com/profile.php?id=61573592342903" aria-label="Victoria's Soft Play Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/profile.php?id=61573592342903" aria-label="Victoria's Soft Play Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
@@ -165,19 +259,19 @@
             <p>Catering, family-sized take-out meals, and cakes for events and special occasions.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="Biscuits &amp; Grace LLC" data-contact-target="biscuits-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="Biscuits &amp; Grace LLC" data-contact-target="biscuits-contact">Learn more</button>
             <div id="biscuits-contact" class="vendor-contact-data" hidden>
-              <a href="tel:+18707611779">(870) 761-1779</a>
+              <a class="button button--secondary" href="tel:+18707611779">(870) 761-1779</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.biscuitsandgracellc.com/contact-us" aria-label="Biscuits and Grace website">
+                <a class="icon-link button button--secondary button--icon" href="https://www.biscuitsandgracellc.com/contact-us" aria-label="Biscuits and Grace website">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
                   <span>Website</span>
                 </a>
-                <a class="icon-link" href="https://www.facebook.com/Biscuitsngrace" aria-label="Biscuits and Grace Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/Biscuitsngrace" aria-label="Biscuits and Grace Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
-                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=2704%20Phillip%27s%20Drive%20Suite%20F%2C%20Jonesboro%2C%20AR" aria-label="Navigate to Biscuits and Grace">
+                <a class="location-link button button--secondary button--icon" href="https://www.google.com/maps/search/?api=1&query=2704%20Phillip%27s%20Drive%20Suite%20F%2C%20Jonesboro%2C%20AR" aria-label="Navigate to Biscuits and Grace">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
                   <span>Navigate</span>
                 </a>
@@ -201,11 +295,11 @@
             <p>Picture-perfect balloon moments, custom balloon garlands, arches, and party styling.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="NEA Pop Up Party" data-contact-target="nea-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="NEA Pop Up Party" data-contact-target="nea-contact">Learn more</button>
             <div id="nea-contact" class="vendor-contact-data" hidden>
-              <a href="tel:+18702439284">(870) 243-9284</a>
+              <a class="button button--secondary" href="tel:+18702439284">(870) 243-9284</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.facebook.com/NEAPOPUPPARTY" aria-label="NEA Pop Up Party Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/NEAPOPUPPARTY" aria-label="NEA Pop Up Party Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
@@ -226,16 +320,16 @@
             <p>Professional DJs, photobooths, 360 booth, uplighting, glow parties, karaoke, and event entertainment.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="Top Notch Entertainment" data-contact-target="top-notch-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="Top Notch Entertainment" data-contact-target="top-notch-contact">Learn more</button>
             <div id="top-notch-contact" class="vendor-contact-data" hidden>
-              <a href="tel:+18708974468">(870) 897-4468</a>
-              <a href="mailto:info@topnotchparty.com">info@topnotchparty.com</a>
+              <a class="button button--secondary" href="tel:+18708974468">(870) 897-4468</a>
+              <a class="button button--secondary" href="mailto:info@topnotchparty.com">info@topnotchparty.com</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.topnotchparty.com/" aria-label="Top Notch Entertainment website">
+                <a class="icon-link button button--secondary button--icon" href="https://www.topnotchparty.com/" aria-label="Top Notch Entertainment website">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
                   <span>Website</span>
                 </a>
-                <a class="icon-link" href="https://www.facebook.com/NeaDJPhotobooth" aria-label="Top Notch Entertainment Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/NeaDJPhotobooth" aria-label="Top Notch Entertainment Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
@@ -256,11 +350,11 @@
             <p>Balloon arches, grazing tables, food, and party details for memorable events.</p>
           </div>
           <div class="vendor-details">
-            <button class="vendor-contact-button" type="button" data-contact-modal="Parties &amp; Platters" data-contact-target="parties-contact">Learn More</button>
+            <button class="vendor-contact-button button button--secondary" type="button" data-contact-modal="Parties &amp; Platters" data-contact-target="parties-contact">Learn more</button>
             <div id="parties-contact" class="vendor-contact-data" hidden>
-              <a href="mailto:amymayes@rocketmail.com">amymayes@rocketmail.com</a>
+              <a class="button button--secondary" href="mailto:amymayes@rocketmail.com">amymayes@rocketmail.com</a>
               <div class="vendor-modal-actions">
-                <a class="icon-link" href="https://www.facebook.com/profile.php?id=61587412134868" aria-label="Parties and Platters Facebook">
+                <a class="icon-link button button--secondary button--icon" href="https://www.facebook.com/profile.php?id=61587412134868" aria-label="Parties and Platters Facebook">
                   <span class="facebook-mark" aria-hidden="true">f</span>
                   <span>Facebook</span>
                 </a>
@@ -273,7 +367,7 @@
 
     <div class="modal-overlay" data-contact-overlay hidden>
       <section class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-        <button class="modal-close" type="button" data-contact-close aria-label="Close contact details">x</button>
+        <button class="modal-close button button--secondary button--icon" type="button" data-contact-close aria-label="Close contact details">x</button>
         <p class="eyebrow">Contact</p>
         <h2 id="contact-modal-title">Vendor</h2>
         <div class="modal-contact-links" data-contact-links></div>
@@ -288,7 +382,7 @@
           <label for="hive-updates-email">Email address</label>
           <div class="hive-updates__field">
             <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            <button type="submit">Sign Up</button>
+            <button class="button button--inverse button--small" type="submit">Sign up</button>
           </div>
         </form>
       </div>
