@@ -25,69 +25,26 @@ if (menuToggle && nav) {
   });
 }
 
-const pricingSection = document.querySelector(".hive-pricing");
-const pricingCards = document.querySelector(".hive-pricing-grid");
-const canUsePricingMagnet = window.matchMedia("(min-width: 721px) and (pointer: fine)").matches;
+document.querySelectorAll("[data-hive-details-open]").forEach((button) => {
+  const dialog = document.getElementById(button.dataset.hiveDetailsOpen);
+  if (!(dialog instanceof HTMLDialogElement)) return;
 
-if (pricingSection && pricingCards && canUsePricingMagnet && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  let lastScrollY = window.scrollY;
-  let magnetTimeout = 0;
-  let lastMagnetTime = 0;
-  let isMagnetScrolling = false;
+  button.addEventListener("click", () => dialog.showModal());
 
-  const getPricingCardBox = () => {
-    const visibleCard = Array.from(pricingCards.querySelectorAll(".hive-price-card")).find((card) => {
-      const box = card.getBoundingClientRect();
-      return box.width > 0 && box.height > 0 && box.right > 0 && box.left < window.innerWidth;
-    });
-
-    return visibleCard ? visibleCard.getBoundingClientRect() : pricingCards.getBoundingClientRect();
+  const isOutside = (event) => {
+    const bounds = dialog.getBoundingClientRect();
+    return event.clientX < bounds.left || event.clientX > bounds.right
+      || event.clientY < bounds.top || event.clientY > bounds.bottom;
   };
-
-  const getCenteredCardScrollTop = () => {
-    const cardBox = getPricingCardBox();
-    const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-    const availableHeight = window.innerHeight - headerHeight;
-    return window.scrollY + cardBox.top - headerHeight - ((availableHeight - cardBox.height) / 2);
-  };
-
-  const maybeCenterPricingCards = () => {
-    if (isMagnetScrolling || Date.now() - lastMagnetTime < 1800) {
-      return;
-    }
-
-    const sectionBox = pricingSection.getBoundingClientRect();
-    const cardBox = getPricingCardBox();
-    const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-    const scrollingDown = window.scrollY > lastScrollY;
-    const cardCenter = cardBox.top + (cardBox.height / 2);
-    const viewportCenter = headerHeight + ((window.innerHeight - headerHeight) / 2);
-    const cardCenterDistance = Math.abs(cardCenter - viewportCenter);
-    const sectionMostlyEntered = sectionBox.top < window.innerHeight * 0.28 && sectionBox.bottom > window.innerHeight * 0.76;
-    const cardsCloseEnough = cardBox.top < window.innerHeight * 0.46 && cardBox.bottom > window.innerHeight * 0.58;
-
-    lastScrollY = window.scrollY;
-
-    if (!scrollingDown || !sectionMostlyEntered || !cardsCloseEnough || cardCenterDistance < 38) {
-      return;
-    }
-
-    isMagnetScrolling = true;
-    lastMagnetTime = Date.now();
-    window.scrollTo({
-      top: getCenteredCardScrollTop(),
-      behavior: "smooth",
-    });
-    window.setTimeout(() => {
-      isMagnetScrolling = false;
-    }, 650);
-  };
-
-  window.addEventListener("scroll", () => {
-    window.clearTimeout(magnetTimeout);
-    magnetTimeout = window.setTimeout(maybeCenterPricingCards, 90);
-  }, { passive: true });
-}
+  let startedOutside = false;
+  dialog.addEventListener("pointerdown", (event) => {
+    startedOutside = event.target === dialog && isOutside(event);
+  });
+  dialog.addEventListener("click", (event) => {
+    if (startedOutside && event.target === dialog && isOutside(event)) dialog.close();
+    startedOutside = false;
+  });
+});
 
 const prepareCarouselMedia = (root) => {
   root.querySelectorAll("img").forEach((image) => {
