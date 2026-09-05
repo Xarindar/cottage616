@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Bigbesty preview";
+  src: url("../../assets/shared/fonts/bigbesty.otf") format("opentype");
+  font-display: swap;
+}
+
+:root { color-scheme: light; --navy: #102d42; --paper: #fffdf8; --cream: #fff8f2; --sans-font: system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--navy); background: var(--cream); font: 15px/1.6 var(--sans-font); }
+a { color: inherit; }
+header { padding: 40px clamp(20px, 5vw, 72px) 24px; border-bottom: 1px solid #d8d7d2; }
+h1 { margin: 20px 0 12px; font: 400 clamp(2.5rem, 5vw, 4rem)/1.15 Georgia, serif; }
+header p { color: #5d6f79; }
+.back-link { text-underline-offset: 4px; }
+.library-filters { display: grid; grid-template-columns: minmax(0, 2fr) minmax(150px, 1fr); gap: 20px; max-width: 780px; margin-top: 28px; }
+label { display: grid; gap: 6px; font-weight: 600; }
+input, select { width: 100%; min-width: 0; min-height: 48px; border: 1px solid #83929b; border-radius: 2px; padding: 10px 12px; background: var(--paper); color: inherit; font: inherit; }
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; }
+.library-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 36px; padding: 32px clamp(20px, 5vw, 72px) 80px; }
+nav { position: sticky; top: 20px; align-self: start; max-height: calc(100vh - 40px); overflow: auto; }
+nav a { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; font-size: 0.75rem; text-decoration: none; overflow-wrap: anywhere; }
+nav a:hover { text-decoration: underline; }
+nav span { color: #5d6f79; }
+section { margin-bottom: 46px; scroll-margin-top: 20px; }
+h2 { padding-bottom: 12px; border-bottom: 1px solid #d8d7d2; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 20px; }
+.asset-card { min-width: 0; border: 1px solid #dedbd3; background: var(--paper); }
+.asset-preview { display: grid; height: 180px; padding: 18px; place-items: center; background: #efebe3; }
+.asset-preview img { width: 100%; height: 144px; object-fit: contain; }
+.asset-card__copy { padding: 16px; }
+h3 { margin: 0; font-size: 0.86rem; font-weight: 600; overflow-wrap: anywhere; }
+h3 a { text-decoration: none; }
+h3 a:hover { text-decoration: underline; }
+.asset-card p { margin: 10px 0 16px; font-size: 0.75rem; color: #5d6f79; }
+.font-sample { font: 2rem/1.2 "Bigbesty preview", cursive; }
+.copy-status { position: fixed; bottom: 0; left: 0; right: 0; margin: 0; padding: 10px 20px; background: var(--navy); color: var(--paper); overflow-wrap: anywhere; }
+.copy-status:empty { display: none; }
+[hidden] { display: none !important; }
+@media (max-width: 800px) { .library-layout { grid-template-columns: 1fr; } nav { position: static; max-height: 180px; padding-bottom: 16px; border-bottom: 1px solid #d8d7d2; } }
+@media (max-width: 480px) { .library-filters { grid-template-columns: 1fr; } }

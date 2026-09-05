@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Static file server for the Cottage 616 site under /cottage616."""
 import http.server
+import json
 import os
+from urllib.parse import quote, unquote, urlsplit
 
 PORT = int(os.environ.get("PORT", 8083))
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT = REPO_ROOT
 PREFIX = "/cottage616"
+with open(os.path.join(REPO_ROOT, "deploy", "asset-redirects.json"), encoding="utf-8") as redirects_file:
+    ASSET_REDIRECTS = json.load(redirects_file)
 
 
 class CottageHandler(http.server.SimpleHTTPRequestHandler):
@@ -29,6 +33,22 @@ class CottageHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Location", PREFIX + "/")
         self.end_headers()
 
+    def _redirect_legacy_asset(self):
+        stripped = self._stripped_path()
+        if stripped is None:
+            return False
+        target = ASSET_REDIRECTS.get(unquote(stripped).lstrip("/"))
+        if not target:
+            return False
+        location = PREFIX + "/" + quote(target, safe="/")
+        query = urlsplit(self.path).query
+        if query:
+            location += "?" + query
+        self.send_response(308)
+        self.send_header("Location", location)
+        self.end_headers()
+        return True
+
     def end_headers(self):
         stripped = self._stripped_path() or self._request_path()
         _, ext = os.path.splitext(stripped)
@@ -42,11 +62,15 @@ class CottageHandler(http.server.SimpleHTTPRequestHandler):
         if self._request_path() == PREFIX:
             self._redirect_prefix_root()
             return
+        if self._redirect_legacy_asset():
+            return
         super().do_GET()
 
     def do_HEAD(self):
         if self._request_path() == PREFIX:
             self._redirect_prefix_root()
+            return
+        if self._redirect_legacy_asset():
             return
         super().do_HEAD()
 

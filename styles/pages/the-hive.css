@@ -3,7 +3,7 @@
   --soft-yellow: #fff0bd;
   --pink: #ff7f73;
   --soft-pink: #ffe2df;
-  --hive-hex-mask: url("assets/images/the-hive/hex-shape.svg");
+  --hive-hex-mask: url("../../assets/shared/icons/shapes/hexagon.svg");
 }
 
 .brand--hive {
@@ -25,7 +25,7 @@
 
 .hive-hero {
   background-color: rgba(16, 45, 66, 0.68);
-  background-image: url("assets/images/the-hive/rustic_salon_hero_fast.webp");
+  background-image: url("../../assets/hive/photos/treatments/head-spa-1280w.webp");
   background-position: center 45%;
   background-blend-mode: multiply;
 }
@@ -811,7 +811,7 @@ html:has(.hive-service-dialog[open]) {
 .hive-cta::after {
   position: absolute;
   inset: 0;
-  background-image: url("assets/images/the-hive/hex-grid.svg");
+  background-image: url("../../assets/hive/textures/patterns/honeycomb-grid.svg");
   background-position: center;
   background-repeat: repeat;
   background-size: clamp(520px, 64vw, 920px) auto;

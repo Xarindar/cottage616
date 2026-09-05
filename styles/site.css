@@ -163,7 +163,7 @@ a {
   padding: clamp(96px, 13vw, 180px) clamp(18px, 5vw, 72px) clamp(72px, 8vw, 112px);
   color: var(--paper);
   background-color: rgba(16, 45, 66, 0.78);
-  background-image: url("assets/cottage616_hero_fast.webp");
+  background-image: url("../assets/cottage-616/photos/venue/neon-sign-1280w.webp");
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
@@ -591,17 +591,17 @@ main section[id] {
 }
 
 .event-icon-cake {
-  --event-icon-url: url("assets/images/events/birthday-cake.svg");
+  --event-icon-url: url("../assets/cottage-616/icons/events/birthday-cake.svg");
 }
 
 .event-icon-rings {
-  --event-icon-url: url("assets/images/events/wedding-rings.svg");
+  --event-icon-url: url("../assets/cottage-616/icons/events/wedding-rings.svg");
   width: 60%;
   height: 60%;
 }
 
 .event-icon-bear {
-  --event-icon-url: url("assets/images/events/baby-bear.svg");
+  --event-icon-url: url("../assets/cottage-616/icons/events/baby-bear.svg");
   width: 56%;
   height: 56%;
 }
@@ -1123,7 +1123,7 @@ main section[id] {
   gap: clamp(18px, 3vw, 30px);
   padding-top: clamp(20px, 4vw, 42px);
   background: var(--paper);
-  background-image: url("assets/textures/natural-paper.png");
+  background-image: url("../assets/shared/textures/paper/natural-paper.png");
 }
 
 .vendor-card {

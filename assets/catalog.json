@@ -1,0 +1,1101 @@
+[
+  {
+    "path": "assets/cottage-616/branding/symbol.svg",
+    "folder": "cottage-616/branding",
+    "bytes": 7593,
+    "usedBy": [
+      "booking.html",
+      "index.html",
+      "scripts/booking/assets.js",
+      "the-hive.html",
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/cottage-616/symbol.svg",
+      "assets/images/logo.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/branding/wordmark.jpg",
+    "folder": "cottage-616/branding",
+    "bytes": 77704,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/branding/cottage-616/wordmark.jpg",
+      "assets/spa.jpg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/baby-bear.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 16927,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": [
+      "assets/icons/events/baby-bear.svg",
+      "assets/images/events/baby-bear.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/birthday-cake.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 240723,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": [
+      "assets/icons/events/birthday-cake.svg",
+      "assets/images/events/birthday-cake.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/birthday-dog.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 48266,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/events/birthday-dog.svg",
+      "assets/images/events/birthday-dog.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/graduation-book.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 18292,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/events/graduation-book.svg",
+      "assets/images/events/graduation-book.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/graduation-cap.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 16949,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/events/graduation-cap.svg",
+      "assets/images/events/graduation-cap.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/heart-hands.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 4712,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/events/heart-hands.svg",
+      "assets/images/events/heart-hands-icon.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/wedding-couple.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 36639,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/events/wedding-couple.svg",
+      "assets/images/events/wedding-couple.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/events/wedding-rings.svg",
+    "folder": "cottage-616/icons/events",
+    "bytes": 7342,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": [
+      "assets/icons/events/wedding-rings.svg",
+      "assets/images/events/wedding-rings.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/highlights/heart.png",
+    "folder": "cottage-616/icons/highlights",
+    "bytes": 46762,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/icons/cottage-616/heart.png",
+      "assets/images/cottage616/icons/heart.png"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/highlights/heart.svg",
+    "folder": "cottage-616/icons/highlights",
+    "bytes": 366,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/cottage-616/heart.svg",
+      "assets/images/cottage616/icons/heart.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/highlights/party-popper.svg",
+    "folder": "cottage-616/icons/highlights",
+    "bytes": 1540,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/icons/cottage-616/party-popper.svg",
+      "assets/images/cottage616/icons/party-popper.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/icons/highlights/stars.svg",
+    "folder": "cottage-616/icons/highlights",
+    "bytes": 3881,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/icons/cottage-616/stars.svg",
+      "assets/images/cottage616/icons/stars.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/illustrations/highlights/celebration.svg",
+    "folder": "cottage-616/illustrations/highlights",
+    "bytes": 19275,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/cottage-616/celebration.svg",
+      "assets/images/home-strip/celebration.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/illustrations/highlights/head-spa.svg",
+    "folder": "cottage-616/illustrations/highlights",
+    "bytes": 52633,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/cottage-616/head-spa.svg",
+      "assets/images/home-strip/spa.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/illustrations/highlights/local-love.svg",
+    "folder": "cottage-616/illustrations/highlights",
+    "bytes": 10285,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/cottage-616/local-love.svg",
+      "assets/images/home-strip/local-love.svg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/cards/birthday-480w.webp",
+    "folder": "cottage-616/photos/events/cards",
+    "bytes": 17474,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/cards/birthday-480w.webp",
+      "assets/images/events/event-card-birthday-fast.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/cards/shower-480w.webp",
+    "folder": "cottage-616/photos/events/cards",
+    "bytes": 15352,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/cards/shower-480w.webp",
+      "assets/images/events/event-card-shower-fast.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/cards/wedding-480w.webp",
+    "folder": "cottage-616/photos/events/cards",
+    "bytes": 14698,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/cards/wedding-480w.webp",
+      "assets/images/events/event-card-wedding-fast.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/feature/celebration-tablescape-760w.webp",
+    "folder": "cottage-616/photos/events/feature",
+    "bytes": 40602,
+    "usedBy": [
+      "index.html",
+      "scripts/booking/assets.js"
+    ],
+    "previousPaths": [
+      "assets/images/events/events-showcase-fast.webp",
+      "assets/images/events/feature/celebration-tablescape-760w.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/birthday.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 136620,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-birthday.webp",
+      "assets/images/events/gallery/birthday.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/cake.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 169978,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-cake.webp",
+      "assets/images/events/gallery/cake.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/celebration.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 141840,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-celebration.webp",
+      "assets/images/events/gallery/celebration.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/cocktail.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 135172,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-cocktail.webp",
+      "assets/images/events/gallery/cocktail.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/dinner.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 139160,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-dinner.webp",
+      "assets/images/events/gallery/dinner.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/girls-night.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 138968,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-girls-night.webp",
+      "assets/images/events/gallery/girls-night.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/lounge.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 140518,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-lounge.webp",
+      "assets/images/events/gallery/lounge.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/rehearsal.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 154732,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-rehearsal.webp",
+      "assets/images/events/gallery/rehearsal.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/shower.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 159838,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-shower.webp",
+      "assets/images/events/gallery/shower.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/events/gallery/wedding.webp",
+    "folder": "cottage-616/photos/events/gallery",
+    "bytes": 157454,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/events/event-strip-wedding.webp",
+      "assets/images/events/gallery/wedding.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/venue/entrance-bench.jpg",
+    "folder": "cottage-616/photos/venue",
+    "bytes": 682232,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/gallery.jpg",
+      "assets/images/cottage-616/venue/entrance-bench.jpg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/venue/lawn-at-sunset.jpg",
+    "folder": "cottage-616/photos/venue",
+    "bytes": 661363,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/hero.jpg",
+      "assets/images/cottage-616/venue/lawn-at-sunset.jpg"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/venue/neon-sign-1280w.webp",
+    "folder": "cottage-616/photos/venue",
+    "bytes": 58292,
+    "usedBy": [
+      "index.html",
+      "scripts/booking/assets.js",
+      "styles/site.css"
+    ],
+    "previousPaths": [
+      "assets/cottage616_hero_fast.webp",
+      "assets/images/cottage-616/venue/neon-sign-1280w.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/photos/venue/neon-sign-1440w.webp",
+    "folder": "cottage-616/photos/venue",
+    "bytes": 180190,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/cottage616_hero_q70.webp",
+      "assets/images/cottage-616/venue/neon-sign-1440w.webp"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/sources/events/cards/birthday.png",
+    "folder": "cottage-616/sources/events/cards",
+    "bytes": 2074434,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/events/event-card-birthday.png",
+      "assets/sources/events/cards/birthday.png"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/sources/events/cards/shower.png",
+    "folder": "cottage-616/sources/events/cards",
+    "bytes": 2147885,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/events/event-card-shower.png",
+      "assets/sources/events/cards/shower.png"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/sources/events/cards/wedding.png",
+    "folder": "cottage-616/sources/events/cards",
+    "bytes": 2190398,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/events/event-card-wedding.png",
+      "assets/sources/events/cards/wedding.png"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/sources/events/feature/celebration-tablescape.png",
+    "folder": "cottage-616/sources/events/feature",
+    "bytes": 2116624,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/events/events-showcase-generated.png",
+      "assets/sources/events/feature/celebration-tablescape.png"
+    ]
+  },
+  {
+    "path": "assets/cottage-616/sources/venue/neon-sign-original.jpg",
+    "folder": "cottage-616/sources/venue",
+    "bytes": 521679,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/hero-facebook.jpg",
+      "assets/sources/cottage-616/venue/neon-sign-original.jpg"
+    ]
+  },
+  {
+    "path": "assets/hive/branding/honeycomb-symbol.webp",
+    "folder": "hive/branding",
+    "bytes": 149810,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/branding/the-hive/honeycomb-symbol.webp",
+      "assets/images/the-hive/hive-graphic-logo.webp"
+    ]
+  },
+  {
+    "path": "assets/hive/branding/logo.png",
+    "folder": "hive/branding",
+    "bytes": 337610,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/branding/the-hive/logo.png",
+      "assets/images/cottage616/ChatGPT Image Sep 5, 2026, 01_46_02 PM.png",
+      "assets/images/the-hive/hive-logo.png"
+    ]
+  },
+  {
+    "path": "assets/hive/branding/symbol.svg",
+    "folder": "hive/branding",
+    "bytes": 4233,
+    "usedBy": [
+      "index.html",
+      "the-hive.html",
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/the-hive/symbol.svg",
+      "assets/images/the-hive/hive-logo.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/benefits/circulation.svg",
+    "folder": "hive/icons/benefits",
+    "bytes": 396,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/icons/the-hive/benefits/circulation.svg",
+      "assets/images/the-hive/benefit-circulation.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/benefits/oil-balance.svg",
+    "folder": "hive/icons/benefits",
+    "bytes": 394,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/icons/the-hive/benefits/oil-balance.svg",
+      "assets/images/the-hive/benefit-oil-balance.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/benefits/relaxation.svg",
+    "folder": "hive/icons/benefits",
+    "bytes": 440,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/icons/the-hive/benefits/relaxation.svg",
+      "assets/images/the-hive/benefit-relaxation.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/benefits/scalp-clarity.svg",
+    "folder": "hive/icons/benefits",
+    "bytes": 406,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/icons/the-hive/benefits/scalp-clarity.svg",
+      "assets/images/the-hive/benefit-scalp-clarity.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/brush.svg",
+    "folder": "hive/icons/services",
+    "bytes": 11903,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/brush.svg",
+      "assets/images/the-hive/icon-brush.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/candle.svg",
+    "folder": "hive/icons/services",
+    "bytes": 3800,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/candle.svg",
+      "assets/images/the-hive/icon-candle.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/drop.svg",
+    "folder": "hive/icons/services",
+    "bytes": 538,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/drop.svg",
+      "assets/images/the-hive/icon-drop.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/eyemask.svg",
+    "folder": "hive/icons/services",
+    "bytes": 5435,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/eyemask.svg",
+      "assets/images/the-hive/icon-eyemask.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/heart-hands.svg",
+    "folder": "hive/icons/services",
+    "bytes": 4717,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/heart-hands.svg",
+      "assets/images/the-hive/icon-heart-hands.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/lotion.svg",
+    "folder": "hive/icons/services",
+    "bytes": 3695,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/lotion.svg",
+      "assets/images/the-hive/icon-lotion.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/oil.svg",
+    "folder": "hive/icons/services",
+    "bytes": 4563,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/oil.svg",
+      "assets/images/the-hive/icon-oil.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/plant.svg",
+    "folder": "hive/icons/services",
+    "bytes": 1021,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/plant.svg",
+      "assets/images/the-hive/icon-plant.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/robe.svg",
+    "folder": "hive/icons/services",
+    "bytes": 1348,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/robe.svg",
+      "assets/images/the-hive/icon-robe.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/steam.svg",
+    "folder": "hive/icons/services",
+    "bytes": 1006,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/steam.svg",
+      "assets/images/the-hive/icon-steam.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/stone-stack.svg",
+    "folder": "hive/icons/services",
+    "bytes": 4828,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/stone-stack.svg",
+      "assets/images/the-hive/icon-stone-stack.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/towel-alt.svg",
+    "folder": "hive/icons/services",
+    "bytes": 1587,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/towel-alt.svg",
+      "assets/images/the-hive/icon-towel-alt.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/icons/services/towel.svg",
+    "folder": "hive/icons/services",
+    "bytes": 3973,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/icons/the-hive/services/towel.svg",
+      "assets/images/the-hive/icon-towel.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/illustrations/bee.svg",
+    "folder": "hive/illustrations",
+    "bytes": 6046,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/illustrations/the-hive/bee.svg",
+      "assets/images/the-hive/bee.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/illustrations/honey-dipper.svg",
+    "folder": "hive/illustrations",
+    "bytes": 11633,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/hive/illustrations/honey-want.svg",
+      "assets/illustrations/the-hive/honey-want.svg",
+      "assets/images/the-hive/honey-want.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/illustrations/honey-pot.svg",
+    "folder": "hive/illustrations",
+    "bytes": 17244,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/illustrations/the-hive/honey-pot.svg",
+      "assets/images/the-hive/honeypot.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/illustrations/honeycomb.svg",
+    "folder": "hive/illustrations",
+    "bytes": 15140,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/the-hive/honeycomb.svg",
+      "assets/images/the-hive/honeycomb.svg"
+    ]
+  },
+  {
+    "path": "assets/hive/photos/products/amika-products.jpg",
+    "folder": "hive/photos/products",
+    "bytes": 92506,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/images/the-hive/products/amika-products.jpg",
+      "assets/spa2.jpg"
+    ]
+  },
+  {
+    "path": "assets/hive/photos/team/deanna.jpg",
+    "folder": "hive/photos/team",
+    "bytes": 720455,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/images/the-hive/deanna-head-spa-specialist.jpg",
+      "assets/images/the-hive/team/deanna.jpg"
+    ]
+  },
+  {
+    "path": "assets/hive/photos/treatments/head-spa-1280w.webp",
+    "folder": "hive/photos/treatments",
+    "bytes": 24926,
+    "usedBy": [
+      "scripts/booking/assets.js",
+      "styles/pages/the-hive.css",
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/images/the-hive/rustic_salon_hero_fast.webp",
+      "assets/images/the-hive/treatments/head-spa-1280w.webp"
+    ]
+  },
+  {
+    "path": "assets/hive/photos/treatments/head-spa-1440w.webp",
+    "folder": "hive/photos/treatments",
+    "bytes": 57982,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/the-hive/rustic_salon_hero_1440w.webp",
+      "assets/images/the-hive/treatments/head-spa-1440w.webp"
+    ]
+  },
+  {
+    "path": "assets/hive/photos/treatments/scalp-rinse.jpg",
+    "folder": "hive/photos/treatments",
+    "bytes": 87641,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/images/the-hive/treatments/scalp-rinse.jpg",
+      "assets/spa1.jpg"
+    ]
+  },
+  {
+    "path": "assets/hive/textures/cork/natural-cork.jpg",
+    "folder": "hive/textures/cork",
+    "bytes": 615548,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/the-hive/cork-texture.jpg",
+      "assets/textures/cork/natural-cork.jpg"
+    ]
+  },
+  {
+    "path": "assets/hive/textures/patterns/honeycomb-grid.svg",
+    "folder": "hive/textures/patterns",
+    "bytes": 79693,
+    "usedBy": [
+      "styles/pages/the-hive.css",
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/images/the-hive/hex-grid.svg",
+      "assets/textures/patterns/honeycomb-grid.svg"
+    ]
+  },
+  {
+    "path": "assets/shared/fonts/bigbesty.otf",
+    "folder": "shared/fonts",
+    "bytes": 30832,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/fonts/Bigbesty.otf",
+      "assets/fonts/bigbesty.otf"
+    ]
+  },
+  {
+    "path": "assets/shared/icons/shapes/hexagon.svg",
+    "folder": "shared/icons/shapes",
+    "bytes": 968,
+    "usedBy": [
+      "styles/pages/the-hive.css"
+    ],
+    "previousPaths": [
+      "assets/icons/shared/shapes/hexagon.svg",
+      "assets/images/events/hex-shape.svg",
+      "assets/images/the-hive/hex-shape.svg"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-01.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 77632,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-01.png",
+      "assets/images/the-hive/pins/pushpin-angle-1.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-02.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 89714,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-02.png",
+      "assets/images/the-hive/pins/pushpin-angle-2.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-03.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 126903,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-03.png",
+      "assets/images/the-hive/pins/pushpin-angle-3.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-04.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 120377,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-04.png",
+      "assets/images/the-hive/pins/pushpin-angle-4.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-05.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 111521,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-05.png",
+      "assets/images/the-hive/pins/pushpin-angle-5.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-06.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 142179,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-06.png",
+      "assets/images/the-hive/pins/pushpin-angle-6.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-07.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 135652,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-07.png",
+      "assets/images/the-hive/pins/pushpin-angle-7.png"
+    ]
+  },
+  {
+    "path": "assets/shared/illustrations/pushpins/pushpin-angle-08.png",
+    "folder": "shared/illustrations/pushpins",
+    "bytes": 130991,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/shared/pushpins/pushpin-angle-08.png",
+      "assets/images/the-hive/pins/pushpin-angle-8.png"
+    ]
+  },
+  {
+    "path": "assets/shared/textures/linen/white-linen.png",
+    "folder": "shared/textures/linen",
+    "bytes": 466,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/textures/linen/white-linen.png",
+      "assets/textures/white-linen.png"
+    ]
+  },
+  {
+    "path": "assets/shared/textures/paper/natural-paper.png",
+    "folder": "shared/textures/paper",
+    "bytes": 101491,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": [
+      "assets/textures/natural-paper.png",
+      "assets/textures/paper/natural-paper.png"
+    ]
+  },
+  {
+    "path": "assets/shared/textures/paper/paper-fibers.png",
+    "folder": "shared/textures/paper",
+    "bytes": 72778,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/textures/paper-fibers.png",
+      "assets/textures/paper/paper-fibers.png"
+    ]
+  },
+  {
+    "path": "assets/vendors/illustrations/heart-card.svg",
+    "folder": "vendors/illustrations",
+    "bytes": 1830,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/vendors/heart-card.svg",
+      "assets/images/vendors/heart-card.svg"
+    ]
+  },
+  {
+    "path": "assets/vendors/illustrations/heart-outline.svg",
+    "folder": "vendors/illustrations",
+    "bytes": 1282,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/vendors/heart-outline.svg",
+      "assets/images/vendors/heart-only.svg"
+    ]
+  },
+  {
+    "path": "assets/vendors/illustrations/we-love-local.svg",
+    "folder": "vendors/illustrations",
+    "bytes": 8733,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/illustrations/vendors/we-love-local.svg",
+      "assets/images/vendors/welovelocal.svg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/biscuits-and-grace.jpg",
+    "folder": "vendors/logos",
+    "bytes": 21397,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/vendors/biscuits-and-grace.jpg",
+      "assets/images/vendors/biscuits-grace.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/fleurish-flowers.jpg",
+    "folder": "vendors/logos",
+    "bytes": 71811,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/vendors/fleurish-flowers.jpg",
+      "assets/images/vendors/fleurish.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/nea-pop-up-party-banner.jpg",
+    "folder": "vendors/logos",
+    "bytes": 104824,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/vendors/nea-pop-up-party-banner.jpg",
+      "assets/images/vendors/nea-popup-party-cover.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/nea-pop-up-party.jpg",
+    "folder": "vendors/logos",
+    "bytes": 76380,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/branding/vendors/nea-pop-up-party.jpg",
+      "assets/images/vendors/nea-popup-party.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/top-notch-entertainment.jpg",
+    "folder": "vendors/logos",
+    "bytes": 51375,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/vendors/top-notch-entertainment.jpg",
+      "assets/images/vendors/top-notch-entertainment.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/victorias-soft-play.jpg",
+    "folder": "vendors/logos",
+    "bytes": 33751,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/vendors/victorias-soft-play.jpg",
+      "assets/images/vendors/victorias-soft-play.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/logos/yessuh-bbq.jpg",
+    "folder": "vendors/logos",
+    "bytes": 43596,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/branding/vendors/yessuh-bbq.jpg",
+      "assets/images/vendors/yessuh-bbq.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/photos/first-birthday-balloon-backdrop.jpg",
+    "folder": "vendors/photos",
+    "bytes": 387296,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/vendors/first-birthday-balloon-backdrop.jpg",
+      "assets/images/vendors/vendor-showcase-extra-1.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/photos/parties-and-platters/grazing-table.jpg",
+    "folder": "vendors/photos/parties-and-platters",
+    "bytes": 139221,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/images/vendors/parties-and-platters/grazing-table.jpg",
+      "assets/images/vendors/parties-platters.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/photos/photo-booth-guests.jpg",
+    "folder": "vendors/photos",
+    "bytes": 88708,
+    "usedBy": [],
+    "previousPaths": [
+      "assets/images/vendors/photo-booth-guests.jpg",
+      "assets/images/vendors/vendor-showcase-extra-2.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/photos/soft-play-rental-setup.jpg",
+    "folder": "vendors/photos",
+    "bytes": 838797,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/images/vendors/soft-play-rental-setup.jpg",
+      "assets/images/vendors/vendor-showcase-party.jpg"
+    ]
+  },
+  {
+    "path": "assets/vendors/photos/sympathy-floral-arrangement.jpg",
+    "folder": "vendors/photos",
+    "bytes": 349576,
+    "usedBy": [
+      "vendors.html"
+    ],
+    "previousPaths": [
+      "assets/images/vendors/sympathy-floral-arrangement.jpg",
+      "assets/images/vendors/vendor-showcase-celebration.jpg"
+    ]
+  }
+]

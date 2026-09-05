@@ -225,7 +225,7 @@
       els.promoCard.hidden = true;
       return;
     }
-    const image = promo.imageUrl || assets.promoImage || assets.fallbackCategoryImage || "";
+    const image = normalizeImageUrl(promo.imageUrl || assets.promoImage || assets.fallbackCategoryImage || "");
     els.promoCard.hidden = false;
     els.promoCard.style.setProperty("--promo-image", `url("${String(image).replace(/"/g, "%22")}")`);
     els.promoTitle.textContent = promo.title || "Book your next visit";
@@ -313,7 +313,7 @@
     els.serviceList.innerHTML = services
       .map((service) => {
         const detail = service.requestOnly ? "Request only" : service.location || "Online booking";
-        const image = service.imageUrl || "";
+        const image = normalizeImageUrl(service.imageUrl);
         return `
           <tr>
             <td>
@@ -896,7 +896,8 @@
       const apiBase = String(config.api?.baseUrl || "").trim();
       if (/^https?:\/\//i.test(apiBase)) return new URL(url, apiBase).toString();
     }
-    return url;
+    // CSS custom-property URLs otherwise resolve from the consuming stylesheet.
+    return new URL(url, document.baseURI).href;
   }
 
   function normalizeServices(services) {
@@ -1070,7 +1071,7 @@
   }
 
   function imageForCategory(category) {
-    return (
+    return normalizeImageUrl(
       category.imageUrl ||
       assets.categoryImages?.[category.imageKey] ||
       assets.categoryImages?.[category.id] ||

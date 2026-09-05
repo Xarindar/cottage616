@@ -1,6 +1,6 @@
 # Buttons
 
-All customer-facing actions use `styles/buttons.css`, loaded after the page styles. Its tokens are the single source for color, typography, spacing, radius, hover, focus, and disabled states. Page classes only control placement and width.
+All customer-facing actions use `styles/components/buttons.css`, loaded after the page styles. Its tokens are the single source for color, typography, spacing, radius, hover, focus, and disabled states. Page classes only control placement and width.
 
 | Classes | Use |
 | --- | --- |

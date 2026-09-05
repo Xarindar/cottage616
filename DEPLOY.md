@@ -19,6 +19,8 @@ For Cottage 616, the routing should be:
   Cloudflare Tunnel ingress rule for the `/cottage616` path.
 - `deploy/cottage616-server.py`
   Prefix-aware static file server for this repo.
+- `deploy/asset-redirects.json`
+  Previous asset, stylesheet, and script URLs mapped to the reorganized files. The server sends direct 308 redirects and preserves query strings.
 - `deploy/apply-root-changes.sh`
   Helper script that creates `cottage616-server.service`, updates the tunnel config, validates it, and restarts the relevant services.
 
@@ -30,6 +32,8 @@ bash deploy/apply-root-changes.sh
 ```
 
 That script escalates with `sudo`, creates the systemd service, backs up the live Cloudflare Tunnel config, inserts the `/cottage616` rule if it is missing, validates the tunnel config, and restarts `cloudflared`.
+
+After deploying the asset reorganization, restart `cottage616-server.service` so the running server loads the redirect map. Deploy the map and renamed files together. Other static hosts must import the same redirects into their own routing configuration to preserve old public URLs.
 
 ## Verification
 
