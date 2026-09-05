@@ -369,8 +369,16 @@ main section[id] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  width: fit-content;
+  max-width: 100%;
   gap: 10px;
   min-height: clamp(38px, 3.4vw, 46px);
+}
+
+.highlight-label .sketch-icon {
+  flex: 0 0 var(--icon-size);
+  width: var(--icon-size);
 }
 
 .split,
