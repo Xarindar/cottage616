@@ -18,6 +18,9 @@
         : "home";
   let slideshowTimer = null;
   let originalTestimonials = [];
+  let originalHero = null;
+  let focusHeader = () => {};
+  let activeHeaderId = "";
 
   if (root) root.classList.add("sr-content-loading");
 
@@ -28,6 +31,7 @@
     if (profileResult.status === "fulfilled" && profileResult.value) {
       const content = profileResult.value;
       originalTestimonials = content?.testimonials?.items || [];
+      originalHero = content?.hero;
       applyHeader(content?.header || {});
       const canvasRendered = applyCanvasHero(content?.hero || null);
       if (!canvasRendered) root?.classList.add("sr-canvas-unavailable");
@@ -51,6 +55,7 @@
   window.cottageShowrunnerContentReady = contentReady;
   window.showrunnerContentReady = contentReady;
   window.addEventListener("showrunner:render", event => applyStudio(event.detail));
+  window.addEventListener("showrunner:focus-item", event => focusHeader(event.detail.id));
 
   async function loadProfile() {
     const url = new URL(`${api.baseUrl.replace(/\/$/, "")}/content/profile`);
@@ -133,6 +138,7 @@
           if (!nodes.length) return;
           active = (index + nodes.length) % nodes.length;
           nodes.forEach((node, index) => node.classList.toggle("is-active", index === active));
+          activeHeaderId = renderable[active].editorId || "";
           slideNav?.setActive(active);
         };
 
@@ -150,7 +156,9 @@
         });
         root.appendChild(slideNav.element);
         slideNav.setActive(active);
-        startAutoplay();
+        focusHeader = id => { const index = renderable.findIndex(screen => screen.editorId === id); if (index >= 0) setActiveSlide(index); };
+        if (activeHeaderId) focusHeader(activeHeaderId);
+        if (new URLSearchParams(location.search).get("showrunner-editor") !== "1") startAutoplay();
       }
       return true;
     } catch (error) {
@@ -192,6 +200,7 @@
   // page keeps its static hero photo and the text-only updates instead.
   function screenHasContent(screen) {
     if (!screen || typeof screen !== "object") return false;
+    if (screen.editorId) return true;
     const background = Array.isArray(screen.backgrounds) ? screen.backgrounds.find((entry) => entry?.url) : null;
     if (!background) return false;
     if (/\/hero\.svg(\?|#|$)/i.test(String(background.url))) return false;
@@ -285,6 +294,7 @@
   function applyStudio(content) {
     const blocks = Array.isArray(content?.blocks) ? content.blocks : [];
     blocks.forEach((block) => {
+      if (block?.type === "slideshow") applyHeaderCarousel(block.payload || {});
       if (block?.id === "home-events") applyEventsPanel(block.payload || {});
       if (block?.id === "home-venue-gallery") applyVenueGallery(block.payload || {});
       if (block?.id === "vendors-directory") applyVendorDirectory(block.payload || {});
@@ -295,6 +305,23 @@
         applyTestimonials({ heading: payload.heading, intro: payload.copy, items: (payload.items || []).map(item => ({ ...originalTestimonials.find(original => original.id === item.id), authorName: item.author, authorRole: item.role, quote: item.quote })) });
       }
     });
+  }
+
+  function applyHeaderCarousel(payload) {
+    const originals = (originalHero?.slideshow?.screens || [originalHero?.hero]).filter(screen => screen && screenHasContent(screen));
+    const slides = (payload.slides || []).map(slide => {
+      const legacyIndex = /^slide-([0-9]+)$/.exec(slide.id);
+      const original = originals[legacyIndex ? Number(legacyIndex[1]) - 1 : 0] || originals[0];
+      const oldLayer = role => original?.canvasLayers?.find(layer => layer.role === role || role === "button" && layer.type === "button");
+      const layers = [
+        { type: "text", role: "headline", content: slide.title, layout: oldLayer("headline")?.layout || { colStart: 2, colEnd: 28, rowStart: 7 } },
+        { type: "text", role: "caption", content: slide.caption, layout: oldLayer("caption")?.layout || { colStart: 2, colEnd: 22, rowStart: 11 } },
+        { type: "button", content: slide.buttonLabel, link: slide.buttonHref, layout: oldLayer("button")?.layout || { colStart: 2, colEnd: 15, rowStart: 15 } }
+      ].filter(layer => layer.type !== "button" || layer.link && layer.content);
+      return { editorId: slide.id, backgrounds: [{ url: slide.imageUrl, altText: slide.imageAlt }], canvasLayers: layers };
+    });
+    if (!slides.length) return;
+    applyCanvasHero({ hero: slides[0], slideshow: { screens: slides, autoplayIntervalMs: originalHero?.slideshow?.autoplayIntervalMs } });
   }
 
   function applyEventsPanel(panel) {

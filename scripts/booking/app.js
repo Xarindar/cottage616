@@ -18,6 +18,7 @@
   };
 
   const els = {};
+  let availabilityRequest = 0;
 
   document.addEventListener("DOMContentLoaded", init);
 
@@ -52,6 +53,13 @@
 
     await loadContentProfileSafely();
     renderAll();
+    const params = new URLSearchParams(location.search);
+    const requestedService = params.get("service") || params.get("slug");
+    if (requestedService) {
+      const service = state.services.find(service => service.slug === requestedService || service.id === requestedService);
+      if (service) selectServiceWithCategory(service.id, true);
+      else setStatus("This service is no longer available. Please choose another service.", true);
+    }
   }
 
   function cacheElements() {
@@ -341,7 +349,7 @@
     });
   }
 
-  function selectService(serviceId) {
+  function selectService(serviceId, earliest = false) {
     state.serviceId = serviceId;
     state.selectedSlot = null;
     state.staffId = "";
@@ -354,10 +362,12 @@
     renderDates();
     goToStep("time");
     updateInlineActions();
-    loadAndRenderSlots();
+    if (earliest) jumpToEarliestAvailableDate();
+    else loadAndRenderSlots();
   }
 
   function selectCategory(categoryId) {
+    availabilityRequest += 1;
     state.categoryId = categoryId;
     state.categoryFocusId = categoryId;
     state.serviceId = null;
@@ -367,12 +377,12 @@
     renderAll();
   }
 
-  function selectServiceWithCategory(serviceId) {
+  function selectServiceWithCategory(serviceId, earliest = false) {
     const service = serviceById(serviceId);
     if (!service) return;
     state.categoryId = service.categoryId;
     state.categoryFocusId = service.categoryId;
-    selectService(service.id);
+    selectService(service.id, earliest);
   }
 
   function renderStaffSelect() {
@@ -470,6 +480,7 @@
   }
 
   async function loadAndRenderSlots() {
+    const request = ++availabilityRequest;
     const service = selectedService();
     if (!service) return;
 
@@ -484,9 +495,11 @@
 
     try {
       const slots = await loadSlots(service);
+      if (request !== availabilityRequest) return;
       setAvailabilityStatus("");
       renderSlots(slots);
     } catch (error) {
+      if (request !== availabilityRequest) return;
       setAvailabilityStatus(error.message || "Times could not load.", true);
       renderSlots([], false);
     }
@@ -529,6 +542,7 @@
   }
 
   async function jumpToEarliestAvailableDate() {
+    const request = ++availabilityRequest;
     const service = selectedService();
     if (!service) return;
 
@@ -539,7 +553,8 @@
     setAvailabilityStatus("Finding the earliest available date...");
 
     try {
-      const earliest = await findEarliestAvailableDate(service);
+      const earliest = await findEarliestAvailableDate(service, () => request === availabilityRequest);
+      if (request !== availabilityRequest) return;
       if (!earliest) {
         setAvailabilityStatus("No upcoming availability was found.", true);
         if (els.earliestAvailable) {
@@ -557,6 +572,7 @@
       updateInlineActions();
       setAvailabilityStatus("");
     } catch (error) {
+      if (request !== availabilityRequest) return;
       setAvailabilityStatus(error.message || "Availability could not be checked.", true);
       if (els.earliestAvailable) {
         els.earliestAvailable.disabled = false;
@@ -816,11 +832,12 @@
     return demoSlots(service, date);
   }
 
-  async function findEarliestAvailableDate(service) {
+  async function findEarliestAvailableDate(service, isCurrent = () => true) {
     const start = startOfDay(new Date());
     const maxAdvanceDays = Number(service.maxAdvanceDays || config.schedule?.maxAdvanceDays || 60);
 
     for (let index = 0; index <= maxAdvanceDays; index += 1) {
+      if (!isCurrent()) return null;
       const next = new Date(start);
       next.setDate(start.getDate() + index);
       const candidate = dateKey(next);
