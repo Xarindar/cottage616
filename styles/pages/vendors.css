@@ -125,6 +125,14 @@
   letter-spacing: -0.05em;
 }
 
+.vendors-directory__intro {
+  max-width: 620px;
+  margin: 18px auto 0;
+  color: var(--muted-blue);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+}
+
 .vendors-directory__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

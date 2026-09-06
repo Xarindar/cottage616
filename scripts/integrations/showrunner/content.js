@@ -9,24 +9,43 @@
 
   const root = document.querySelector("[data-showrunner-profile]");
   const profile = root?.dataset.showrunnerProfile || (document.body.classList.contains("hive-page") ? "the-hive" : "cottage616");
+  const pageId = document.body.classList.contains("vendors-page") || /(?:^|\/)vendors\.html$/i.test(location.pathname)
+    ? "vendors"
+    : document.body.classList.contains("hive-page") || /(?:^|\/)the-hive\.html$/i.test(location.pathname)
+      ? "hive"
+      : /(?:^|\/)booking\.html$/i.test(location.pathname)
+        ? "booking"
+        : "home";
   let slideshowTimer = null;
 
-  if (!root) return;
-  root.classList.add("sr-content-loading");
+  if (root) root.classList.add("sr-content-loading");
 
-  loadProfile()
-    .then((content) => {
+  const contentReady = Promise.allSettled([
+    root ? loadProfile() : Promise.resolve(null),
+    loadStudio(pageId)
+  ]).then(([profileResult, studioResult]) => {
+    if (profileResult.status === "fulfilled" && profileResult.value) {
+      const content = profileResult.value;
       applyHeader(content?.header || {});
       const canvasRendered = applyCanvasHero(content?.hero || null);
-      if (!canvasRendered) root.classList.add("sr-canvas-unavailable");
-      root.classList.remove("sr-content-loading");
+      if (!canvasRendered) root?.classList.add("sr-canvas-unavailable");
       applyTestimonials(content?.testimonials || {});
-    })
-    .catch((error) => {
-      root.classList.add("sr-canvas-unavailable");
-      root.classList.remove("sr-content-loading");
-      if (window.console?.warn) window.console.warn("Showrunner content could not load.", error);
-    });
+    } else if (profileResult.status === "rejected") {
+      root?.classList.add("sr-canvas-unavailable");
+      if (window.console?.warn) window.console.warn("Showrunner profile content could not load.", profileResult.reason);
+    }
+
+    if (studioResult.status === "fulfilled") {
+      applyStudio(studioResult.value);
+    } else if (window.console?.warn) {
+      window.console.warn("Showrunner studio content could not load.", studioResult.reason);
+    }
+    root?.classList.remove("sr-content-loading");
+  });
+
+  // The carousel initializer waits for this promise so its loop clones are
+  // built from the final Showrunner image list rather than stale static cards.
+  window.cottageShowrunnerContentReady = contentReady;
 
   async function loadProfile() {
     const url = new URL(`${api.baseUrl.replace(/\/$/, "")}/content/profile`);
@@ -38,6 +57,19 @@
     });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(payload.error || "Content request failed.");
+    return payload.data || payload;
+  }
+
+  async function loadStudio(page) {
+    const url = new URL(`${api.baseUrl.replace(/\/$/, "")}/content/studio`);
+    url.searchParams.set("page", page);
+    const response = await fetch(url.toString(), {
+      headers: {
+        "X-Showrunner-Key": api.publishableKey
+      }
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || "Studio content request failed.");
     return payload.data || payload;
   }
 
@@ -245,6 +277,115 @@
     return Math.max(min, Math.min(max, Math.round(parsed)));
   }
 
+  function applyStudio(content) {
+    const blocks = Array.isArray(content?.blocks) ? content.blocks : [];
+    blocks.forEach((block) => {
+      if (block?.id === "home-events") applyEventsPanel(block.payload || {});
+      if (block?.id === "home-venue-gallery") applyVenueGallery(block.payload || {});
+      if (block?.id === "vendors-directory") applyVendorDirectory(block.payload || {});
+    });
+  }
+
+  function applyEventsPanel(panel) {
+    const section = document.querySelector("#events.event-showcase");
+    if (!section) return;
+
+    const featureImage = section.querySelector(".event-showcase__feature img");
+    if (featureImage && panel.imageUrl) featureImage.src = String(panel.imageUrl);
+    if (featureImage && panel.imageAlt) featureImage.alt = String(panel.imageAlt);
+    setText("#events .event-showcase__header h2", panel.heading);
+    setText("#events .event-showcase__intro", panel.copy);
+
+    const list = section.querySelector(".event-card-grid");
+    const items = Array.isArray(panel.items) ? panel.items.slice(0, 3) : [];
+    if (!list || !items.length) return;
+    list.innerHTML = items.map((item) => `
+      <article class="service-card event-card">
+        <div class="service-media event-card__media">
+          ${item.imageUrl ? `<img class="event-card__image" src="${escapeAttribute(item.imageUrl)}" loading="lazy" decoding="async" alt="${escapeAttribute(item.name || "Cottage 616 event")}">` : ""}
+        </div>
+        <div class="event-card__body">
+          <h3>${escapeHtml(item.name || "Event")}</h3>
+          <p>${escapeHtml(item.description || "")}</p>
+          <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616" aria-label="Book ${escapeAttribute(item.name || "this event")}">Book now</a>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  function applyVenueGallery(gallery) {
+    const track = document.querySelector(".venue-strip [data-carousel-track]");
+    const images = Array.isArray(gallery.images) ? gallery.images : [];
+    if (!track || !images.length) return;
+
+    track.innerHTML = images.map((image) => `
+      <figure class="venue-strip__image" data-carousel-card>
+        <img src="${escapeAttribute(image.url)}" alt="${escapeAttribute(image.alt || "Cottage 616 event inspiration")}">
+      </figure>
+    `).join("");
+
+    const heading = String(gallery.heading || "").trim();
+    const copy = document.querySelector(".venue-strip__copy");
+    if (copy && heading) {
+      const parts = heading.split(/,\s*/);
+      const first = copy.querySelector("span:first-child");
+      const second = copy.querySelector("span:last-child");
+      if (first) first.textContent = parts[0];
+      if (second) second.textContent = parts.slice(1).join(", ") || "";
+    }
+  }
+
+  function applyVendorDirectory(directory) {
+    const list = document.querySelector("[data-content-vendor-list]");
+    const items = Array.isArray(directory.items) ? directory.items : [];
+    if (!list || !items.length) return;
+
+    setText("[data-content-vendor-heading]", directory.heading);
+    setText("[data-content-vendor-copy]", directory.copy);
+    list.innerHTML = items.map((vendor, index) => vendorCard(vendor, index)).join("");
+  }
+
+  function vendorCard(vendor, index) {
+    const targetId = `showrunner-vendor-${index + 1}`;
+    const name = vendor.name || "Vendor";
+    const contacts = [
+      contactLink(vendor.phone, displayPhone(vendor.phone)),
+      contactLink(vendor.secondaryPhone, displayPhone(vendor.secondaryPhone)),
+      contactLink(vendor.email, displayEmail(vendor.email)),
+      contactLink(vendor.website, "Website"),
+      contactLink(vendor.facebook, "Facebook"),
+      contactLink(vendor.addressUrl, "Directions")
+    ].filter(Boolean).join("");
+    return `
+      <article class="vendor-entry">
+        <figure class="vendor-entry__image">${vendor.imageUrl ? `<img src="${escapeAttribute(vendor.imageUrl)}" alt="${escapeAttribute(vendor.imageAlt || name)}">` : ""}</figure>
+        <div class="vendor-entry__body">
+          ${vendor.category ? `<p class="eyebrow">${escapeHtml(vendor.category)}</p>` : ""}
+          <h3>${escapeHtml(name)}</h3>
+          ${vendor.offer ? `<p class="vendor-entry__offer">${escapeHtml(vendor.offer)}</p>` : ""}
+          ${vendor.description ? `<p>${escapeHtml(vendor.description)}</p>` : ""}
+          ${contacts ? `<button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="${escapeAttribute(name)}" data-contact-target="${targetId}">${escapeHtml(vendor.ctaLabel || "Get in touch")} <span aria-hidden="true">→</span></button>` : ""}
+          <div id="${targetId}" class="vendor-contact-data" hidden>${contacts}</div>
+        </div>
+      </article>
+    `;
+  }
+
+  function contactLink(href, label) {
+    if (!href || !label) return "";
+    return `<a class="button button--secondary" href="${escapeAttribute(href)}">${escapeHtml(label)}</a>`;
+  }
+
+  function displayPhone(value) {
+    const digits = String(value || "").replace(/^tel:/i, "").replace(/\D/g, "");
+    const local = digits.length === 11 && digits.startsWith("1") ? digits.slice(1) : digits;
+    return local.length === 10 ? `(${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6)}` : String(value || "").replace(/^tel:/i, "");
+  }
+
+  function displayEmail(value) {
+    return String(value || "").replace(/^mailto:/i, "");
+  }
+
   function applyTestimonials(testimonials) {
     const section = document.querySelector("[data-showrunner-testimonials]");
     const list = document.querySelector("[data-content-testimonial-list]");
@@ -259,7 +400,6 @@
 
   function testimonialCard(testimonial) {
     const name = testimonial.authorName || "Guest";
-    const role = testimonial.authorRole || testimonial.serviceName || "";
     const numericRating = Number(testimonial.rating || 5);
     const rating = Number.isFinite(numericRating) ? Math.max(1, Math.min(5, numericRating)) : 5;
     const initials = name
@@ -275,14 +415,16 @@
     return `
       <article class="profile-testimonial-card">
         <div class="profile-testimonial-card__stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}</div>
-        <p>${escapeHtml(testimonial.quote || "")}</p>
-        <div class="profile-testimonial-card__person">
+        <span class="profile-testimonial-card__quote-mark" aria-hidden="true">“</span>
+        <blockquote class="profile-testimonial-card__quote">
+          <p>${escapeHtml(testimonial.quote || "")}</p>
+        </blockquote>
+        <footer class="profile-testimonial-card__person">
           <span class="profile-testimonial-card__avatar">${image}</span>
-          <span>
+          <span class="profile-testimonial-card__identity">
             <strong>${escapeHtml(name)}</strong>
-            ${role ? `<small>${escapeHtml(role)}</small>` : ""}
           </span>
-        </div>
+        </footer>
       </article>
     `;
   }

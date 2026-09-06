@@ -69,7 +69,7 @@ const cloneCarouselCard = (card) => {
   return clone;
 };
 
-document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+const initializeCarousels = () => document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const track = carousel.querySelector("[data-carousel-track]");
   const prevButton = carousel.querySelector("[data-carousel-prev]");
   const nextButton = carousel.querySelector("[data-carousel-next]");
@@ -650,3 +650,10 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     }
   }
 });
+
+const contentReady = window.cottageShowrunnerContentReady;
+if (contentReady && typeof contentReady.finally === "function") {
+  contentReady.finally(initializeCarousels);
+} else {
+  initializeCarousels();
+}

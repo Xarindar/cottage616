@@ -2,8 +2,8 @@
 :root {
   --button-ink: var(--navy, #102d42);
   --button-paper: var(--paper, #fffdf8);
-  --button-hover-ink: var(--deep-blue, #173f5f);
-  --button-soft: color-mix(in srgb, var(--button-ink) 6%, var(--button-paper));
+  --button-hover-fill: var(--deep-blue, #173f5f);
+  --button-on-hover-fill: var(--button-paper);
   --button-border: color-mix(in srgb, var(--button-ink) 45%, transparent);
   --button-font: var(--sans-font, "Raleway", sans-serif);
   --button-font-size: 0.875rem;
@@ -30,9 +30,9 @@
   --action-background: var(--button-ink);
   --action-color: var(--button-paper);
   --action-border: var(--button-ink);
-  --action-hover-background: var(--button-hover-ink);
-  --action-hover-color: var(--button-paper);
-  --action-hover-border: var(--button-hover-ink);
+  --action-hover-background: var(--button-hover-fill);
+  --action-hover-color: var(--button-on-hover-fill);
+  --action-hover-border: var(--button-hover-fill);
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -61,9 +61,9 @@
   --action-background: transparent;
   --action-color: var(--button-ink);
   --action-border: var(--button-border);
-  --action-hover-background: var(--button-soft);
-  --action-hover-color: var(--button-ink);
-  --action-hover-border: var(--button-ink);
+  --action-hover-background: var(--button-hover-fill);
+  --action-hover-color: var(--button-on-hover-fill);
+  --action-hover-border: var(--button-hover-fill);
 }
 
 .button--text {
@@ -71,7 +71,7 @@
   --action-color: var(--button-ink);
   --action-border: transparent;
   --action-hover-background: transparent;
-  --action-hover-color: var(--button-hover-ink);
+  --action-hover-color: var(--button-hover-fill);
   --action-hover-border: transparent;
   padding-inline: 0;
   text-decoration: underline;
@@ -83,9 +83,9 @@
   --action-background: var(--button-paper);
   --action-color: var(--button-ink);
   --action-border: var(--button-paper);
-  --action-hover-background: var(--cream, #fff8f2);
-  --action-hover-color: var(--button-ink);
-  --action-hover-border: var(--cream, #fff8f2);
+  --action-hover-background: var(--button-hover-fill);
+  --action-hover-color: var(--button-on-hover-fill);
+  --action-hover-border: var(--button-hover-fill);
 }
 
 .button--small {
@@ -143,9 +143,9 @@
   --action-background: var(--button-ink);
   --action-color: var(--button-paper);
   --action-border: var(--button-ink);
-  --action-hover-background: var(--button-hover-ink);
-  --action-hover-color: var(--button-paper);
-  --action-hover-border: var(--button-hover-ink);
+  --action-hover-background: var(--button-hover-fill);
+  --action-hover-color: var(--button-on-hover-fill);
+  --action-hover-border: var(--button-hover-fill);
 }
 
 .button[hidden] {

@@ -451,6 +451,42 @@
     ]
   },
   {
+    "path": "assets/employees/abigail-freligh.jpg",
+    "folder": "employees",
+    "bytes": 79421,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/employees/jo-lynne-skaggs.png",
+    "folder": "employees",
+    "bytes": 1514370,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/employees/max-skaggs.jpg",
+    "folder": "employees",
+    "bytes": 86568,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/employees/tiffany-duggin.jpg",
+    "folder": "employees",
+    "bytes": 91038,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": []
+  },
+  {
     "path": "assets/hive/branding/honeycomb-symbol.webp",
     "folder": "hive/branding",
     "bytes": 149810,

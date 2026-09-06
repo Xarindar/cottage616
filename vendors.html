@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/site.css?v=shared-buttons-20260905">
     <link rel="stylesheet" href="styles/pages/vendors.css?v=shared-buttons-20260905">
-    <link rel="stylesheet" href="styles/components/buttons.css?v=quiet-luxury-20260905">
+    <link rel="stylesheet" href="styles/components/buttons.css?v=cottage-blue-hover-20260905">
   </head>
   <body>
     <header class="site-header">
@@ -59,10 +59,11 @@
       <section class="vendors-directory section" aria-labelledby="vendors-directory-title">
         <header class="vendors-directory__heading">
           <p class="eyebrow">The Cottage edit</p>
-          <h2 id="vendors-directory-title">A few of our favorites.</h2>
+          <h2 id="vendors-directory-title" data-content-vendor-heading>A few of our favorites.</h2>
+          <p class="vendors-directory__intro" data-content-vendor-copy>Thoughtful, local businesses we trust to bring beautiful celebrations together.</p>
         </header>
 
-        <div class="vendors-directory__grid">
+        <div class="vendors-directory__grid" data-content-vendor-list>
           <article class="vendor-entry">
             <figure class="vendor-entry__image"><img src="assets/vendors/logos/fleurish-flowers.jpg" alt="Fleurish Flowers floral design"></figure>
             <div class="vendor-entry__body">
@@ -451,10 +452,9 @@
           }
         };
 
-        document.querySelectorAll("[data-contact-modal][data-contact-target]").forEach((button) => {
-          button.addEventListener("click", () => {
-            openContactModal(button);
-          });
+        document.addEventListener("click", (event) => {
+          const button = event.target instanceof Element ? event.target.closest("[data-contact-modal][data-contact-target]") : null;
+          if (button instanceof HTMLButtonElement) openContactModal(button);
         });
 
         if (contactClose) {
@@ -476,7 +476,8 @@
         });
       })();
     </script>
-    <script src="scripts/site.js"></script>
+    <script src="scripts/integrations/showrunner/content.js?v=studio-blocks-20260905"></script>
+    <script src="scripts/site.js?v=studio-blocks-20260905"></script>
     <script src="scripts/integrations/showrunner/business.js?v=1"></script>
   </body>
 </html>

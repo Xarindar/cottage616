@@ -12,8 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script>document.documentElement.classList.add("showrunner-js");</script>
-    <link rel="stylesheet" href="styles/site.css?v=intro-strip-centered-20260905">
-    <link rel="stylesheet" href="styles/components/buttons.css?v=quiet-luxury-20260905">
+    <link rel="stylesheet" href="styles/site.css?v=aligned-events-team-fallback-20260905">
+    <link rel="stylesheet" href="styles/components/buttons.css?v=cottage-blue-hover-20260905">
   </head>
   <body>
     <header class="site-header">
@@ -86,12 +86,7 @@
         </div>
       </section>
 
-      <section class="section profile-testimonials" data-showrunner-testimonials hidden>
-        <div class="section-heading">
-          <p class="eyebrow">Testimonials</p>
-          <h2 data-content-testimonial-heading>Sweet words from Cottage guests</h2>
-          <p data-content-testimonial-intro></p>
-        </div>
+      <section class="section profile-testimonials" data-showrunner-testimonials aria-label="Guest reviews" hidden>
         <div class="profile-testimonials__grid" data-content-testimonial-list></div>
       </section>
 
@@ -115,7 +110,7 @@
               <div class="event-card__body">
                 <h3>Birthday Parties</h3>
                 <p>A cozy setting for milestone birthdays, kids' parties, and easy add-ons.</p>
-                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616">Book birthday party</a>
+                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616" aria-label="Book a birthday party">Book now</a>
               </div>
             </article>
             <article class="service-card event-card">
@@ -125,7 +120,7 @@
               <div class="event-card__body">
                 <h3>Intimate Weddings</h3>
                 <p>A peaceful backdrop for close-knit ceremonies and relaxed receptions.</p>
-                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616">Book wedding</a>
+                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616" aria-label="Book an intimate wedding">Book now</a>
               </div>
             </article>
             <article class="service-card event-card">
@@ -135,7 +130,7 @@
               <div class="event-card__body">
                 <h3>Baby Showers</h3>
                 <p>A welcoming place for family, friends, and sweet details.</p>
-                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616">Book baby shower</a>
+                <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616" aria-label="Book a baby shower">Book now</a>
               </div>
             </article>
           </div>
@@ -207,27 +202,34 @@
 
       <section id="team" class="section team">
         <div class="section-heading">
-          <p class="eyebrow">Our Team</p>
-          <h2>Friendly faces behind the cottage.</h2>
+          <p class="eyebrow">Meet the Cottage 616 team</p>
         </div>
         <div class="team-grid">
           <article>
-            <img src="https://www.cottage616.com/wp-content/uploads/go-x/u/e240b829-0633-4bec-aba1-d07d08415dd0/l572,t767,w694,h694/image-455x455.jpg" alt="Jo Lynne Skaggs">
+            <div class="team-card__media">
+              <img src="assets/employees/jo-lynne-skaggs.png" width="960" height="960" loading="lazy" decoding="async" alt="Jo Lynne Skaggs">
+            </div>
             <h3>Jo Lynne Skaggs</h3>
             <p>Founder/CEO<br>Head-Spa Specialist</p>
           </article>
           <article>
-            <img src="https://www.cottage616.com/wp-content/uploads/go-x/u/f298df61-54c8-40c5-8a50-d78247318701/l0,t167,w1350,h1350/image-455x455.jpg" alt="Abigail Freligh">
+            <div class="team-card__media">
+              <img src="assets/employees/abigail-freligh.jpg" width="960" height="960" loading="lazy" decoding="async" alt="Abigail Freligh">
+            </div>
             <h3>Abigail Freligh</h3>
             <p>Social Media Coordinator</p>
           </article>
           <article>
-            <img src="https://www.cottage616.com/wp-content/uploads/go-x/u/8e05de8c-f03a-41ce-89c7-443a78626b88/l0,t500,w1125,h1125/image-455x455.jpg" alt="Tiffany Duggin">
+            <div class="team-card__media">
+              <img src="assets/employees/tiffany-duggin.jpg" width="1242" height="1242" loading="lazy" decoding="async" alt="Tiffany Duggin">
+            </div>
             <h3>Tiffany Duggin</h3>
             <p>Assistant</p>
           </article>
           <article>
-            <img src="https://www.cottage616.com/wp-content/uploads/go-x/u/5bc83668-25d9-4dbc-a800-3b3e04fc7eb8/l249,t85,w570,h570/image-455x455.png" alt="Max Skaggs">
+            <div class="team-card__media">
+              <img src="assets/employees/max-skaggs.jpg" width="960" height="960" loading="lazy" decoding="async" alt="Max Skaggs">
+            </div>
             <h3>Max Skaggs</h3>
             <p>Co-Founder</p>
           </article>
@@ -269,8 +271,8 @@
       <div data-business-social class="site-footer__social"></div>
     </footer>
 
-    <script src="scripts/integrations/showrunner/content.js?v=shared-buttons-20260905"></script>
-    <script src="scripts/site.js?v=carousel-loop"></script>
+    <script src="scripts/integrations/showrunner/content.js?v=studio-blocks-20260905"></script>
+    <script src="scripts/site.js?v=studio-blocks-20260905"></script>
     <script src="scripts/integrations/showrunner/business.js?v=1"></script>
   </body>
 </html>
