@@ -18,9 +18,16 @@ if (menuToggle && nav) {
   });
 
   nav.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
+    if (event.target instanceof Element && event.target.closest("a[href]")) {
       nav.classList.remove("is-open");
       menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("is-open")) {
+      nav.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.focus();
     }
   });
 }
@@ -48,13 +55,8 @@ document.querySelectorAll("[data-hive-details-open]").forEach((button) => {
 
 const prepareCarouselMedia = (root) => {
   root.querySelectorAll("img").forEach((image) => {
-    image.loading = "eager";
-    image.decoding = "sync";
-    image.fetchPriority = image.fetchPriority || "low";
-
-    if (typeof image.decode === "function" && !image.complete) {
-      image.decode().catch(() => {});
-    }
+    image.loading = "lazy";
+    image.decoding = "async";
   });
 };
 
@@ -188,6 +190,7 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
       };
 
       const setTrackPosition = (step, transition = "none", dragOffset = 0) => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) transition = "none";
         track.style.transition = transition;
         track.style.transform = `translate3d(${-step * stepSize + dragOffset}px, 0, 0)`;
 
@@ -396,6 +399,15 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
     let loopWidth = 0;
     let lastFrameTime = 0;
     let animationFrame = 0;
+    let paused = false;
+    if (isAutoplaying && !prefersReducedMotion) {
+      const pause = document.createElement("button");
+      pause.type = "button";
+      pause.className = "carousel-pause";
+      pause.textContent = "Pause gallery";
+      pause.addEventListener("click", () => { paused = !paused; pause.textContent = paused ? "Play gallery" : "Pause gallery"; });
+      carousel.appendChild(pause);
+    }
 
     const measureLoop = () => {
       const firstClone = track.querySelector("[data-carousel-clone]");
@@ -440,7 +452,7 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
       const elapsed = lastFrameTime === 0 ? 16.7 : Math.min(now - lastFrameTime, 48);
       lastFrameTime = now;
 
-      if (isAutoplaying && !prefersReducedMotion) {
+      if (isAutoplaying && !paused && !window.matchMedia("(prefers-reduced-motion: reduce)").matches && !carousel.matches(":hover, :focus-within")) {
         offset += elapsed * driftSpeed;
       }
 
@@ -464,7 +476,8 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
     window.addEventListener("load", setupLoop, { once: true });
     window.addEventListener("resize", scheduleMeasure);
 
-    startLoop();
+    // Autoplay is opt-in; a stationary gallery needs no animation-frame loop.
+    if (isAutoplaying && !prefersReducedMotion) startLoop();
 
     return;
   }
@@ -570,6 +583,7 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
   };
 
   const scrollToCard = (index, behavior = "smooth") => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) behavior = "auto";
     const nextIndex = shouldWrapCards && !shouldVisuallyWrap && cards.length > 0
       ? ((index % cards.length) + cards.length) % cards.length
       : Math.min(Math.max(index, 0), cards.length - 1);

@@ -1125,12 +1125,12 @@ p {
     border: 0;
     border-radius: 0;
     display: grid;
-    height: 34px;
+    height: 44px;
     left: clamp(18px, 5vw, 28px);
     padding: 7px;
     place-content: center;
     position: absolute;
-    width: 34px;
+    width: 44px;
   }
 
   .menu-toggle span {

@@ -427,7 +427,7 @@ main section[id] {
 .event-showcase__intro {
   max-width: 720px;
   margin: 0;
-  color: var(--muted);
+  color: var(--ink);
 }
 
 .event-showcase__feature {
@@ -1530,7 +1530,7 @@ textarea:focus {
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  opacity: 0.62;
+  opacity: 1;
 }
 
 address .site-credit {
@@ -2145,3 +2145,17 @@ address > * {
     bottom: 14px;
   }
 }
+
+.menu-toggle { min-width: 44px; min-height: 44px; }
+.sr-hero-nav-dot { width: 44px; height: 44px; }
+.sr-hero-screen:not(.is-active) { pointer-events: none; }
+.sr-hero-nav [data-slideshow-pause] { border: 0; background: transparent; color: var(--paper); font: inherit; min-height: 44px; min-width: 44px; padding: 0 10px; cursor: pointer; }
+.sr-hero-nav [data-slideshow-pause]:focus-visible { outline: 2px solid var(--paper); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .sr-hero-screen, .sr-hero-nav-dot::before { transition: none; }
+}
+
+.carousel-pause { position: relative; z-index: 1; display: block; margin: 8px auto; min-height: 44px; padding: 8px 16px; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line); cursor: pointer; }
+
+.hive-intro__copy .eyebrow { color: var(--ink); }

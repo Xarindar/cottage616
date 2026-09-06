@@ -21,6 +21,17 @@
   let originalHero = null;
   let focusHeader = () => {};
   let activeHeaderId = "";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let autoplayPaused = false;
+  function pauseSlideshow() {
+    autoplayPaused = true;
+    if (slideshowTimer) window.clearInterval(slideshowTimer);
+    slideshowTimer = null;
+    const button = root?.querySelector("[data-slideshow-pause]");
+    if (button) { button.textContent = "Play"; button.setAttribute("aria-label", "Play slideshow"); }
+  }
+  root?.addEventListener("focusin", event => { if (!event.target.closest("[data-slideshow-pause]")) pauseSlideshow(); });
+  reducedMotion.addEventListener("change", event => { if (event.matches) pauseSlideshow(); });
 
   if (root) root.classList.add("sr-content-loading");
 
@@ -137,24 +148,40 @@
         const setActiveSlide = (index) => {
           if (!nodes.length) return;
           active = (index + nodes.length) % nodes.length;
-          nodes.forEach((node, index) => node.classList.toggle("is-active", index === active));
+          nodes.forEach((node, index) => {
+            node.classList.toggle("is-active", index === active);
+            node.inert = index !== active;
+            node.setAttribute("aria-hidden", String(index !== active));
+          });
           activeHeaderId = renderable[active].editorId || "";
           slideNav?.setActive(active);
         };
 
         const startAutoplay = () => {
           if (slideshowTimer) window.clearInterval(slideshowTimer);
-          slideshowTimer = window.setInterval(() => setActiveSlide(active + 1), interval);
+          slideshowTimer = null;
+          if (autoplayPaused || reducedMotion.matches || new URLSearchParams(location.search).get("showrunner-editor") === "1") return;
+          slideshowTimer = window.setInterval(() => { if (!document.hidden && !root.matches(":hover")) setActiveSlide(active + 1); }, interval);
         };
 
         slideNav = buildSlideNav({
           onSelect: (index) => {
+            pauseSlideshow();
             setActiveSlide(index);
-            startAutoplay();
           },
           slideCount: nodes.length
         });
         root.appendChild(slideNav.element);
+        const pause = document.createElement("button");
+        pause.type = "button";
+        pause.dataset.slideshowPause = "";
+        pause.textContent = autoplayPaused || reducedMotion.matches ? "Play" : "Pause";
+        pause.setAttribute("aria-label", `${pause.textContent} slideshow`);
+        pause.addEventListener("click", () => {
+          if (slideshowTimer) pauseSlideshow();
+          else { autoplayPaused = false; startAutoplay(); pause.textContent = slideshowTimer ? "Pause" : "Play"; pause.setAttribute("aria-label", `${pause.textContent} slideshow`); }
+        });
+        if (new URLSearchParams(location.search).get("showrunner-editor") !== "1" && !reducedMotion.matches) slideNav.element.appendChild(pause);
         slideNav.setActive(active);
         focusHeader = id => { const index = renderable.findIndex(screen => screen.editorId === id); if (index >= 0) setActiveSlide(index); };
         if (activeHeaderId) focusHeader(activeHeaderId);
@@ -210,6 +237,8 @@
   function buildScreen(screen, isActive) {
     const node = document.createElement("div");
     node.className = "sr-hero-screen" + (isActive ? " is-active" : "");
+    node.inert = !isActive;
+    node.setAttribute("aria-hidden", String(!isActive));
 
     const background = (screen.backgrounds || []).find((entry) => entry?.url);
     if (background) {
