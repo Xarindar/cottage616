@@ -1989,13 +1989,13 @@ address > * {
 /* Showrunner canvas hero: the modular header is the only JS-enabled hero.
    Static background/copy remain only for no-JS fallback, so there is no
    hard-coded hero flash while the content module loads. */
-.showrunner-js .hero[data-showrunner-profile] {
+.showrunner-js .hero[data-showrunner-profile]:not(.sr-canvas-unavailable) {
   background-color: var(--navy);
   background-image: none;
   background-blend-mode: normal;
 }
 
-.showrunner-js .hero[data-showrunner-profile] .hero-copy {
+.showrunner-js .hero[data-showrunner-profile]:not(.sr-canvas-unavailable) .hero-copy {
   display: none;
 }
 

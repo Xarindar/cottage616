@@ -423,6 +423,13 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
       renderLoop();
     };
 
+    track.addEventListener("carousel:content", () => {
+      track.querySelectorAll("[data-carousel-clone]").forEach(card => card.remove());
+      track.querySelectorAll("[data-carousel-card]").forEach(card => track.appendChild(cloneCard(card)));
+      prepareCarouselMedia(track);
+      setupLoop();
+    });
+
     const tickLoop = (now) => {
       if (document.hidden) {
         lastFrameTime = now;

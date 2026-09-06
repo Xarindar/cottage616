@@ -17,6 +17,7 @@
         ? "booking"
         : "home";
   let slideshowTimer = null;
+  let originalTestimonials = [];
 
   if (root) root.classList.add("sr-content-loading");
 
@@ -26,6 +27,7 @@
   ]).then(([profileResult, studioResult]) => {
     if (profileResult.status === "fulfilled" && profileResult.value) {
       const content = profileResult.value;
+      originalTestimonials = content?.testimonials?.items || [];
       applyHeader(content?.header || {});
       const canvasRendered = applyCanvasHero(content?.hero || null);
       if (!canvasRendered) root?.classList.add("sr-canvas-unavailable");
@@ -37,6 +39,7 @@
 
     if (studioResult.status === "fulfilled") {
       applyStudio(studioResult.value);
+      window.dispatchEvent(new CustomEvent("showrunner:content", { detail: studioResult.value }));
     } else if (window.console?.warn) {
       window.console.warn("Showrunner studio content could not load.", studioResult.reason);
     }
@@ -46,6 +49,8 @@
   // The carousel initializer waits for this promise so its loop clones are
   // built from the final Showrunner image list rather than stale static cards.
   window.cottageShowrunnerContentReady = contentReady;
+  window.showrunnerContentReady = contentReady;
+  window.addEventListener("showrunner:render", event => applyStudio(event.detail));
 
   async function loadProfile() {
     const url = new URL(`${api.baseUrl.replace(/\/$/, "")}/content/profile`);
@@ -283,6 +288,12 @@
       if (block?.id === "home-events") applyEventsPanel(block.payload || {});
       if (block?.id === "home-venue-gallery") applyVenueGallery(block.payload || {});
       if (block?.id === "vendors-directory") applyVendorDirectory(block.payload || {});
+      if (block?.type === "testimonials") {
+        const payload = block.payload || {};
+        const section = document.querySelector("[data-showrunner-testimonials]");
+        if (section) section.hidden = !payload.items?.length;
+        applyTestimonials({ heading: payload.heading, intro: payload.copy, items: (payload.items || []).map(item => ({ ...originalTestimonials.find(original => original.id === item.id), authorName: item.author, authorRole: item.role, quote: item.quote })) });
+      }
     });
   }
 
@@ -316,13 +327,14 @@
   function applyVenueGallery(gallery) {
     const track = document.querySelector(".venue-strip [data-carousel-track]");
     const images = Array.isArray(gallery.images) ? gallery.images : [];
-    if (!track || !images.length) return;
+    if (!track) return;
 
     track.innerHTML = images.map((image) => `
       <figure class="venue-strip__image" data-carousel-card>
         <img src="${escapeAttribute(image.url)}" alt="${escapeAttribute(image.alt || "Cottage 616 event inspiration")}">
       </figure>
     `).join("");
+    track.dispatchEvent(new Event("carousel:content"));
 
     const heading = String(gallery.heading || "").trim();
     const copy = document.querySelector(".venue-strip__copy");
@@ -431,7 +443,7 @@
 
   function setText(selector, value) {
     const element = document.querySelector(selector);
-    if (element && value) element.textContent = value;
+    if (element && typeof value === "string") element.textContent = value;
   }
 
   function escapeHtml(value) {

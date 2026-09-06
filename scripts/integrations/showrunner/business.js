@@ -3,11 +3,16 @@
   const pages = { "index.html": "home", "the-hive.html": "hive", "booking.html": "booking", "vendors.html": "vendors" };
   const page = pages[location.pathname.split("/").pop() || "index.html"];
   if (!page) return;
+  window.addEventListener("showrunner:render", event => {
+    const business = event.detail.blocks?.find(block => block.type === "business");
+    if (business) applyBusiness({ businessConfigured: true, business: business.payload });
+  });
   const endpoint = new URL("https://showrunner-beta-production.up.railway.app/api/public/v1/content/studio");
   endpoint.searchParams.set("page", page);
   fetch(endpoint, { headers: { "X-Showrunner-Key": "pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8" } })
     .then(response => { if (!response.ok) throw new Error("Business info unavailable"); return response.json(); })
-    .then(response => {
+    .then(applyBusiness).catch(() => { /* Static contact and metadata remain available during outages. */ });
+  function applyBusiness(response) {
       const data = response.data || response;
       const seo = data.blocks?.find(block => block.type === "seo")?.payload;
       if (seo?.title) document.title = seo.title;
@@ -31,5 +36,5 @@
           const link = document.createElement("a"); link.href = item.href; link.textContent = item.platform; container.append(link);
         });
       });
-    }).catch(() => { /* Static contact and metadata remain available during outages. */ });
+    }
 })();
