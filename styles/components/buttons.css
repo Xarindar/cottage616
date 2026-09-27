@@ -171,8 +171,8 @@
 }
 
 .sr-hero-nav-dot {
-  width: var(--button-height-small);
-  height: var(--button-height-small);
+  width: 32px;
+  height: 32px;
 }
 
 .sr-hero-nav-dot:focus-visible {

@@ -1,0 +1,15 @@
+# Head spa editorial first pass
+
+The approved scope is the head spa menu section on The Hive page. Inspiration is the existing Cottage 616 homepage Events section: full-bleed warm photography, a muted #e4dfd3 surface, navy Libre Baskerville headlines, and the shared Raleway/button system. This extends the existing identity; no global visual system changes.
+
+The feature leads with an AI-generated editorial treatment image, “Your time to unwind,” a starting price, duration range, and booking CTA. Five native details/summary rows retain the complete treatment menu with keyboard-accessible expansion. Common inclusions and the possible surcharge remain visible. The booking flow is unchanged.
+
+The follow-up layout removes the menu's left text rail. A slim generated “Menu” banner now spans the content width, with centered common inclusions and full-width treatment rows beneath it. Expanded details place the booking link at the right on desktop and below the inclusions on mobile. Banner asset: `assets/hive/photos/treatments/head-spa-menu-banner-v1.png`; its adjacent `.prompt.json` records the exact built-in generation prompt. The image text is accompanied by an accessible HTML heading that retains the existing Showrunner binding. Verified at the user's desktop width and 390px mobile width, including expansion and no horizontal overflow.
+
+The density refinement places treatment descriptions alongside names at widths of 900px and above, reducing most collapsed rows to 56px at the user's 945px viewport (Botanical wraps to 74px). On smaller screens descriptions remain beneath names with tighter padding. Desktop booking buttons bottom-align with their inclusion lists. Foot Facial now uses menu-scale typography, spacing, and a small secondary booking button; on phones its copy sits beside the price and action. Verified exact list/button bottom alignment and no horizontal overflow at desktop and 390px.
+
+The generated image is an illustration of the experience, not a photograph of the actual venue. Asset: `assets/hive/photos/treatments/head-spa-editorial-v1.png`. Its adjacent `.prompt.json` records the exact built-in image generation prompt and provenance.
+
+The existing Showrunner menu payload remains authoritative for the menu title, treatment names, descriptions, duration/price strings, inclusions, and booking links. `applyHiveMenu` maps the legacy card/dialog payload to the new disclosures and derives the lead price/range. The editorial headline is separate from the old menu title binding. New editorial copy and imagery currently live in the page source.
+
+Verification: desktop and 390px mobile inspection; no horizontal overflow in the inspected viewports; image decoded successfully; native disclosure click and keyboard toggle; booking CTA reaches the Hive booking page and its category; no browser console errors in the inspected page. JavaScript syntax and git whitespace checks pass. The design detector reports pre-existing whole-page warnings outside this section and the deliberately inherited cream palette.

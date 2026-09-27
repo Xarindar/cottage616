@@ -393,21 +393,12 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
       track.appendChild(cloneCard(card));
     });
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const driftSpeed = 0.032;
     let offset = 0;
     let loopWidth = 0;
     let lastFrameTime = 0;
     let animationFrame = 0;
-    let paused = false;
-    if (isAutoplaying && !prefersReducedMotion) {
-      const pause = document.createElement("button");
-      pause.type = "button";
-      pause.className = "carousel-pause";
-      pause.textContent = "Pause gallery";
-      pause.addEventListener("click", () => { paused = !paused; pause.textContent = paused ? "Play gallery" : "Pause gallery"; });
-      carousel.appendChild(pause);
-    }
 
     const measureLoop = () => {
       const firstClone = track.querySelector("[data-carousel-clone]");
@@ -452,7 +443,7 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
       const elapsed = lastFrameTime === 0 ? 16.7 : Math.min(now - lastFrameTime, 48);
       lastFrameTime = now;
 
-      if (isAutoplaying && !paused && !window.matchMedia("(prefers-reduced-motion: reduce)").matches && !carousel.matches(":hover, :focus-within")) {
+      if (isAutoplaying && !reducedMotion.matches) {
         offset += elapsed * driftSpeed;
       }
 
@@ -477,7 +468,14 @@ const initializeCarousels = () => document.querySelectorAll("[data-carousel]").f
     window.addEventListener("resize", scheduleMeasure);
 
     // Autoplay is opt-in; a stationary gallery needs no animation-frame loop.
-    if (isAutoplaying && !prefersReducedMotion) startLoop();
+    if (isAutoplaying && !reducedMotion.matches) startLoop();
+    reducedMotion.addEventListener("change", () => {
+      if (reducedMotion.matches) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+        lastFrameTime = 0;
+      } else if (isAutoplaying) startLoop();
+    });
 
     return;
   }

@@ -11,11 +11,11 @@
     <link rel="preload" as="image" href="assets/hive/photos/treatments/head-spa-1280w.webp" type="image/webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/hive/branding/logo.png" type="image/png">
     <link rel="preload" as="image" href="assets/hive/textures/patterns/honeycomb-grid.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>document.documentElement.classList.add("showrunner-js");</script>
-    <link rel="stylesheet" href="styles/site.css?v=audit-20260906">
+    <link rel="stylesheet" href="styles/site.css?v=local-vendors-20260927">
     <link rel="stylesheet" href="styles/pages/the-hive.css?v=compact-reviews-20260905">
-    <link rel="stylesheet" href="styles/components/buttons.css?v=cottage-blue-hover-20260905">
+    <link rel="stylesheet" href="styles/components/buttons.css?v=refine-20260926">
   <script src="scripts/integrations/showrunner/editor.js?v=audit-20260906" data-editor-origins="https://admin.cottage616.com,https://showrunner-beta-production.up.railway.app,http://localhost:3000,http://localhost:3100"></script>
   </head>
   <body class="hive-page">
@@ -96,147 +96,114 @@
         <img class="hive-team__bee" src="assets/hive/illustrations/bee.svg" alt="" aria-hidden="true">
       </section>
 
-      <section id="head-spa-menu" class="hive-pricing section" aria-labelledby="hive-pricing-title">
-        <div class="section-heading">
-          <h2 id="hive-pricing-title">Head spa menu.</h2>
-        </div>
-        <div class="hive-pricing-grid">
-          <article class="hive-price-card" aria-labelledby="refresh-title">
-            <div class="hive-price-card__heading">
-              <h3 id="refresh-title">The Refresh</h3>
-              <p class="hive-price-card__duration">30 min</p>
-              <p class="hive-price-card__cost">$30</p>
+      <section id="head-spa-menu" class="hive-ritual" aria-labelledby="hive-ritual-title">
+        <div class="hive-ritual__feature">
+          <figure class="hive-ritual__image">
+            <img src="assets/hive/photos/treatments/head-spa-editorial-v1.png" width="1122" height="1402" loading="lazy" decoding="async" alt="An editorial illustration of a relaxing scalp massage and rinse in warm window light">
+          </figure>
+          <div class="hive-ritual__copy">
+            <h2 id="hive-ritual-title">Your time<br>to <em>unwind.</em></h2>
+            <p class="hive-ritual__intro">A little quiet. A deeper breath. Scalp care and soothing massage, with time that belongs entirely to you.</p>
+            <p class="hive-ritual__rate">Head spas from $30 <span>30–90 minutes</span></p>
+            <div class="hive-ritual__actions">
+              <a class="button button--primary" href="booking.html?profile=the-hive">Book your head spa</a>
+              <a class="button button--text" href="#hive-treatments">Explore treatments &amp; prices</a>
             </div>
-            <p class="hive-price-card__description">Neck &amp; shoulder massage.</p>
-            <button class="hive-price-card__details-trigger button button--text button--small" type="button" data-hive-details-open="refresh-details" aria-haspopup="dialog" aria-controls="refresh-details">What's included<span class="hive-pricing__sr-only"> in The Refresh</span></button>
-            <a class="hive-price-card__book button button--primary button--small" href="booking.html?profile=the-hive" aria-label="Book The Refresh head spa">Book</a>
-          </article>
-          <article class="hive-price-card" aria-labelledby="unwind-title">
-            <div class="hive-price-card__heading">
-              <h3 id="unwind-title">The Unwind</h3>
-              <p class="hive-price-card__duration">60 min</p>
-              <p class="hive-price-card__cost">$65</p>
-            </div>
-            <p class="hive-price-card__description">Head, neck, shoulder &amp; face massage.</p>
-            <button class="hive-price-card__details-trigger button button--text button--small" type="button" data-hive-details-open="unwind-details" aria-haspopup="dialog" aria-controls="unwind-details">What's included<span class="hive-pricing__sr-only"> in The Unwind</span></button>
-            <a class="hive-price-card__book button button--primary button--small" href="booking.html?profile=the-hive" aria-label="Book The Unwind head spa">Book</a>
-          </article>
-          <article class="hive-price-card" aria-labelledby="glow-title">
-            <div class="hive-price-card__heading">
-              <h3 id="glow-title">The Glow</h3>
-              <p class="hive-price-card__duration">75 min</p>
-              <p class="hive-price-card__cost">$75</p>
-            </div>
-            <p class="hive-price-card__description">Extended massage, including arms &amp; hands.</p>
-            <button class="hive-price-card__details-trigger button button--text button--small" type="button" data-hive-details-open="glow-details" aria-haspopup="dialog" aria-controls="glow-details">What's included<span class="hive-pricing__sr-only"> in The Glow</span></button>
-            <a class="hive-price-card__book button button--primary button--small" href="booking.html?profile=the-hive" aria-label="Book The Glow head spa">Book</a>
-          </article>
-          <article class="hive-price-card" aria-labelledby="ritual-title">
-            <div class="hive-price-card__heading">
-              <h3 id="ritual-title">The Full Ritual</h3>
-              <p class="hive-price-card__duration">90 min</p>
-              <p class="hive-price-card__cost">$90</p>
-            </div>
-            <p class="hive-price-card__description">Our longest session, including leg &amp; foot massage.</p>
-            <button class="hive-price-card__details-trigger button button--text button--small" type="button" data-hive-details-open="ritual-details" aria-haspopup="dialog" aria-controls="ritual-details">What's included<span class="hive-pricing__sr-only"> in The Full Ritual</span></button>
-            <a class="hive-price-card__book button button--primary button--small" href="booking.html?profile=the-hive" aria-label="Book The Full Ritual head spa">Book</a>
-          </article>
-        </div>
-        <article class="hive-price-card hive-price-card--botanical" aria-labelledby="botanical-title">
-          <div class="hive-price-card__heading">
-            <h3 id="botanical-title">The Botanical</h3>
-            <p class="hive-price-card__duration">75 min</p>
-            <p class="hive-price-card__cost">$75</p>
           </div>
-          <p class="hive-price-card__description">Botanical scalp cleanse &amp; steamed hair mask, with neck, shoulder &amp; face massage.</p>
-          <button class="hive-price-card__details-trigger button button--text button--small" type="button" data-hive-details-open="botanical-details" aria-haspopup="dialog" aria-controls="botanical-details">What's included<span class="hive-pricing__sr-only"> in The Botanical</span></button>
-          <a class="hive-price-card__book button button--primary button--small" href="booking.html?profile=the-hive" aria-label="Book The Botanical head spa">Book</a>
-        </article>
-        <div class="hive-pricing__notes">
-          <p>Every head spa includes a scalp cleanse, leave-in conditioner, and a braid or airy blow dry.</p>
-          <p class="hive-pricing__note">Textured, thick, or long hair may need extra detangling and blow-dry time. A $10 upcharge may apply and will be discussed before booking.</p>
         </div>
-        <dialog id="refresh-details" class="hive-service-dialog" aria-labelledby="refresh-details-title">
-          <div class="hive-service-dialog__header">
-            <h2 id="refresh-details-title">The Refresh</h2>
-            <form method="dialog">
-              <button class="hive-service-dialog__close button button--text button--small" autofocus>Close</button>
-            </form>
+        <div id="hive-treatments" class="hive-menu section">
+          <div class="hive-menu__banner">
+            <img src="assets/hive/photos/treatments/head-spa-menu-banner-v1.png" width="2172" height="724" loading="lazy" decoding="async" alt="" aria-hidden="true">
+            <h3 id="hive-pricing-title" class="hive-menu__title">Head spa menu.</h3>
           </div>
-          <p class="hive-service-dialog__meta">30 min<span>$30</span></p>
-            <ul>
-            <li>Scalp cleanse</li>
+          <div class="hive-menu__intro">
+            <p>Every head spa includes a scalp cleanse, leave-in conditioner, and a braid or airy blow dry.</p>
+          </div>
+          <div class="hive-menu__list">
+            <details class="hive-treatment">
+              <summary>
+                <span class="hive-treatment__name">The Refresh</span>
+                <span class="hive-treatment__duration">30 min</span>
+                <span class="hive-treatment__price">$30</span>
+                <span class="hive-treatment__toggle" aria-hidden="true"></span>
+                <span class="hive-treatment__description">A scalp cleanse, with neck &amp; shoulder massage.</span>
+              </summary>
+              <div class="hive-treatment__details">
+                <ul><li>Scalp cleanse</li>
             <li>Neck and shoulder massage</li>
             <li>Leave-in conditioner</li>
-            <li>Braid or airy blow dry</li>
-            </ul>
-          <a class="hive-service-dialog__book button button--primary" href="booking.html?profile=the-hive">Book The Refresh</a>
-        </dialog>
-        <dialog id="unwind-details" class="hive-service-dialog" aria-labelledby="unwind-details-title">
-          <div class="hive-service-dialog__header">
-            <h2 id="unwind-details-title">The Unwind</h2>
-            <form method="dialog">
-              <button class="hive-service-dialog__close button button--text button--small" autofocus>Close</button>
-            </form>
-          </div>
-          <p class="hive-service-dialog__meta">60 min<span>$65</span></p>
-            <ul>
-            <li>Deep scalp cleanse</li>
+            <li>Braid or airy blow dry</li></ul>
+                <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book The Refresh</a>
+              </div>
+            </details>
+            <details class="hive-treatment">
+              <summary>
+                <span class="hive-treatment__name">The Unwind</span>
+                <span class="hive-treatment__duration">60 min</span>
+                <span class="hive-treatment__price">$65</span>
+                <span class="hive-treatment__toggle" aria-hidden="true"></span>
+                <span class="hive-treatment__description">Deep scalp cleansing meets head, neck, shoulder &amp; face massage.</span>
+              </summary>
+              <div class="hive-treatment__details">
+                <ul><li>Deep scalp cleanse</li>
             <li>Head, neck, shoulder and face massage</li>
             <li>Leave-in conditioner</li>
-            <li>Braid or airy blow dry</li>
-            </ul>
-          <a class="hive-service-dialog__book button button--primary" href="booking.html?profile=the-hive">Book The Unwind</a>
-        </dialog>
-        <dialog id="glow-details" class="hive-service-dialog" aria-labelledby="glow-details-title">
-          <div class="hive-service-dialog__header">
-            <h2 id="glow-details-title">The Glow</h2>
-            <form method="dialog">
-              <button class="hive-service-dialog__close button button--text button--small" autofocus>Close</button>
-            </form>
-          </div>
-          <p class="hive-service-dialog__meta">75 min<span>$75</span></p>
-            <ul>
-            <li>Deep scalp cleanse</li>
+            <li>Braid or airy blow dry</li></ul>
+                <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book The Unwind</a>
+              </div>
+            </details>
+            <details class="hive-treatment">
+              <summary>
+                <span class="hive-treatment__name">The Glow</span>
+                <span class="hive-treatment__duration">75 min</span>
+                <span class="hive-treatment__price">$75</span>
+                <span class="hive-treatment__toggle" aria-hidden="true"></span>
+                <span class="hive-treatment__description">More time to relax, with arm &amp; hand massage.</span>
+              </summary>
+              <div class="hive-treatment__details">
+                <ul><li>Deep scalp cleanse</li>
             <li>Head, neck, shoulder, face, arm and hand massage</li>
             <li>Leave-in conditioner</li>
-            <li>Braid or airy blow dry</li>
-            </ul>
-          <a class="hive-service-dialog__book button button--primary" href="booking.html?profile=the-hive">Book The Glow</a>
-        </dialog>
-        <dialog id="ritual-details" class="hive-service-dialog" aria-labelledby="ritual-details-title">
-          <div class="hive-service-dialog__header">
-            <h2 id="ritual-details-title">The Full Ritual</h2>
-            <form method="dialog">
-              <button class="hive-service-dialog__close button button--text button--small" autofocus>Close</button>
-            </form>
-          </div>
-          <p class="hive-service-dialog__meta">90 min<span>$90</span></p>
-            <ul>
-            <li>Scalp cleanse with steam</li>
+            <li>Braid or airy blow dry</li></ul>
+                <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book The Glow</a>
+              </div>
+            </details>
+            <details class="hive-treatment">
+              <summary>
+                <span class="hive-treatment__name">The Full Ritual</span>
+                <span class="hive-treatment__duration">90 min</span>
+                <span class="hive-treatment__price">$90</span>
+                <span class="hive-treatment__toggle" aria-hidden="true"></span>
+                <span class="hive-treatment__description">Our longest escape, with steam and leg &amp; foot massage.</span>
+              </summary>
+              <div class="hive-treatment__details">
+                <ul><li>Scalp cleanse with steam</li>
             <li>Head, neck, shoulder, face, arm, hand, leg and foot massage</li>
             <li>Leave-in conditioner</li>
-            <li>Braid or airy blow dry</li>
-            </ul>
-          <a class="hive-service-dialog__book button button--primary" href="booking.html?profile=the-hive">Book The Full Ritual</a>
-        </dialog>
-        <dialog id="botanical-details" class="hive-service-dialog" aria-labelledby="botanical-details-title">
-          <div class="hive-service-dialog__header">
-            <h2 id="botanical-details-title">The Botanical</h2>
-            <form method="dialog">
-              <button class="hive-service-dialog__close button button--text button--small" autofocus>Close</button>
-            </form>
-          </div>
-          <p class="hive-service-dialog__meta">75 min<span>$75</span></p>
-            <ul>
-            <li>Plant-based botanical scalp cleanse</li>
+            <li>Braid or airy blow dry</li></ul>
+                <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book The Full Ritual</a>
+              </div>
+            </details>
+            <details class="hive-treatment">
+              <summary>
+                <span class="hive-treatment__name">The Botanical</span>
+                <span class="hive-treatment__duration">75 min</span>
+                <span class="hive-treatment__price">$75</span>
+                <span class="hive-treatment__toggle" aria-hidden="true"></span>
+                <span class="hive-treatment__description">A botanical scalp cleanse and hair mask with warm steam.</span>
+              </summary>
+              <div class="hive-treatment__details">
+                <ul><li>Plant-based botanical scalp cleanse</li>
             <li>Hair mask with natural ingredients and warm steam</li>
             <li>Neck, shoulder and face massage</li>
             <li>Leave-in conditioner</li>
-            <li>Braid or airy blow dry</li>
-            </ul>
-          <a class="hive-service-dialog__book button button--primary" href="booking.html?profile=the-hive">Book The Botanical</a>
-        </dialog>
+            <li>Braid or airy blow dry</li></ul>
+                <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book The Botanical</a>
+              </div>
+            </details>
+            <p class="hive-menu__note">Textured, thick, or long hair may need extra detangling and blow-dry time. A $10 upcharge may apply and will be discussed before booking.</p>
+          </div>
+        </div>
       </section>
 
       <section id="foot-spa" class="hive-foot-spa section" aria-labelledby="foot-spa-title">
@@ -245,7 +212,7 @@
           <p>Foot soak, exfoliation &amp; massage.</p>
         </div>
         <p class="hive-foot-spa__price"><span>30 min</span><strong>$30</strong></p>
-        <a class="hive-foot-spa__book button button--primary" href="booking.html?profile=the-hive">Book foot facial</a>
+        <a class="hive-foot-spa__book button button--secondary button--small" href="booking.html?profile=the-hive">Book foot facial</a>
       </section>
 
       <section class="hive-benefits section" aria-labelledby="hive-benefits-title">
@@ -298,7 +265,7 @@
 
       <section class="hive-cta section" aria-labelledby="hive-cta-title">
         <div class="hive-cta__mark" aria-hidden="true">
-          <img class="hive-cta__art" src="assets/hive/branding/honeycomb-symbol.webp" alt="">
+          <img class="hive-cta__art" src="assets/hive/branding/logo.png" alt="">
         </div>
         <div class="hive-cta__copy">
           <p class="eyebrow">Girls' Day, Bride Reset, Solo Unwind</p>
@@ -328,23 +295,21 @@
           <span data-business-name>Cottage 616</span>
         </a>
         <span class="site-footer__logo-separator" aria-hidden="true">|</span>
-        <a class="site-footer__hive-wordmark" href="the-hive.html" aria-label="The Hive landing page">
-          <img class="site-footer__hive-icon" src="assets/hive/branding/symbol.svg" alt="">
-          <span class="brand--hive__script">the hive</span>
-          <span class="brand--hive__tagline">at cottage 616</span>
+        <a class="site-footer__hive-brand" href="the-hive.html" aria-label="The Hive landing page">
+          <img class="site-footer__hive-logo" src="assets/hive/branding/logo.png" alt="The Hive at Cottage 616" width="1254" height="1254" loading="lazy" decoding="async">
         </a>
       </div>
       <address>
         <a data-business-phone href="tel:+18702196982">(870) 219-6982</a>
         <a data-business-email href="mailto:info@cottage616.com">info@cottage616.com</a>
-        <span data-business-address>3773 County Road 616, Bay, AR 72411</span>
+        <a data-business-address href="https://www.google.com/maps/search/?api=1&amp;query=3773%20County%20Road%20616%2C%20Bay%2C%20AR%2072411" aria-label="Open 3773 County Road 616, Bay, AR 72411 in Maps">3773 County Road 616, Bay, AR 72411</a>
         <span class="site-credit">Site design by <a href="https://admitonedesign.com">Admit One Design Studio</a></span>
       </address>
       <div data-business-social class="site-footer__social"></div>
     </footer>
 
-    <script src="scripts/integrations/showrunner/content.js?v=audit-20260906"></script>
-    <script src="scripts/site.js?v=audit-20260906"></script>
-    <script src="scripts/integrations/showrunner/business.js?v=1"></script>
+    <script src="scripts/integrations/showrunner/content.js?v=local-vendors-20260927"></script>
+    <script src="scripts/site.js?v=refine-20260926"></script>
+    <script src="scripts/integrations/showrunner/business.js?v=contact-20260926"></script>
   </body>
 </html>

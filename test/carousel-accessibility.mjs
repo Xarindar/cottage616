@@ -20,16 +20,33 @@ try {
       await page.locator('.sr-hero-nav-dot').nth(1).click();
       assert.equal(await page.locator('.sr-hero-screen').nth(1).evaluate(node => node.inert), false);
       assert.equal(await page.locator('.sr-hero-screen').first().evaluate(node => node.inert), true);
-      if (reducedMotion === 'no-preference') {
-        await page.getByRole('button', {name: 'Play slideshow', exact: true}).click();
-        await page.getByRole('button', {name: 'Pause slideshow', exact: true}).click();
-        assert.equal(await page.getByRole('button', {name: 'Play slideshow', exact: true}).count(), 1);
-      } else assert.equal(await page.locator('[data-slideshow-pause]').count(), 0);
+      assert.equal(await page.locator('[data-slideshow-pause], .carousel-pause').count(), 0);
+      await page.clock.install();
+      const activeSlide = () => page.locator('.sr-hero-nav-dot[aria-current="true"]').getAttribute('aria-label');
+      const selected = await activeSlide();
+      // Keyboard focus keeps the selected slide stable.
+      await page.clock.runFor(7000);
+      assert.equal(await activeSlide(), selected);
+      await page.locator('.site-header').click({position: {x: 5, y: 5}});
+      await page.locator('.hero').hover();
+      await page.clock.runFor(7000);
+      assert.equal(await activeSlide(), selected);
+      await page.locator('.site-header').hover();
+      await page.clock.runFor(6500);
+      if (reducedMotion === 'reduce') assert.equal(await activeSlide(), selected);
+      else assert.notEqual(await activeSlide(), selected);
+      const rail = page.locator('.venue-strip__rail');
+      await rail.hover();
+      const before = await rail.evaluate(node => node.style.transform);
+      await page.clock.runFor(1000);
+      const after = await rail.evaluate(node => node.style.transform);
+      if (reducedMotion === 'reduce') assert.equal(after, before);
+      else assert.notEqual(after, before);
     }
     await page.locator('.menu-toggle').click();
     await page.locator('.menu-toggle').press('Escape');
     assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'false');
     await context.close();
   }
-  console.log('PASS: inactive slide isolation, slide selection, pause/play, reduced motion, and mobile Escape.');
+  console.log('PASS: inactive slide isolation, slide selection, hover/focus pause, uninterrupted gallery, reduced motion, and mobile Escape.');
 } finally { await browser.close(); }

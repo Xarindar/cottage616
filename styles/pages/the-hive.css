@@ -252,382 +252,321 @@
   transform: rotate(-10deg);
 }
 
-.hive-pricing {
-  padding-block: clamp(36px, 5vw, 64px);
-  color: var(--paper);
-  background: var(--navy);
+.hive-ritual {
+  color: var(--deep-blue);
+  background: var(--paper);
   scroll-margin-top: 90px;
 }
 
-.hive-pricing .section-heading {
-  margin-bottom: 28px;
-}
-
-.hive-pricing .section-heading h2 {
-  margin: 0;
-  color: var(--paper);
-  font-size: clamp(2rem, 4vw, 3.25rem);
-}
-
-.hive-pricing-grid {
+.hive-ritual__feature {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-items: start;
-  gap: 16px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  background: #e4dfd3;
 }
 
-.hive-price-card {
-  container-type: inline-size;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start;
-  gap: 18px 12px;
+.hive-ritual__image {
   min-width: 0;
-  padding: 24px;
-  border: 1px solid #e5dbc8;
-  border-top: 3px solid #c7a45b;
-  border-radius: 6px;
-  color: var(--deep-blue);
-  background: var(--paper);
-}
-
-.hive-price-card__heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 16px 12px;
-  grid-column: 1 / -1;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #e5dbc8;
-}
-
-.hive-price-card__heading h3 {
-  grid-column: 1 / -1;
   margin: 0;
+}
+
+.hive-ritual__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 690px;
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+.hive-ritual__copy {
+  align-self: center;
+  padding: clamp(36px, 6vw, 84px);
+}
+
+.hive-ritual__copy h2 {
+  margin: 0 0 28px;
   color: var(--deep-blue);
-  font-family: var(--display-font);
-  font-size: clamp(1.25rem, 1.75vw, 1.625rem);
+  font: 400 clamp(2.75rem, 5.2vw, 5rem)/1.13 var(--display-font);
+  letter-spacing: -0.035em;
+}
+
+.hive-ritual__copy h2 em {
   font-weight: 400;
-  line-height: 1.3;
 }
 
-.hive-price-card__duration,
-.hive-price-card__cost {
-  margin: 0;
-  white-space: nowrap;
+.hive-ritual__intro {
+  max-width: 35ch;
+  margin: 0 0 32px;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.8;
 }
 
-.hive-price-card__duration {
-  color: #6a5733;
+.hive-ritual__rate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0 0 20px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.hive-price-card__cost {
-  font-family: var(--display-font);
-  font-size: 2rem;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
+.hive-ritual__rate span {
+  font-weight: 500;
 }
 
-.hive-price-card__description {
-  grid-column: 1 / -1;
-  min-height: 4.5em;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.hive-price-card__details-trigger {
-  grid-column: 1;
-  justify-self: start;
-  text-align: left;
-}
-
-html:has(.hive-service-dialog) {
-  scrollbar-gutter: stable;
-}
-
-html:has(.hive-service-dialog[open]) {
-  overflow: hidden;
-}
-
-.hive-service-dialog {
-  box-sizing: border-box;
-  width: min(480px, calc(100% - 32px));
-  max-height: calc(100dvh - 48px);
-  padding: clamp(20px, 4vw, 32px);
-  border: 1px solid #e5dbc8;
-  border-top: 3px solid #c7a45b;
-  border-radius: 6px;
-  color: var(--deep-blue);
-  background: var(--paper);
-  overscroll-behavior: contain;
-}
-
-.hive-service-dialog::backdrop {
-  background: rgb(10 34 50 / 68%);
-}
-
-.hive-service-dialog__header {
+.hive-ritual__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px 16px;
+  gap: 10px 24px;
 }
 
-.hive-service-dialog__header h2 {
-  margin: 0;
-  font: 400 1.625rem/1.3 var(--display-font);
-  overflow-wrap: anywhere;
-}
-
-.hive-service-dialog__header form {
-  margin: 0 0 0 auto;
-}
-
-.hive-service-dialog__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px 16px;
-  margin: 16px 0 0;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5dbc8;
-  font-size: 1rem;
-}
-
-.hive-service-dialog__meta span {
-  font: 400 2rem/1.1 var(--display-font);
-}
-
-.hive-service-dialog ul {
+.hive-menu {
   display: grid;
-  gap: 12px;
-  margin: 24px 0;
-  padding-left: 20px;
-  font-size: 1rem;
-  line-height: 1.5;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+  padding-block: clamp(32px, 4vw, 56px);
+  padding-bottom: 20px;
+  scroll-margin-top: 86px;
 }
 
-.hive-service-dialog li::marker {
-  color: #92713b;
+.hive-menu__banner {
+  position: relative;
 }
 
-.hive-service-dialog__book {
+.hive-menu__banner img {
+  display: block;
   width: 100%;
+  height: clamp(110px, 14vw, 170px);
+  object-fit: cover;
+  object-position: center;
 }
 
-.hive-price-card__book {
-  grid-column: 2;
-}
-
-.hive-price-card--botanical {
-  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr) auto;
-  gap: 12px 32px;
-  margin-top: 20px;
-  background: #f4f0e6;
-}
-
-.hive-price-card--botanical .hive-price-card__heading {
-  grid-column: 1;
-  grid-row: 1 / span 3;
-  align-self: center;
-  padding: 0 32px 0 0;
-  border-right: 1px solid #d9ccb2;
-  border-bottom: 0;
-}
-
-.hive-price-card--botanical .hive-price-card__description {
-  grid-column: 2 / -1;
-  min-height: 0;
-  align-self: center;
-}
-
-.hive-price-card--botanical .hive-price-card__details-trigger {
-  grid-column: 2;
-}
-
-
-.hive-price-card--botanical .hive-price-card__book {
-  grid-column: 3;
-}
-
-.hive-pricing__notes {
-  max-width: 820px;
-  margin-top: 24px;
-}
-
-.hive-pricing__notes p {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.hive-pricing__notes .hive-pricing__note {
-  margin-top: 10px;
-  color: #c5d0d7;
-  font-size: 0.875rem;
-}
-
-.hive-pricing__sr-only {
+.hive-menu__title {
   position: absolute;
   width: 1px;
   height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+  border: 0;
 }
 
-@media (max-width: 1100px) {
-  .hive-pricing-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .hive-price-card__heading h3 {
-    font-size: 1.5rem;
-  }
-
-  .hive-price-card__description {
-    min-height: 3em;
-  }
+.hive-menu__intro p {
+  max-width: 75ch;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.75;
+  text-align: center;
 }
 
-@media (max-width: 720px) {
-  .hive-pricing {
-    padding-inline: 20px;
-  }
-
-  .hive-pricing .section-heading {
-    margin-bottom: 20px;
-  }
-
-  .hive-pricing-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .hive-price-card,
-  .hive-price-card--botanical {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 12px 16px;
-    padding: 18px 20px;
-  }
-
-  .hive-price-card__heading,
-  .hive-price-card--botanical .hive-price-card__heading {
-    grid-column: 1 / -1;
-    grid-row: auto;
-    gap: 4px 12px;
-    padding: 0;
-    border: 0;
-  }
-
-  .hive-price-card__heading h3 {
-    grid-column: 1;
-    font-size: 1.375rem;
-  }
-
-  .hive-price-card__duration {
-    grid-column: 1;
-    font-size: 0.875rem;
-  }
-
-  .hive-price-card__cost {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-    font-size: 1.875rem;
-  }
-
-  .hive-price-card__description,
-  .hive-price-card--botanical .hive-price-card__description {
-    grid-column: 1 / -1;
-    min-height: 0;
-  }
-
-  .hive-price-card--botanical .hive-price-card__details-trigger {
-    grid-column: 1;
-  }
-
-
-  .hive-price-card--botanical .hive-price-card__book {
-    grid-column: 2;
-  }
+.hive-treatment {
+  border-top: 1px solid #cecbbf;
 }
 
-@container (max-width: 12rem) {
-  .hive-price-card__heading h3 {
-    grid-column: 1 / -1;
-    overflow-wrap: anywhere;
-  }
+.hive-treatment:last-of-type {
+  border-bottom: 1px solid #cecbbf;
+}
 
-  .hive-price-card__duration,
-  .hive-price-card__cost {
-    grid-row: 2;
-  }
+.hive-treatment summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56px 48px 20px;
+  align-items: center;
+  gap: 4px 16px;
+  padding: 14px 0;
+  min-height: 56px;
+  list-style: none;
+  cursor: pointer;
+}
 
-  .hive-price-card .hive-price-card__details-trigger,
-  .hive-price-card .hive-price-card__book {
-    grid-column: 1 / -1;
-  }
+.hive-treatment summary::-webkit-details-marker { display: none; }
 
-  .hive-price-card__book {
-    justify-self: stretch;
+.hive-treatment summary:hover .hive-treatment__name {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+}
+
+.hive-treatment summary:focus-visible {
+  outline: 2px solid var(--deep-blue);
+  outline-offset: 5px;
+}
+
+.hive-treatment__name {
+  font: 400 clamp(1.125rem, 1.8vw, 1.5rem)/1.4 var(--display-font);
+}
+
+.hive-treatment__duration,
+.hive-treatment__price {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.hive-treatment__price { font-weight: 700; }
+
+.hive-treatment__description {
+  grid-column: 1 / -2;
+  max-width: 75ch;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #52616a;
+}
+
+.hive-treatment__toggle {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  justify-self: end;
+}
+
+.hive-treatment__toggle::before,
+.hive-treatment__toggle::after {
+  position: absolute;
+  top: 7px;
+  left: 1px;
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.hive-treatment__toggle::after { transform: rotate(90deg); }
+.hive-treatment[open] .hive-treatment__toggle::after { display: none; }
+
+.hive-treatment__details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 24px;
+  padding: 2px 0 16px;
+}
+
+.hive-treatment__details ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.hive-menu__note {
+  margin: 16px 0 0;
+  max-width: 70ch;
+  color: #52616a;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+}
+
+@media (min-width: 900px) {
+  .hive-treatment summary {
+    grid-template-columns: minmax(160px, 0.6fr) minmax(0, 1.4fr) 56px 48px 20px;
+    gap: 16px;
   }
+  .hive-treatment__name { grid-column: 1; grid-row: 1; }
+  .hive-treatment__description { grid-column: 2; grid-row: 1; }
+  .hive-treatment__duration { grid-column: 3; grid-row: 1; }
+  .hive-treatment__price { grid-column: 4; grid-row: 1; }
+  .hive-treatment__toggle { grid-column: 5; grid-row: 1; }
+}
+
+@media (max-width: 760px) {
+  .hive-ritual__feature,
+  .hive-menu { grid-template-columns: minmax(0, 1fr); }
+  .hive-ritual__image img {
+    height: auto;
+    aspect-ratio: 5 / 4;
+    object-position: center 57%;
+  }
+  .hive-ritual__copy { padding: 36px 24px 40px; }
+  .hive-ritual__copy h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
+  .hive-ritual__intro { max-width: 42ch; margin-bottom: 24px; }
+  .hive-menu { padding: 28px 24px 20px; gap: 22px; }
+  .hive-menu__intro p { max-width: 46ch; }
+  .hive-treatment__details { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .hive-treatment__details .button { justify-self: start; }
+  .hive-treatment summary {
+    grid-template-columns: minmax(0, 1fr) 46px 34px 16px;
+    gap: 4px 10px;
+    padding-block: 12px;
+  }
+  .hive-treatment__name { font-size: 1.0625rem; }
+  .hive-treatment__duration, .hive-treatment__price { font-size: 0.8125rem; }
+  .hive-treatment__description { grid-column: 1 / -1; }
 }
 
 .hive-foot-spa {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 24px clamp(24px, 5vw, 64px);
-  padding-block: clamp(32px, 4vw, 48px);
-  border-bottom: 1px solid #e5dbc8;
+  gap: 16px 24px;
+  padding-block: 16px;
+  border-bottom: 1px solid #cecbbf;
   color: var(--deep-blue);
   background: var(--paper);
 }
 
 .hive-foot-spa__copy h2 {
-  margin: 0 0 10px;
-  font: 400 clamp(1.75rem, 3vw, 2.25rem)/1.3 var(--display-font);
+  margin: 0 0 4px;
+  font: 400 clamp(1.125rem, 1.8vw, 1.5rem)/1.4 var(--display-font);
 }
 
 .hive-foot-spa__copy p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #52616a;
 }
 
 .hive-foot-spa__price {
-  display: grid;
-  gap: 6px;
+  display: flex;
+  gap: 16px;
   margin: 0;
   white-space: nowrap;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .hive-foot-spa__price span {
-  color: #6a5733;
-  font-size: 1rem;
-  font-weight: 600;
+  color: var(--deep-blue);
+  font-size: inherit;
+  font-weight: 400;
 }
 
 .hive-foot-spa__price strong {
-  font: 400 2rem/1.1 var(--display-font);
+  font: 700 0.875rem/1.4 var(--sans-font);
+}
+
+@media (min-width: 900px) {
+  .hive-foot-spa {
+    grid-template-columns: minmax(160px, 0.6fr) minmax(0, 1.4fr) auto auto;
+    gap: 16px;
+  }
+  .hive-foot-spa__copy { display: contents; }
+  .hive-foot-spa__copy h2 { margin: 0; }
 }
 
 @media (max-width: 720px) {
   .hive-foot-spa {
-    grid-template-columns: auto minmax(0, 1fr);
-    padding-inline: 20px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 16px;
+    padding-inline: 24px;
   }
 
   .hive-foot-spa__copy {
-    grid-column: 1 / -1;
+    grid-column: 1;
+    grid-row: 1 / span 2;
   }
 
+  .hive-foot-spa__copy h2 { font-size: 1.0625rem; }
+
+  .hive-foot-spa__price { grid-column: 2; justify-self: end; }
+
   .hive-foot-spa__book {
+    grid-column: 2;
     justify-self: end;
   }
 }

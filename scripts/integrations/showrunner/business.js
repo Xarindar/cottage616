@@ -3,6 +3,17 @@
   const pages = { "index.html": "home", "the-hive.html": "hive", "booking.html": "booking", "vendors.html": "vendors" };
   const page = pages[location.pathname.split("/").pop() || "index.html"];
   if (!page) return;
+  const useAppleMaps = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+  function updateAddress(node, address) {
+    node.textContent = address;
+    node.hidden = !address;
+    node.href = useAppleMaps
+      ? `https://maps.apple.com/?q=${encodeURIComponent(address)}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+    node.setAttribute("aria-label", `Open ${address} in Maps`);
+  }
+  // Enable the device-appropriate map link even if business content is unavailable.
+  document.querySelectorAll("[data-business-address]").forEach(node => updateAddress(node, node.textContent.trim()));
   window.addEventListener("showrunner:render", event => {
     const business = event.detail.blocks?.find(block => block.type === "business");
     if (business) applyBusiness({ businessConfigured: true, business: business.payload });
@@ -26,7 +37,8 @@
       const business = data.business;
       document.querySelectorAll("[data-business-phone]").forEach(node => { node.textContent = business.phone || ""; node.href = `tel:${String(business.phone || "").replace(/[^+\d]/g, "")}`; node.hidden = !business.phone; });
       document.querySelectorAll("[data-business-email]").forEach(node => { node.textContent = business.email || ""; node.href = `mailto:${business.email || ""}`; node.hidden = !business.email; });
-      document.querySelectorAll("[data-business-address]").forEach(node => { node.textContent = [business.line1, business.line2, business.city, [business.region, business.postalCode].filter(Boolean).join(" "), business.country].filter(Boolean).join(", "); });
+      const address = [business.line1, business.line2, business.city, [business.region, business.postalCode].filter(Boolean).join(" "), business.country].filter(Boolean).join(", ");
+      document.querySelectorAll("[data-business-address]").forEach(node => updateAddress(node, address));
       document.querySelectorAll("[data-business-name]").forEach(node => { node.textContent = business.businessName; });
       document.querySelectorAll("form[data-business-email-action]").forEach(form => { form.action = `mailto:${business.email || ""}`; });
       document.querySelectorAll("[data-business-social]").forEach(container => {

@@ -22,16 +22,6 @@
   let focusHeader = () => {};
   let activeHeaderId = "";
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let autoplayPaused = false;
-  function pauseSlideshow() {
-    autoplayPaused = true;
-    if (slideshowTimer) window.clearInterval(slideshowTimer);
-    slideshowTimer = null;
-    const button = root?.querySelector("[data-slideshow-pause]");
-    if (button) { button.textContent = "Play"; button.setAttribute("aria-label", "Play slideshow"); }
-  }
-  root?.addEventListener("focusin", event => { if (!event.target.closest("[data-slideshow-pause]")) pauseSlideshow(); });
-  reducedMotion.addEventListener("change", event => { if (event.matches) pauseSlideshow(); });
 
   if (root) root.classList.add("sr-content-loading");
 
@@ -160,28 +150,21 @@
         const startAutoplay = () => {
           if (slideshowTimer) window.clearInterval(slideshowTimer);
           slideshowTimer = null;
-          if (autoplayPaused || reducedMotion.matches || new URLSearchParams(location.search).get("showrunner-editor") === "1") return;
-          slideshowTimer = window.setInterval(() => { if (!document.hidden && !root.matches(":hover")) setActiveSlide(active + 1); }, interval);
+          if (new URLSearchParams(location.search).get("showrunner-editor") === "1") return;
+          slideshowTimer = window.setInterval(() => {
+            if (!document.hidden && !reducedMotion.matches && !root.matches(":hover, :focus-within")) {
+              setActiveSlide(active + 1);
+            }
+          }, interval);
         };
 
         slideNav = buildSlideNav({
           onSelect: (index) => {
-            pauseSlideshow();
             setActiveSlide(index);
           },
           slideCount: nodes.length
         });
         root.appendChild(slideNav.element);
-        const pause = document.createElement("button");
-        pause.type = "button";
-        pause.dataset.slideshowPause = "";
-        pause.textContent = autoplayPaused || reducedMotion.matches ? "Play" : "Pause";
-        pause.setAttribute("aria-label", `${pause.textContent} slideshow`);
-        pause.addEventListener("click", () => {
-          if (slideshowTimer) pauseSlideshow();
-          else { autoplayPaused = false; startAutoplay(); pause.textContent = slideshowTimer ? "Pause" : "Play"; pause.setAttribute("aria-label", `${pause.textContent} slideshow`); }
-        });
-        if (new URLSearchParams(location.search).get("showrunner-editor") !== "1" && !reducedMotion.matches) slideNav.element.appendChild(pause);
         slideNav.setActive(active);
         focusHeader = id => { const index = renderable.findIndex(screen => screen.editorId === id); if (index >= 0) setActiveSlide(index); };
         if (activeHeaderId) focusHeader(activeHeaderId);
@@ -327,6 +310,7 @@
       if (block?.id === "home-events") applyEventsPanel(block.payload || {});
       if (block?.id === "home-venue-gallery") applyVenueGallery(block.payload || {});
       if (block?.id === "vendors-directory") applyVendorDirectory(block.payload || {});
+      if (block?.presentation?.selector === "#head-spa-menu") applyHiveMenu(block.payload || {});
       if (block?.type === "testimonials") {
         const payload = block.payload || {};
         const section = document.querySelector("[data-showrunner-testimonials]");
@@ -334,6 +318,48 @@
         applyTestimonials({ heading: payload.heading, intro: payload.copy, items: (payload.items || []).map(item => ({ ...originalTestimonials.find(original => original.id === item.id), authorName: item.author, authorRole: item.role, quote: item.quote })) });
       }
     });
+  }
+
+  // Keep the existing Studio menu content connected after replacing its cards
+  // and dialogs with inline disclosures. The editorial headline is separate.
+  function applyHiveMenu(payload) {
+    const menu = document.querySelector(".hive-menu");
+    if (!menu) return;
+    const text = index => payload.texts?.[index]?.text;
+    const assign = (node, value) => {
+      if (node && typeof value === "string") node.textContent = value;
+    };
+    assign(menu.querySelector("h3"), text(0));
+    assign(menu.querySelector(".hive-menu__intro > p"), text(11));
+    assign(menu.querySelector(".hive-menu__note"), text(12));
+    const rows = Array.from(menu.querySelectorAll(".hive-treatment"));
+    rows.forEach((row, index) => {
+      assign(row.querySelector(".hive-treatment__name"), text(1 + index * 2));
+      assign(row.querySelector(".hive-treatment__description"), text(2 + index * 2));
+      const detailStart = 13 + index * 6;
+      const meta = text(detailStart + 1)?.match(/^(.*?)\s+(\$[\d,.]+)$/);
+      if (meta) {
+        assign(row.querySelector(".hive-treatment__duration"), meta[1]);
+        assign(row.querySelector(".hive-treatment__price"), meta[2]);
+      }
+      row.querySelectorAll("li").forEach((item, itemIndex) => assign(item, text(detailStart + 2 + itemIndex)));
+      const link = payload.links?.[5 + index];
+      const anchor = row.querySelector("a");
+      if (link && anchor) {
+        assign(anchor, link.label);
+        const href = normalizeHref(link.href);
+        if (["http:", "https:"].includes(new URL(href, location.href).protocol)) anchor.href = href;
+      }
+    });
+    const prices = rows.map(row => Number(row.querySelector(".hive-treatment__price")?.textContent.replace(/[$,]/g, "")));
+    const durations = rows.map(row => Number.parseInt(row.querySelector(".hive-treatment__duration")?.textContent, 10));
+    const rate = document.querySelector(".hive-ritual__rate");
+    if (rate && prices.length && prices.every(Number.isFinite) && durations.every(Number.isFinite)) {
+      rate.replaceChildren(document.createTextNode(`Head spas from $${Math.min(...prices)} `));
+      const duration = document.createElement("span");
+      duration.textContent = `${Math.min(...durations)}–${Math.max(...durations)} minutes`;
+      rate.append(duration);
+    }
   }
 
   function applyHeaderCarousel(payload) {
@@ -405,15 +431,35 @@
 
   function applyVendorDirectory(directory) {
     const list = document.querySelector("[data-content-vendor-list]");
-    const items = Array.isArray(directory.items) ? directory.items : [];
-    if (!list || !items.length) return;
+    if (!list || !Array.isArray(directory.items)) return;
+    list.innerHTML = vendorGroups(directory.items);
+  }
 
-    setText("[data-content-vendor-heading]", directory.heading);
-    setText("[data-content-vendor-copy]", directory.copy);
-    list.innerHTML = items.map((vendor, index) => vendorCard(vendor, index)).join("");
+  function hasGuestOffer(vendor) {
+    return typeof vendor.offer === "string" && vendor.offer.trim().length > 0;
+  }
+
+  function vendorGroups(items) {
+    const indexed = items.map((vendor, index) => ({ vendor, index }));
+    const partners = indexed.filter(({ vendor }) => hasGuestOffer(vendor));
+    const otherVendors = indexed.filter(({ vendor }) => !hasGuestOffer(vendor));
+    const group = (entries, partner) => {
+      if (!entries.length) return "";
+      const id = partner ? "guest-offers" : "more-local-vendors";
+      return `<section class="vendor-group${partner ? " vendor-group--partners" : " vendor-group--local"}" aria-labelledby="${id}">
+        <header class="vendor-group__heading">
+          <h2 id="${id}">${partner ? "A little extra for Cottage guests." : "More local vendors."}</h2>
+          <p>${partner ? "Look for the crown: these partners offer a discount or complimentary extra for Cottage 616 guests. Contact the vendor to confirm the offer for your event." : "More options for your celebration. Contact each business directly for services and pricing."}</p>
+        </header>
+        <div class="${partner ? "vendors-directory__grid" : "vendors-directory__list"}">${entries.map(({ vendor, index }) => vendorCard(vendor, index)).join("")}</div>
+      </section>`;
+    };
+    return group(partners, true) + group(otherVendors, false)
+      || '<p class="vendors-empty">Local vendor listings are being updated. Please check back soon.</p>';
   }
 
   function vendorCard(vendor, index) {
+    const partner = hasGuestOffer(vendor);
     const targetId = `showrunner-vendor-${index + 1}`;
     const name = vendor.name || "Vendor";
     const contacts = [
@@ -425,14 +471,19 @@
       contactLink(vendor.addressUrl, "Directions")
     ].filter(Boolean).join("");
     return `
-      <article class="vendor-entry">
-        <figure class="vendor-entry__image">${vendor.imageUrl ? `<img src="${escapeAttribute(vendor.imageUrl)}" alt="${escapeAttribute(vendor.imageAlt || name)}">` : ""}</figure>
+      <article class="vendor-entry${partner ? " vendor-entry--partner" : " vendor-entry--local"}">
+        ${partner && vendor.imageUrl ? `<figure class="vendor-entry__image"><img src="${escapeAttribute(vendor.imageUrl)}" alt="${escapeAttribute(vendor.imageAlt || name)}" loading="lazy" decoding="async"></figure>` : ""}
         <div class="vendor-entry__body">
-          ${vendor.category ? `<p class="eyebrow">${escapeHtml(vendor.category)}</p>` : ""}
+          <div class="vendor-entry__info">
+          ${vendor.category ? `<p class="vendor-entry__category">${escapeHtml(vendor.category)}</p>` : ""}
           <h3>${escapeHtml(name)}</h3>
-          ${vendor.offer ? `<p class="vendor-entry__offer">${escapeHtml(vendor.offer)}</p>` : ""}
-          ${vendor.description ? `<p>${escapeHtml(vendor.description)}</p>` : ""}
-          ${contacts ? `<button class="vendor-entry__link button button--secondary button--small" type="button" data-contact-modal="${escapeAttribute(name)}" data-contact-target="${targetId}">${escapeHtml(vendor.ctaLabel || "Get in touch")} <span aria-hidden="true">→</span></button>` : ""}
+          ${vendor.description ? `<p class="vendor-entry__description">${escapeHtml(vendor.description)}</p>` : ""}
+          </div>
+          <div class="vendor-entry__details">
+          ${partner ? '<span class="vendor-partner-badge"><img src="assets/shared/icons/crown.svg" width="20" height="20" alt="">Cottage partner</span>' : ""}
+          ${partner ? `<p class="vendor-entry__offer">${escapeHtml(vendor.offer.trim())}</p>` : ""}
+          ${contacts ? `<button class="vendor-entry__link button button--text" type="button" data-contact-modal="${escapeAttribute(name)}" data-contact-target="${targetId}">${escapeHtml(vendor.ctaLabel || "Get in touch")} <span aria-hidden="true">→</span></button>` : ""}
+          </div>
           <div id="${targetId}" class="vendor-contact-data" hidden>${contacts}</div>
         </div>
       </article>
@@ -482,17 +533,16 @@
       : `<span>${escapeHtml(initials || "C")}</span>`;
     return `
       <article class="profile-testimonial-card">
-        <div class="profile-testimonial-card__stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}</div>
-        <span class="profile-testimonial-card__quote-mark" aria-hidden="true">“</span>
-        <blockquote class="profile-testimonial-card__quote">
-          <p>${escapeHtml(testimonial.quote || "")}</p>
-        </blockquote>
-        <footer class="profile-testimonial-card__person">
+        <header class="profile-testimonial-card__person">
           <span class="profile-testimonial-card__avatar">${image}</span>
           <span class="profile-testimonial-card__identity">
             <strong>${escapeHtml(name)}</strong>
           </span>
-        </footer>
+        </header>
+        <blockquote class="profile-testimonial-card__quote">
+          <p>${escapeHtml(testimonial.quote || "")}</p>
+        </blockquote>
+        <div class="profile-testimonial-card__stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}</div>
       </article>
     `;
   }
