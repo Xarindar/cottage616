@@ -130,6 +130,22 @@
   }
 
   function applyProfileNavigation() {
+    if (bookingProfile.key === "the-hive") {
+      const hiveLinks = [
+        ["Cottage 616", "index.html"],
+        ["Treatments", "the-hive.html#head-spa-menu"],
+        ["Team", "the-hive.html#team"]
+      ];
+      document.querySelectorAll(".site-nav__group--left a").forEach((link, index) => {
+        if (!hiveLinks[index]) {
+          link.remove();
+          return;
+        }
+        link.textContent = hiveLinks[index][0];
+        link.setAttribute("href", hiveLinks[index][1]);
+      });
+      document.querySelector(".site-nav__group--right a")?.setAttribute("href", "the-hive.html#contact");
+    }
     document.querySelectorAll("[data-booking-home]").forEach((link) => link.setAttribute("href", bookingProfile.homeHref));
     document
       .querySelectorAll("[data-booking-nav]")

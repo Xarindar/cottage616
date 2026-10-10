@@ -41,9 +41,7 @@
 }
 
 .hive-intro__bee,
-.hive-card-icon,
-.hive-products__art,
-.hive-cta__art {
+.hive-intro__bee {
   object-fit: contain;
   pointer-events: none;
   user-select: none;
@@ -105,23 +103,8 @@
   mask: var(--hive-hex-mask) center / contain no-repeat;
 }
 
-.hive-team {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: minmax(260px, 0.38fr) minmax(420px, 0.62fr);
-  gap: clamp(24px, 5vw, 64px);
-  align-items: center;
-  padding-block: clamp(56px, 7vw, 94px);
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(255, 248, 242, 0.96)),
-    var(--paper);
-}
-
-.hive-profile-testimonials {
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(246, 248, 241, 0.96)),
-    var(--paper);
+.hive-page .hive-profile-testimonials {
+  background: #fff;
 }
 
 .hive-profile-testimonials .profile-testimonial-card__stars {
@@ -130,126 +113,6 @@
 
 .hive-profile-testimonials .profile-testimonial-card__avatar {
   background: var(--soft-yellow);
-}
-
-.hive-team::before {
-  content: "";
-  position: absolute;
-  inset: auto clamp(18px, 5vw, 72px) 0;
-  height: 1px;
-  background: rgba(23, 63, 95, 0.1);
-}
-
-.hive-team__intro {
-  position: relative;
-  z-index: 1;
-  max-width: 500px;
-}
-
-.hive-team__intro p:not(.eyebrow) {
-  max-width: 470px;
-  color: var(--muted);
-}
-
-.hive-team__intro h2 {
-  font-family: var(--display-font);
-  font-size: clamp(2.2rem, 4.2vw, 3.5rem);
-  letter-spacing: 0;
-}
-
-.hive-team__intro .eyebrow {
-  color: var(--clay);
-}
-
-.hive-team__strip {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 2.2vw, 26px);
-}
-
-.hive-team-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(116px, 0.48fr) minmax(0, 0.52fr);
-  align-items: stretch;
-  min-height: 210px;
-  overflow: hidden;
-  border: 1px solid rgba(23, 63, 95, 0.1);
-  border-radius: 8px;
-  background: rgba(255, 253, 248, 0.94);
-  box-shadow: var(--premium-shadow);
-}
-
-.hive-team-card:nth-child(2) {
-  background: rgba(246, 248, 241, 0.95);
-}
-
-.hive-team-card::before {
-  content: attr(data-initials);
-  grid-column: 1;
-  grid-row: 1;
-  display: grid;
-  place-items: center;
-  min-height: 210px;
-  color: var(--deep-blue);
-  background:
-    linear-gradient(135deg, rgba(246, 248, 241, 0.94), rgba(255, 248, 242, 0.98)),
-    var(--paper);
-  font-family: var(--display-font);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  line-height: 1;
-}
-
-.hive-team-card img {
-  position: relative;
-  z-index: 1;
-  grid-column: 1;
-  grid-row: 1;
-  width: 100%;
-  height: 100%;
-  min-height: 210px;
-  object-fit: cover;
-  object-position: center 24%;
-  filter: saturate(0.96) contrast(1.02);
-}
-
-.hive-team-card--image-missing img {
-  display: none;
-}
-
-.hive-team-card__copy {
-  grid-column: 2;
-  display: grid;
-  align-content: center;
-  gap: 8px;
-  padding: clamp(18px, 2.6vw, 28px);
-}
-
-.hive-team-card h3 {
-  color: var(--deep-blue);
-  font-family: var(--display-font);
-  font-size: clamp(1.24rem, 2.2vw, 1.72rem);
-  line-height: 1.08;
-  letter-spacing: 0;
-}
-
-.hive-team-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  font-weight: 700;
-  line-height: 1.45;
-}
-
-.hive-team__bee {
-  position: absolute;
-  right: clamp(18px, 4vw, 58px);
-  bottom: clamp(18px, 3vw, 42px);
-  width: clamp(62px, 8vw, 110px);
-  opacity: 0.24;
-  transform: rotate(-10deg);
 }
 
 .hive-ritual {
@@ -355,14 +218,6 @@
   border: 0;
 }
 
-.hive-menu__intro p {
-  max-width: 75ch;
-  margin: 0 auto;
-  font-size: 1rem;
-  line-height: 1.75;
-  text-align: center;
-}
-
 .hive-treatment {
   border-top: 1px solid #cecbbf;
 }
@@ -455,7 +310,7 @@
 
 .hive-menu__note {
   margin: 16px 0 0;
-  max-width: 70ch;
+  max-width: none;
   color: #52616a;
   font-size: 0.8125rem;
   line-height: 1.75;
@@ -485,7 +340,6 @@
   .hive-ritual__copy h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
   .hive-ritual__intro { max-width: 42ch; margin-bottom: 24px; }
   .hive-menu { padding: 28px 24px 20px; gap: 22px; }
-  .hive-menu__intro p { max-width: 46ch; }
   .hive-treatment__details { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .hive-treatment__details .button { justify-self: start; }
   .hive-treatment summary {
@@ -571,237 +425,6 @@
   }
 }
 
-.hive-benefits {
-  background-color: var(--cream);
-  background-image: linear-gradient(180deg, rgba(255, 248, 242, 0.98), rgba(255, 253, 248, 0.98));
-}
-
-.hive-card-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  padding-top: clamp(38px, 5vw, 56px);
-}
-
-.hive-card-grid article,
-.hive-products__panel {
-  border: 1px solid rgba(23, 63, 95, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 8px 22px rgba(23, 63, 95, 0.035);
-}
-
-.hive-card-grid article {
-  position: relative;
-  min-height: 100%;
-  padding: clamp(50px, 6vw, 68px) clamp(18px, 3vw, 26px) clamp(18px, 3vw, 26px);
-  border-top: 5px solid var(--yellow);
-  overflow: visible;
-  text-align: center;
-}
-
-.hive-card-grid article::after {
-  display: none;
-}
-
-.hive-card-icon {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: clamp(92px, 8.6vw, 114px);
-  height: auto;
-  aspect-ratio: 1.16 / 1;
-  margin: 0;
-  padding: clamp(9px, 1.1vw, 12px) clamp(11px, 1.4vw, 15px);
-  background: var(--soft-yellow);
-  border-radius: 8px;
-  clip-path: none;
-  box-shadow: none;
-  filter: drop-shadow(0 10px 16px rgba(23, 63, 95, 0.14));
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-.hive-card-grid article::before {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: clamp(100px, 9.2vw, 124px);
-  height: auto;
-  aspect-ratio: 1.16 / 1;
-  background: var(--paper);
-  border-radius: 8px;
-  clip-path: none;
-  content: "";
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-
-.hive-card-grid h3 {
-  color: var(--deep-blue);
-  font-family: var(--display-font);
-  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-}
-
-.hive-card-grid p {
-  margin-bottom: 0;
-  color: var(--muted);
-}
-
-.hive-products {
-  display: grid;
-  grid-template-columns: minmax(320px, 1.05fr) minmax(280px, 0.95fr);
-  gap: clamp(24px, 5vw, 60px);
-  align-items: stretch;
-  background: linear-gradient(135deg, rgba(255, 253, 248, 0.98) 0%, rgba(247, 251, 253, 0.92) 100%);
-}
-
-.hive-products__panel {
-  position: relative;
-  overflow: hidden;
-  padding: clamp(24px, 4vw, 38px);
-  border-top: 5px solid var(--yellow);
-}
-
-.hive-products__panel p:not(.eyebrow) {
-  position: relative;
-  z-index: 1;
-  color: var(--muted);
-}
-
-.hive-products__panel h2,
-.hive-products__panel .eyebrow,
-.hive-products__panel .check-list {
-  position: relative;
-  z-index: 1;
-}
-
-.hive-products .hive-products__art {
-  position: absolute;
-  right: -18px;
-  top: 18px;
-  width: clamp(74px, 10vw, 112px);
-  min-height: 0;
-  height: auto;
-  opacity: 0.14;
-  transform: rotate(6deg);
-}
-
-.hive-products__feature {
-  position: relative;
-  display: grid;
-  min-height: 420px;
-  align-content: center;
-  justify-items: center;
-  overflow: hidden;
-  padding: clamp(28px, 5vw, 52px);
-  border: 1px solid rgba(23, 63, 95, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: var(--premium-shadow);
-  text-align: center;
-}
-
-.hive-products__feature p {
-  position: relative;
-  z-index: 1;
-  max-width: 420px;
-  margin-bottom: 12px;
-  color: var(--deep-blue);
-  font-family: var(--display-font);
-  font-size: clamp(2.4rem, 5vw, 4.9rem);
-  line-height: 0.96;
-}
-
-.hive-products__feature span {
-  position: relative;
-  z-index: 1;
-  max-width: 360px;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.hive-products__feature img {
-  position: absolute;
-  right: clamp(-18px, -2vw, -8px);
-  bottom: clamp(-18px, -2vw, -8px);
-  width: clamp(150px, 18vw, 230px);
-  opacity: 0.08;
-  transform: rotate(-8deg);
-}
-
-.hive-cta {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: minmax(260px, 0.9fr) minmax(340px, 1.1fr);
-  gap: clamp(30px, 6vw, 88px);
-  align-items: center;
-  min-height: clamp(410px, 40vw, 520px);
-  padding-block: clamp(54px, 7vw, 86px);
-  background-color: var(--soft-yellow);
-  background-image:
-    radial-gradient(circle at 15% 22%, rgba(255, 253, 248, 0.86) 0 18%, transparent 40%),
-    linear-gradient(135deg, rgba(255, 253, 248, 0.96) 0%, rgba(255, 240, 189, 0.9) 100%);
-  border-block: 1px solid rgba(23, 63, 95, 0.1);
-}
-
-.hive-cta::after {
-  position: absolute;
-  inset: 0;
-  background-image: url("../../assets/hive/textures/patterns/honeycomb-grid.svg");
-  background-position: center;
-  background-repeat: repeat;
-  background-size: clamp(520px, 64vw, 920px) auto;
-  content: "";
-  opacity: 0.38;
-  pointer-events: none;
-}
-
-.hive-cta__mark,
-.hive-cta__copy {
-  position: relative;
-  z-index: 1;
-}
-
-.hive-cta__mark {
-  display: grid;
-  place-items: center;
-  min-height: clamp(250px, 34vw, 430px);
-}
-
-.hive-cta h2 {
-  max-width: 560px;
-  margin-bottom: clamp(14px, 2vw, 18px);
-  color: var(--deep-blue);
-  font-family: var(--sans-font);
-  font-size: clamp(1.65rem, 2.25vw, 2.25rem);
-  font-weight: 800;
-  line-height: 1.16;
-}
-
-.hive-cta__copy {
-  max-width: 600px;
-}
-
-.hive-cta__copy .eyebrow {
-  color: var(--clay);
-}
-
-.hive-cta__copy p:not(.eyebrow) {
-  max-width: 530px;
-  margin: 0 0 clamp(22px, 3vw, 34px);
-  color: var(--muted);
-  font-size: clamp(1rem, 1.35vw, 1.16rem);
-  font-weight: 600;
-  line-height: 1.65;
-}
-
-.hive-cta__art {
-  width: clamp(250px, 32vw, 460px);
-  filter: drop-shadow(0 22px 34px rgba(16, 45, 66, 0.12));
-}
-
 .site-footer {
   position: relative;
   margin-top: 0;
@@ -812,51 +435,9 @@
   display: none;
 }
 
-.site-footer .hive-updates {
-  position: relative;
-  z-index: 1;
-  margin: 0 auto clamp(26px, 5vw, 48px);
-}
-
 @media (max-width: 980px) {
-  .hive-intro,
-  .hive-products,
-  .hive-cta {
+  .hive-intro {
     grid-template-columns: 1fr;
-  }
-
-  .hive-team {
-    grid-template-columns: 1fr;
-  }
-
-  .hive-team__intro,
-  .hive-team__intro p:not(.eyebrow) {
-    max-width: 720px;
-  }
-
-  .hive-cta {
-    gap: clamp(20px, 5vw, 36px);
-    text-align: center;
-  }
-
-  .hive-cta::after {
-    background-size: 620px auto;
-    opacity: 0.32;
-  }
-
-  .hive-cta__copy,
-  .hive-cta__copy p:not(.eyebrow),
-  .hive-cta h2 {
-    margin-inline: auto;
-  }
-
-  .hive-cta__art {
-    order: -1;
-    width: clamp(210px, 52vw, 340px);
-  }
-
-  .hive-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -867,39 +448,6 @@
 
   .hive-intro__bee {
     display: none;
-  }
-
-  .hive-team {
-    padding-top: 104px;
-  }
-
-  .hive-team__strip {
-    grid-template-columns: 1fr;
-  }
-
-  .hive-team-card {
-    grid-template-columns: minmax(108px, 0.42fr) minmax(0, 0.58fr);
-    min-height: 176px;
-  }
-
-  .hive-team-card::before,
-  .hive-team-card img {
-    min-height: 176px;
-  }
-
-  .hive-team-card__copy {
-    padding: 18px;
-  }
-
-  .hive-team-card h3 {
-    font-size: 1.2rem;
-  }
-
-  .hive-team__bee {
-    top: 24px;
-    right: 16px;
-    bottom: auto;
-    width: 70px;
   }
 
   .hive-photo-stack {
@@ -917,8 +465,274 @@
     margin: -54px auto 0;
   }
 
-  .hive-card-grid {
-    grid-template-columns: 1fr;
+}
+
+.hive-product-note {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 16px 0 0;
+}
+
+.hive-product-note__brand {
+  flex: 0 0 auto;
+  color: var(--deep-blue);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.hive-product-note p {
+  max-width: none;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+  .hive-product-note {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+.hive-booking {
+  background-color: #102d42;
+  background-image: linear-gradient(rgba(16, 45, 66, 0.72), rgba(16, 45, 66, 0.72)), url("../../assets/hive/photos/treatments/full-spa-process-poster-576w.webp");
+  background-size: cover;
+  background-position: 56% 29%;
+  border-top: 1px solid rgba(23, 63, 95, 0.12);
+  padding-block: clamp(44px, 6vw, 76px);
+}
+
+.hive-booking-card {
+  display: grid;
+  justify-items: center;
+  gap: clamp(28px, 4vw, 44px);
+  text-align: center;
+}
+
+.hive-booking-card__logo {
+  width: clamp(110px, 12vw, 150px);
+  height: auto;
+}
+
+.hive-booking-card__copy {
+  width: 100%;
+}
+
+.hive-booking-card__benefits {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 860px;
+  margin: 0 auto clamp(32px, 4vw, 48px);
+  padding: 0;
+  list-style: none;
+}
+
+.hive-booking-card__benefits li {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 16px;
+}
+
+.hive-booking-card__icon {
+  display: block;
+  width: 42px;
+  height: 42px;
+  background-color: var(--deep-blue);
+  -webkit-mask: var(--benefit-icon) center / contain no-repeat;
+  mask: var(--benefit-icon) center / contain no-repeat;
+}
+
+.hive-booking-card__benefits h3 {
+  margin: 0;
+  color: var(--deep-blue);
+  font-family: var(--display-font);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.hive-booking-card__copy > .button {
+  min-width: 200px;
+}
+
+@media (max-width: 640px) {
+  .hive-booking-card__benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
   }
 
+  .hive-booking-card__icon {
+    width: 38px;
+    height: 38px;
+  }
+}
+.hive-booking-card__benefits li:nth-child(1) {
+  --benefit-icon: url("../../assets/hive/icons/services/lotion.svg");
+}
+
+.hive-booking-card__benefits li:nth-child(2) {
+  --benefit-icon: url("../../assets/hive/icons/services/drop.svg");
+}
+
+.hive-booking-card__benefits li:nth-child(3) {
+  --benefit-icon: url("../../assets/hive/icons/services/heart-hands.svg");
+}
+
+.hive-booking-card__benefits li:nth-child(4) {
+  --benefit-icon: url("../../assets/hive/icons/services/eyemask.svg");
+}
+.hive-booking-card__title {
+  max-width: 24ch;
+  margin: 0;
+  color: var(--deep-blue);
+  font-family: var(--display-font);
+  font-size: clamp(2.2rem, 4.8vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.hive-booking .hive-booking-card__logo {
+  filter: brightness(0) invert(1);
+}
+
+.hive-booking .hive-booking-card__title,
+.hive-booking .hive-booking-card__benefits h3 {
+  color: var(--paper);
+}
+
+.hive-booking .hive-booking-card__icon {
+  background-color: var(--paper);
+}
+@media (max-width: 640px) {
+  .hive-booking {
+    background-position: 56% 29%;
+  }
+}
+.hive-booking {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hive-booking__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hive-booking::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(16, 45, 66, 0.72);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hive-booking__video {
+    display: none;
+  }
+}
+.hive-intro__copy h2 {
+  max-width: 18ch;
+  margin-bottom: 18px;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  line-height: 1.15;
+}
+
+.hive-intro__copy > p {
+  max-width: 38ch;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.hive-menu__tabs {
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 48px);
+}
+
+.hive-menu__tabs [role="tab"] {
+  padding: 12px 4px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: 700 1rem var(--sans-font);
+  cursor: pointer;
+}
+
+.hive-menu__tabs [aria-selected="true"] {
+  color: var(--deep-blue);
+  border-bottom-color: var(--deep-blue);
+}
+
+.hive-menu__tabs [role="tab"]:focus-visible,
+.hive-menu__panel:focus-visible {
+  outline: 2px solid var(--deep-blue);
+  outline-offset: 4px;
+}
+
+.hive-menu__panels {
+  display: grid;
+}
+
+.hive-menu__panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  align-self: start;
+}
+
+.hive-menu__panel[hidden] {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hive-menu__panel .hive-product-note {
+  margin-inline: 0;
+}
+
+.hive-menu__notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 20px 40px;
+  padding-top: 20px;
+}
+
+.hive-menu__notes .hive-product-note {
+  margin: 0;
+  padding: 0;
+}
+
+.hive-menu__notes .hive-menu__note {
+  margin: 0;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .hive-menu__notes {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.hive-page .team {
+  background: #fff3ef;
+}
+.hive-page .intro .icon-story article:first-child .sketch-icon img {
+  width: 60%;
+  height: 60%;
 }

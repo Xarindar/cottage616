@@ -13,8 +13,8 @@
     <link rel="preload" as="image" href="assets/hive/textures/patterns/honeycomb-grid.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>document.documentElement.classList.add("showrunner-js");</script>
-    <link rel="stylesheet" href="styles/site.css?v=local-vendors-20260927">
-    <link rel="stylesheet" href="styles/pages/the-hive.css?v=compact-reviews-20260905">
+    <link rel="stylesheet" href="styles/site.css?v=fixed-review-cards-20261010">
+    <link rel="stylesheet" href="styles/pages/the-hive.css?v=hive-section-colors-20261010">
     <link rel="stylesheet" href="styles/components/buttons.css?v=refine-20260926">
   <script src="scripts/integrations/showrunner/editor.js?v=20261007-showcase" data-editor-origins="https://admin.cottage616.com,https://showrunner-beta-production.up.railway.app,http://localhost:3000,http://localhost:3100"></script>
   </head>
@@ -30,13 +30,12 @@
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
         <div class="site-nav__group site-nav__group--left">
-          <a href="index.html#events">Events</a>
           <a href="index.html">Cottage 616</a>
-          <a href="index.html#team">Team</a>
-          <a href="vendors.html">Vendors</a>
+          <a href="#head-spa-menu">Treatments</a>
+          <a href="#team">Team</a>
         </div>
         <div class="site-nav__group site-nav__group--right">
-          <a href="index.html#contact">Contact</a>
+          <a href="#contact">Contact</a>
           <a class="nav-cta button button--primary button--small" href="booking.html?profile=the-hive">Book now</a>
         </div>
       </nav>
@@ -53,48 +52,35 @@
         </div>
       </section>
 
-      <section class="hive-intro">
-        <div class="hive-intro__copy">
-          <p class="eyebrow">Head Spa</p>
-          <h2>A soft reset for scalp care, stress relief, and shine.</h2>
-          <p>A head spa is a rejuvenating treatment designed to support healthy hair growth while promoting total relaxation. Specialized tools, massage techniques, and professional-grade products help stimulate scalp circulation and deeply hydrate the skin.</p>
-          <a class="button button--primary" href="booking.html?profile=the-hive">Book The Hive</a>
+      <section class="intro section" aria-labelledby="hive-intro-title">
+        <div class="intro-heading">
+          <h2 id="hive-intro-title">Your spa at Cottage 616.</h2>
         </div>
-        <img class="hive-intro__bee" src="assets/hive/illustrations/bee.svg" alt="" aria-hidden="true">
-        <div class="hive-photo-stack" aria-label="The Hive head-spa experience">
-          <img class="hive-photo-main" src="assets/hive/photos/treatments/scalp-rinse.jpg" alt="Cottage 616 head-spa water treatment">
-          <img class="hive-photo-secondary" src="assets/hive/photos/products/amika-products.jpg" alt="Head-spa tools and relaxing treatment setup">
+        <div class="icon-story" aria-label="Get to know The Hive">
+          <article>
+            <div class="highlight-label">
+              <div class="sketch-icon" aria-hidden="true"><img src="assets/hive/icons/services/drop.svg" alt=""></div>
+              <h3>Head Spa</h3>
+            </div>
+            <p>Scalp care, warm water, and a slow massage. Settle in and let us take care of you.</p>
+          </article>
+          <article>
+            <div class="highlight-label">
+              <div class="sketch-icon" aria-hidden="true"><img src="assets/hive/icons/services/towel.svg" alt=""></div>
+              <h3>Foot Facials</h3>
+            </div>
+            <p>A foot soak, exfoliation, and massage for feet that could use a little attention.</p>
+          </article>
+          <article>
+            <div class="highlight-label">
+              <div class="sketch-icon" aria-hidden="true"><img src="assets/hive/icons/services/eyemask.svg" alt=""></div>
+              <h3>Time for You</h3>
+            </div>
+            <p>Come on your own or make it a girls' day. There's room to slow down here.</p>
+          </article>
         </div>
       </section>
 
-      <section class="section profile-testimonials hive-profile-testimonials" data-showrunner-testimonials aria-label="Guest reviews" hidden>
-        <div class="profile-testimonials__grid" data-content-testimonial-list></div>
-      </section>
-
-      <section class="hive-team section" aria-labelledby="hive-team-title">
-        <div class="hive-team__intro">
-          <p class="eyebrow">The Hive Spa People</p>
-          <h2 id="hive-team-title">Meet the team.</h2>
-          <p>Jo and Deanna bring a calm, confidence-focused approach to every head-spa service, from scalp care and massage to the softer hair, lighter shoulders part everyone comes in hoping for.</p>
-        </div>
-        <div class="hive-team__strip" aria-label="The Hive head-spa team">
-          <article class="hive-team-card" data-initials="JS">
-            <img src="https://www.cottage616.com/wp-content/uploads/go-x/u/e240b829-0633-4bec-aba1-d07d08415dd0/l572,t767,w694,h694/image-455x455.jpg" alt="Jo Lynne Skaggs" onerror="this.closest('.hive-team-card').classList.add('hive-team-card--image-missing')">
-            <div class="hive-team-card__copy">
-              <h3>Jo Lynne Skaggs</h3>
-              <p>Founder/CEO<br>Head-Spa Specialist</p>
-            </div>
-          </article>
-          <article class="hive-team-card" data-initials="D">
-            <img src="assets/hive/photos/team/deanna.jpg" alt="Deanna, Head-Spa Specialist at Cottage 616" onerror="this.closest('.hive-team-card').classList.add('hive-team-card--image-missing')">
-            <div class="hive-team-card__copy">
-              <h3>Deanna</h3>
-              <p>Head-Spa Specialist<br>Cosmetologist and certified lash tech</p>
-            </div>
-          </article>
-        </div>
-        <img class="hive-team__bee" src="assets/hive/illustrations/bee.svg" alt="" aria-hidden="true">
-      </section>
 
       <section id="head-spa-menu" class="hive-ritual" aria-labelledby="hive-ritual-title">
         <div class="hive-ritual__feature">
@@ -116,10 +102,13 @@
             <img src="assets/hive/photos/treatments/head-spa-menu-banner-v1.png" width="2172" height="724" loading="lazy" decoding="async" alt="" aria-hidden="true">
             <h3 id="hive-pricing-title" class="hive-menu__title">Head spa menu.</h3>
           </div>
-          <div class="hive-menu__intro">
-            <p>Every head spa includes a scalp cleanse, leave-in conditioner, and a braid or airy blow dry.</p>
+          <div class="hive-menu__tabs" role="tablist" aria-label="Service menu">
+            <button id="head-spa-tab" type="button" role="tab" aria-selected="true" aria-controls="head-spa-panel" data-service-tab>Head Spa</button>
+            <button id="other-services-tab" type="button" role="tab" aria-selected="false" aria-controls="other-services-panel" tabindex="-1" data-service-tab>Other Services</button>
           </div>
-          <div class="hive-menu__list">
+          <div class="hive-menu__panels">
+          <div id="head-spa-panel" class="hive-menu__panel" role="tabpanel" aria-labelledby="head-spa-tab" tabindex="0">
+<div class="hive-menu__list">
             <details class="hive-treatment">
               <summary>
                 <span class="hive-treatment__name">The Refresh</span>
@@ -201,94 +190,83 @@
                 <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book The Botanical</a>
               </div>
             </details>
-            <p class="hive-menu__note">Textured, thick, or long hair may need extra detangling and blow-dry time. A $10 upcharge may apply and will be discussed before booking.</p>
+          </div>
+          <div class="hive-menu__notes">
+        <aside class="hive-product-note" aria-label="Products used in our head-spa treatments">
+          <span class="hive-product-note__brand">amika</span>
+          <p>The Hive is proud to exclusively use amika quality hair care products.</p>
+        </aside>
+            <p class="hive-menu__note">Some hair types and textures may be subject to an upcharge</p>
+          </div>
+          </div>
+          <div id="other-services-panel" class="hive-menu__panel" role="tabpanel" aria-labelledby="other-services-tab" tabindex="0" hidden>
+            <details id="foot-spa" class="hive-treatment">
+              <summary>
+                <span class="hive-treatment__name">Foot Facial</span>
+                <span class="hive-treatment__duration">30 min</span>
+                <span class="hive-treatment__price">$30</span>
+                <span class="hive-treatment__toggle" aria-hidden="true"></span>
+                <span class="hive-treatment__description">Foot soak, exfoliation &amp; massage.</span>
+              </summary>
+              <div class="hive-treatment__details">
+                <ul><li>Foot soak</li><li>Exfoliation</li><li>Foot massage</li></ul>
+                <a class="button button--secondary button--small" href="booking.html?profile=the-hive">Book foot facial</a>
+              </div>
+            </details>
+          </div>
           </div>
         </div>
       </section>
 
-      <section id="foot-spa" class="hive-foot-spa section" aria-labelledby="foot-spa-title">
-        <div class="hive-foot-spa__copy">
-          <h2 id="foot-spa-title">Foot Facial.</h2>
-          <p>Foot soak, exfoliation &amp; massage.</p>
-        </div>
-        <p class="hive-foot-spa__price"><span>30 min</span><strong>$30</strong></p>
-        <a class="hive-foot-spa__book button button--secondary button--small" href="booking.html?profile=the-hive">Book foot facial</a>
+<section class="section profile-testimonials hive-profile-testimonials" data-showrunner-testimonials aria-label="Guest reviews" hidden>
+        <div class="profile-testimonials__grid" data-content-testimonial-list></div>
       </section>
 
-      <section class="hive-benefits section" aria-labelledby="hive-benefits-title">
+      <section id="team" class="section team" aria-labelledby="hive-team-title">
         <div class="section-heading">
-          <p class="eyebrow">Head spa benefits</p>
-          <h2 id="hive-benefits-title">What the treatment supports.</h2>
+          <p id="hive-team-title" class="eyebrow">Meet The Hive team</p>
         </div>
-        <div class="hive-card-grid">
+        <div class="team-grid">
           <article>
-            <img class="hive-card-icon" src="assets/hive/icons/benefits/scalp-clarity.svg" alt="" aria-hidden="true">
-            <h3>Scalp Clarity</h3>
-            <p>Helps cleanse and unclog hair follicles while removing buildup from styling products and everyday pollution.</p>
+            <div class="team-card__media">
+              <img src="assets/employees/jo-lynne-skaggs.png" width="960" height="960" loading="lazy" decoding="async" alt="Jo Lynne Skaggs">
+            </div>
+            <h3>Jo Lynne Skaggs</h3>
+            <p>Founder/CEO<br>Head-Spa Specialist</p>
           </article>
           <article>
-            <img class="hive-card-icon" src="assets/hive/icons/benefits/oil-balance.svg" alt="" aria-hidden="true">
-            <h3>Oil Balance</h3>
-            <p>Supports a cleaner, calmer scalp by rebalancing excess oil and helping reduce dandruff concerns.</p>
-          </article>
-          <article>
-            <img class="hive-card-icon" src="assets/hive/icons/benefits/circulation.svg" alt="" aria-hidden="true">
-            <h3>Circulation</h3>
-            <p>Massage-focused techniques stimulate the scalp and create a fresh foundation for healthy-looking hair.</p>
-          </article>
-          <article>
-            <img class="hive-card-icon" src="assets/hive/icons/benefits/relaxation.svg" alt="" aria-hidden="true">
-            <h3>Relaxation</h3>
-            <p>Eases tension, relieves headache pressure, and melts stress away in a quiet treatment space.</p>
+            <div class="team-card__media">
+              <img src="assets/hive/photos/team/deanna.jpg" loading="lazy" decoding="async" alt="Deanna, Head-Spa Specialist at Cottage 616">
+            </div>
+            <h3>Deanna</h3>
+            <p>Head-Spa Specialist<br>Cosmetologist and certified lash tech</p>
           </article>
         </div>
       </section>
 
-      <section class="hive-products section" aria-labelledby="hive-amika-title">
-        <div class="hive-products__panel">
-          <p class="eyebrow">Amika Products</p>
-          <h2 id="hive-amika-title">Amika, start to finish.</h2>
-          <p>The Hive exclusively uses Amika throughout each head-spa service, pairing the brand's high-performance formulas with a treatment flow designed to support scalp health, softness, hydration, and shine.</p>
-          <img class="hive-products__art" src="assets/hive/illustrations/honey-pot.svg" alt="" aria-hidden="true">
-          <ul class="check-list">
-            <li>Clean formulas free from harsh sulfates, parabens, and phthalates</li>
-            <li>Nutrient-rich sea buckthorn with vitamins, antioxidants, and fatty acids</li>
-            <li>Options for dryness, oil imbalance, dandruff, and buildup</li>
-          </ul>
-        </div>
-        <div class="hive-products__feature" aria-label="Amika product focus">
-          <p>Only Amika touches the service.</p>
-          <span>Chosen for scalp-friendly cleansing, conditioning, and finishing care.</span>
-          <img src="assets/hive/illustrations/honey-pot.svg" alt="" aria-hidden="true">
-        </div>
-      </section>
-
-      <section class="hive-cta section" aria-labelledby="hive-cta-title">
-        <div class="hive-cta__mark" aria-hidden="true">
-          <img class="hive-cta__art" src="assets/hive/branding/logo.png" alt="">
-        </div>
-        <div class="hive-cta__copy">
-          <p class="eyebrow">Girls' Day, Bride Reset, Solo Unwind</p>
-          <h2 id="hive-cta-title">A head-spa reset for softer hair and quieter shoulders.</h2>
-          <p>A tucked-away reset for scalp care, slow massage, hydration, and the kind of shine that feels easy to wear out the door.</p>
-          <a class="button button--primary" href="booking.html?profile=the-hive">Book The Hive</a>
+      <section class="hive-booking section" aria-labelledby="hive-booking-title">
+        <video class="hive-booking__video" autoplay muted loop playsinline preload="none" poster="assets/hive/photos/treatments/full-spa-process-poster-576w.webp" aria-hidden="true" tabindex="-1">
+          <source data-src="assets/hive/videos/treatments/full-spa-process-mobile-540w.mp4" media="(max-width: 640px)" type="video/mp4">
+          <source data-src="assets/hive/videos/treatments/full-spa-process-desktop-576w.mp4" type="video/mp4">
+        </video>
+        <div class="hive-booking-card">
+          <img class="hive-booking-card__logo" src="assets/hive/branding/logo.png" alt="The Hive at Cottage 616" loading="lazy" decoding="async">
+          <h2 id="hive-booking-title" class="hive-booking-card__title">So much more than pampering</h2>
+          <div class="hive-booking-card__copy">
+            <ul class="hive-booking-card__benefits" aria-label="Treatment benefits">
+              <li><span class="hive-booking-card__icon" aria-hidden="true"></span><h3>Scalp Clarity</h3></li>
+              <li><span class="hive-booking-card__icon" aria-hidden="true"></span><h3>Oil Balance</h3></li>
+              <li><span class="hive-booking-card__icon" aria-hidden="true"></span><h3>Circulation</h3></li>
+              <li><span class="hive-booking-card__icon" aria-hidden="true"></span><h3>Relaxation</h3></li>
+            </ul>
+            <a class="button button--inverse" href="booking.html?profile=the-hive">Book The Hive</a>
+          </div>
         </div>
       </section>
 
     </main>
 
     <footer id="contact" class="site-footer">
-      <div class="hive-updates" aria-labelledby="hive-updates-title">
-        <h2 id="hive-updates-title">Bee in the know!</h2>
-        <p>Sign up for The Hive Updates!</p>
-        <form class="hive-updates__form" data-business-email-action action="mailto:info@cottage616.com" method="post" enctype="text/plain">
-          <label for="hive-updates-email">Email address</label>
-          <div class="hive-updates__field">
-            <input id="hive-updates-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            <button class="button button--inverse button--small" type="submit">Sign up</button>
-          </div>
-        </form>
-      </div>
       <div class="site-footer__logos" aria-label="Site links">
         <a class="brand" href="index.html">
           <img class="brand-logo" src="assets/cottage-616/branding/symbol.svg" alt="">
@@ -308,8 +286,8 @@
       <div data-business-social class="site-footer__social"></div>
     </footer>
 
-    <script src="scripts/integrations/showrunner/content.js?v=local-vendors-20260927"></script>
-    <script src="scripts/site.js?v=refine-20260926"></script>
+    <script src="scripts/integrations/showrunner/content.js?v=compact-reviews-20261010"></script>
+    <script src="scripts/site.js?v=service-tabs-20261010"></script>
     <script src="scripts/integrations/showrunner/business.js?v=contact-20260926"></script>
   </body>
 </html>

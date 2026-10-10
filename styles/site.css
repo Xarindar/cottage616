@@ -530,7 +530,7 @@ main section[id] {
 .event-card__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto auto;
   gap: 10px;
   min-width: 0;
   height: 100%;
@@ -844,11 +844,12 @@ main section[id] {
   gap: 16px;
   width: min(100%, 1040px);
   margin-inline: auto;
+  align-items: start;
 }
 
 .profile-testimonial-card {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto auto;
   justify-items: center;
   gap: 14px;
   min-width: 0;
@@ -1526,72 +1527,6 @@ address > * {
   outline-offset: 4px;
 }
 
-.hive-updates {
-  justify-self: center;
-  width: min(100%, 560px);
-  margin: 0 auto clamp(26px, 5vw, 48px);
-  text-align: center;
-}
-
-.site-footer .hive-updates h2 {
-  max-width: 560px;
-  margin-right: auto;
-  margin-bottom: 6px;
-  margin-left: auto;
-  color: var(--paper);
-  font-size: clamp(2.25rem, 4vw, 4.1rem);
-  text-align: center;
-}
-
-.site-footer .hive-updates p {
-  margin: 0 auto 16px;
-  color: rgba(255, 253, 248, 0.72);
-  font-weight: 700;
-  text-align: center;
-}
-
-.hive-updates__form {
-  display: grid;
-  gap: 8px;
-}
-
-.hive-updates__form label {
-  color: rgba(255, 253, 248, 0.64);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.hive-updates__field {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: end;
-  width: min(100%, 392px);
-  margin: 0 auto;
-}
-
-.hive-updates__field input {
-  min-width: 0;
-  min-height: 44px;
-  padding: 10px 0;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 253, 248, 0.38);
-  border-radius: 0;
-  color: var(--paper);
-  background: transparent;
-}
-
-.hive-updates__field input::placeholder {
-  color: rgba(255, 253, 248, 0.46);
-}
-
-.hive-updates__field input:focus {
-  outline: 0;
-  border-color: var(--yellow);
-}
-
 .site-footer__logos {
   display: flex;
   align-items: center;
@@ -1721,10 +1656,6 @@ address > * {
     gap: 0;
     min-height: 0;
     padding: 0 clamp(18px, 5vw, 28px) clamp(24px, 5vw, 34px);
-  }
-
-  .hive-updates__field {
-    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .vendor-card::before {
@@ -2070,3 +2001,65 @@ address > * {
 
 
 .hive-intro__copy .eyebrow { color: var(--ink); }
+
+
+.profile-testimonial-card__review summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.profile-testimonial-card__review summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-testimonial-card__preview {
+  display: block;
+  color: var(--deep-blue);
+  font-family: var(--display-font);
+  font-size: 1rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.profile-testimonial-card__read-more,
+.profile-testimonial-card__read-less {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.profile-testimonial-card__read-less,
+.profile-testimonial-card__review[open] .profile-testimonial-card__preview,
+.profile-testimonial-card__review[open] .profile-testimonial-card__read-more {
+  display: none;
+}
+
+.profile-testimonial-card__review[open] .profile-testimonial-card__read-less {
+  display: block;
+  margin: 0 0 12px;
+}
+
+.profile-testimonial-card__review summary:focus-visible {
+  outline: 2px solid var(--deep-blue);
+  outline-offset: 4px;
+}
+
+.profile-testimonial-card__quote p {
+  overflow-wrap: anywhere;
+}
+
+.profile-testimonial-card {
+  height: 340px;
+  box-sizing: border-box;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.profile-testimonial-card__quote {
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}

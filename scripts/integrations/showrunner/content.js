@@ -331,8 +331,8 @@
     };
     assign(menu.querySelector("h3"), text(0));
     assign(menu.querySelector(".hive-menu__intro > p"), text(11));
-    assign(menu.querySelector(".hive-menu__note"), text(12));
-    const rows = Array.from(menu.querySelectorAll(".hive-treatment"));
+
+    const rows = Array.from(menu.querySelectorAll("#head-spa-panel .hive-treatment"));
     rows.forEach((row, index) => {
       assign(row.querySelector(".hive-treatment__name"), text(1 + index * 2));
       assign(row.querySelector(".hive-treatment__description"), text(2 + index * 2));
@@ -448,8 +448,7 @@
       const id = partner ? "guest-offers" : "more-local-vendors";
       return `<section class="vendor-group${partner ? " vendor-group--partners" : " vendor-group--local"}" aria-labelledby="${id}">
         <header class="vendor-group__heading">
-          <h2 id="${id}">${partner ? "A little extra for Cottage guests." : "More local vendors."}</h2>
-          <p>${partner ? "Look for the crown: these partners offer a discount or complimentary extra for Cottage 616 guests. Contact the vendor to confirm the offer for your event." : "More options for your celebration. Contact each business directly for services and pricing."}</p>
+          <h2 id="${id}">${partner ? "Cottage Partners" : "More local vendors."}</h2>
         </header>
         <div class="${partner ? "vendors-directory__grid" : "vendors-directory__list"}">${entries.map(({ vendor, index }) => vendorCard(vendor, index)).join("")}</div>
       </section>`;
@@ -518,6 +517,15 @@
   }
 
   function testimonialCard(testimonial) {
+    const quote = String(testimonial.quote || "");
+    const longReview = quote.length > 280;
+    const preview = longReview ? quote.slice(0, 280).replace(/\s+\S*$/, "") + "…" : quote;
+    const review = longReview
+      ? `<details class="profile-testimonial-card__review">
+          <summary><span class="profile-testimonial-card__preview">${escapeHtml(preview)}</span><span class="profile-testimonial-card__read-more">Read full review</span><span class="profile-testimonial-card__read-less">Show less</span></summary>
+          <p>${escapeHtml(quote)}</p>
+        </details>`
+      : `<p>${escapeHtml(quote)}</p>`;
     const name = testimonial.authorName || "Guest";
     const numericRating = Number(testimonial.rating || 5);
     const rating = Number.isFinite(numericRating) ? Math.max(1, Math.min(5, numericRating)) : 5;
@@ -540,7 +548,7 @@
           </span>
         </header>
         <blockquote class="profile-testimonial-card__quote">
-          <p>${escapeHtml(testimonial.quote || "")}</p>
+          ${review}
         </blockquote>
         <div class="profile-testimonial-card__stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}</div>
       </article>
