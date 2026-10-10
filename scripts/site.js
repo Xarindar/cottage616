@@ -676,3 +676,55 @@ if (contentReady && typeof contentReady.finally === "function") {
 } else {
   initializeCarousels();
 }
+
+const benefitsVideo = document.querySelector(".hive-booking__video");
+if (benefitsVideo) {
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const updateBenefitsVideo = () => {
+    if (motionPreference.matches) {
+      benefitsVideo.pause();
+      return;
+    }
+    const sources = benefitsVideo.querySelectorAll("source[data-src]");
+    if (Array.from(sources).some(source => !source.hasAttribute("src"))) {
+      sources.forEach(source => { source.src = source.dataset.src; });
+      benefitsVideo.load();
+    }
+    benefitsVideo.play().catch(() => {});
+  };
+  updateBenefitsVideo();
+  motionPreference.addEventListener("change", updateBenefitsVideo);
+}
+const serviceTabs = Array.from(document.querySelectorAll("[data-service-tab]"));
+if (serviceTabs.length) {
+  const selectServiceTab = (selectedTab) => {
+    serviceTabs.forEach(tab => {
+      const selected = tab === selectedTab;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
+    });
+  };
+  serviceTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectServiceTab(tab));
+    tab.addEventListener("keydown", event => {
+      let nextIndex;
+      if (event.key === "ArrowRight") nextIndex = (index + 1) % serviceTabs.length;
+      if (event.key === "ArrowLeft") nextIndex = (index + serviceTabs.length - 1) % serviceTabs.length;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = serviceTabs.length - 1;
+      if (nextIndex === undefined) return;
+      event.preventDefault();
+      selectServiceTab(serviceTabs[nextIndex]);
+      serviceTabs[nextIndex].focus();
+    });
+  });
+  const revealServiceAnchor = () => {
+    if (location.hash === "#foot-spa") {
+      selectServiceTab(serviceTabs[1]);
+      document.getElementById("foot-spa").scrollIntoView({ block: "center" });
+    }
+  };
+  revealServiceAnchor();
+  window.addEventListener("hashchange", revealServiceAnchor);
+}

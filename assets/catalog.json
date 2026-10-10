@@ -464,7 +464,8 @@
     "folder": "employees",
     "bytes": 1514370,
     "usedBy": [
-      "index.html"
+      "index.html",
+      "the-hive.html"
     ],
     "previousPaths": []
   },
@@ -490,9 +491,7 @@
     "path": "assets/hive/branding/honeycomb-symbol.webp",
     "folder": "hive/branding",
     "bytes": 149810,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/branding/the-hive/honeycomb-symbol.webp",
       "assets/images/the-hive/hive-graphic-logo.webp"
@@ -503,7 +502,9 @@
     "folder": "hive/branding",
     "bytes": 337610,
     "usedBy": [
-      "the-hive.html"
+      "index.html",
+      "the-hive.html",
+      "vendors.html"
     ],
     "previousPaths": [
       "assets/branding/the-hive/logo.png",
@@ -515,11 +516,7 @@
     "path": "assets/hive/branding/symbol.svg",
     "folder": "hive/branding",
     "bytes": 4233,
-    "usedBy": [
-      "index.html",
-      "the-hive.html",
-      "vendors.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/branding/the-hive/symbol.svg",
       "assets/images/the-hive/hive-logo.svg"
@@ -529,9 +526,7 @@
     "path": "assets/hive/icons/benefits/circulation.svg",
     "folder": "hive/icons/benefits",
     "bytes": 396,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/the-hive/benefits/circulation.svg",
       "assets/images/the-hive/benefit-circulation.svg"
@@ -541,9 +536,7 @@
     "path": "assets/hive/icons/benefits/oil-balance.svg",
     "folder": "hive/icons/benefits",
     "bytes": 394,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/the-hive/benefits/oil-balance.svg",
       "assets/images/the-hive/benefit-oil-balance.svg"
@@ -553,9 +546,7 @@
     "path": "assets/hive/icons/benefits/relaxation.svg",
     "folder": "hive/icons/benefits",
     "bytes": 440,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/the-hive/benefits/relaxation.svg",
       "assets/images/the-hive/benefit-relaxation.svg"
@@ -565,9 +556,7 @@
     "path": "assets/hive/icons/benefits/scalp-clarity.svg",
     "folder": "hive/icons/benefits",
     "bytes": 406,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/the-hive/benefits/scalp-clarity.svg",
       "assets/images/the-hive/benefit-scalp-clarity.svg"
@@ -597,7 +586,10 @@
     "path": "assets/hive/icons/services/drop.svg",
     "folder": "hive/icons/services",
     "bytes": 538,
-    "usedBy": [],
+    "usedBy": [
+      "styles/pages/the-hive.css",
+      "the-hive.html"
+    ],
     "previousPaths": [
       "assets/icons/the-hive/services/drop.svg",
       "assets/images/the-hive/icon-drop.svg"
@@ -607,7 +599,10 @@
     "path": "assets/hive/icons/services/eyemask.svg",
     "folder": "hive/icons/services",
     "bytes": 5435,
-    "usedBy": [],
+    "usedBy": [
+      "styles/pages/the-hive.css",
+      "the-hive.html"
+    ],
     "previousPaths": [
       "assets/icons/the-hive/services/eyemask.svg",
       "assets/images/the-hive/icon-eyemask.svg"
@@ -617,7 +612,9 @@
     "path": "assets/hive/icons/services/heart-hands.svg",
     "folder": "hive/icons/services",
     "bytes": 4717,
-    "usedBy": [],
+    "usedBy": [
+      "styles/pages/the-hive.css"
+    ],
     "previousPaths": [
       "assets/icons/the-hive/services/heart-hands.svg",
       "assets/images/the-hive/icon-heart-hands.svg"
@@ -627,7 +624,9 @@
     "path": "assets/hive/icons/services/lotion.svg",
     "folder": "hive/icons/services",
     "bytes": 3695,
-    "usedBy": [],
+    "usedBy": [
+      "styles/pages/the-hive.css"
+    ],
     "previousPaths": [
       "assets/icons/the-hive/services/lotion.svg",
       "assets/images/the-hive/icon-lotion.svg"
@@ -697,7 +696,9 @@
     "path": "assets/hive/icons/services/towel.svg",
     "folder": "hive/icons/services",
     "bytes": 3973,
-    "usedBy": [],
+    "usedBy": [
+      "the-hive.html"
+    ],
     "previousPaths": [
       "assets/icons/the-hive/services/towel.svg",
       "assets/images/the-hive/icon-towel.svg"
@@ -707,9 +708,7 @@
     "path": "assets/hive/illustrations/bee.svg",
     "folder": "hive/illustrations",
     "bytes": 6046,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/illustrations/the-hive/bee.svg",
       "assets/images/the-hive/bee.svg"
@@ -730,9 +729,7 @@
     "path": "assets/hive/illustrations/honey-pot.svg",
     "folder": "hive/illustrations",
     "bytes": 17244,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/illustrations/the-hive/honey-pot.svg",
       "assets/images/the-hive/honeypot.svg"
@@ -749,12 +746,24 @@
     ]
   },
   {
+    "path": "assets/hive/photos/products/amika-detangling-primer.png",
+    "folder": "hive/photos/products",
+    "bytes": 1067246,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/photos/products/amika-humidity-spray.png",
+    "folder": "hive/photos/products",
+    "bytes": 1128023,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
     "path": "assets/hive/photos/products/amika-products.jpg",
     "folder": "hive/photos/products",
     "bytes": 92506,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/images/the-hive/products/amika-products.jpg",
       "assets/spa2.jpg"
@@ -771,6 +780,16 @@
       "assets/images/the-hive/deanna-head-spa-specialist.jpg",
       "assets/images/the-hive/team/deanna.jpg"
     ]
+  },
+  {
+    "path": "assets/hive/photos/treatments/full-spa-process-poster-576w.webp",
+    "folder": "hive/photos/treatments",
+    "bytes": 4738,
+    "usedBy": [
+      "styles/pages/the-hive.css",
+      "the-hive.html"
+    ],
+    "previousPaths": []
   },
   {
     "path": "assets/hive/photos/treatments/head-spa-1280w.webp",
@@ -797,16 +816,46 @@
     ]
   },
   {
-    "path": "assets/hive/photos/treatments/scalp-rinse.jpg",
+    "path": "assets/hive/photos/treatments/head-spa-editorial-v1.png",
     "folder": "hive/photos/treatments",
-    "bytes": 87641,
+    "bytes": 2010214,
     "usedBy": [
       "the-hive.html"
     ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/photos/treatments/head-spa-menu-banner-v1.png",
+    "folder": "hive/photos/treatments",
+    "bytes": 2175224,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/photos/treatments/head-spa-session-1080w.webp",
+    "folder": "hive/photos/treatments",
+    "bytes": 265874,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/photos/treatments/scalp-rinse.jpg",
+    "folder": "hive/photos/treatments",
+    "bytes": 87641,
+    "usedBy": [],
     "previousPaths": [
       "assets/images/the-hive/treatments/scalp-rinse.jpg",
       "assets/spa1.jpg"
     ]
+  },
+  {
+    "path": "assets/hive/sources/head-spa-session.jpg",
+    "folder": "hive/sources",
+    "bytes": 371604,
+    "usedBy": [],
+    "previousPaths": []
   },
   {
     "path": "assets/hive/textures/cork/natural-cork.jpg",
@@ -823,7 +872,6 @@
     "folder": "hive/textures/patterns",
     "bytes": 79693,
     "usedBy": [
-      "styles/pages/the-hive.css",
       "the-hive.html"
     ],
     "previousPaths": [
@@ -840,6 +888,16 @@
       "assets/fonts/Bigbesty.otf",
       "assets/fonts/bigbesty.otf"
     ]
+  },
+  {
+    "path": "assets/shared/icons/crown.svg",
+    "folder": "shared/icons",
+    "bytes": 244,
+    "usedBy": [
+      "scripts/integrations/showrunner/content.js",
+      "vendors.html"
+    ],
+    "previousPaths": []
   },
   {
     "path": "assets/shared/icons/shapes/hexagon.svg",
@@ -1114,9 +1172,7 @@
     "path": "assets/vendors/photos/soft-play-rental-setup.jpg",
     "folder": "vendors/photos",
     "bytes": 838797,
-    "usedBy": [
-      "index.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/images/vendors/soft-play-rental-setup.jpg",
       "assets/images/vendors/vendor-showcase-party.jpg"
@@ -1126,9 +1182,7 @@
     "path": "assets/vendors/photos/sympathy-floral-arrangement.jpg",
     "folder": "vendors/photos",
     "bytes": 349576,
-    "usedBy": [
-      "vendors.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/images/vendors/sympathy-floral-arrangement.jpg",
       "assets/images/vendors/vendor-showcase-celebration.jpg"
