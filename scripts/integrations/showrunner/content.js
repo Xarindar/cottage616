@@ -220,6 +220,7 @@
   function buildScreen(screen, isActive) {
     const node = document.createElement("div");
     node.className = "sr-hero-screen" + (isActive ? " is-active" : "");
+    if (screen.editorPath) node.dataset.srField = `${screen.editorPath}.imageUrl`;
     node.inert = !isActive;
     node.setAttribute("aria-hidden", String(!isActive));
 
@@ -266,6 +267,7 @@
     }
 
     if (!element || !String(element.textContent || "").trim()) return null;
+    if (layer.editorField) element.dataset.srField = layer.editorField;
 
     const layout = layer.layout || {};
     const colStart = clampNumber(layout.colStart, 1, GRID_COLUMNS);
@@ -364,16 +366,16 @@
 
   function applyHeaderCarousel(payload) {
     const originals = (originalHero?.slideshow?.screens || [originalHero?.hero]).filter(screen => screen && screenHasContent(screen));
-    const slides = (payload.slides || []).map(slide => {
+    const slides = (payload.slides || []).map((slide, index) => {
       const legacyIndex = /^slide-([0-9]+)$/.exec(slide.id);
       const original = originals[legacyIndex ? Number(legacyIndex[1]) - 1 : 0] || originals[0];
       const oldLayer = role => original?.canvasLayers?.find(layer => layer.role === role || role === "button" && layer.type === "button");
       const layers = [
-        { type: "text", role: "headline", content: slide.title, layout: oldLayer("headline")?.layout || { colStart: 2, colEnd: 28, rowStart: 7 } },
-        { type: "text", role: "caption", content: slide.caption, layout: oldLayer("caption")?.layout || { colStart: 2, colEnd: 22, rowStart: 11 } },
-        { type: "button", content: slide.buttonLabel, link: slide.buttonHref, layout: oldLayer("button")?.layout || { colStart: 2, colEnd: 15, rowStart: 15 } }
+        { type: "text", role: "headline", editorField: `slides.${index}.title`, content: slide.title, layout: oldLayer("headline")?.layout || { colStart: 2, colEnd: 28, rowStart: 7 } },
+        { type: "text", role: "caption", editorField: `slides.${index}.caption`, content: slide.caption, layout: oldLayer("caption")?.layout || { colStart: 2, colEnd: 22, rowStart: 11 } },
+        { type: "button", editorField: `slides.${index}.buttonLabel`, content: slide.buttonLabel, link: slide.buttonHref, layout: oldLayer("button")?.layout || { colStart: 2, colEnd: 15, rowStart: 15 } }
       ].filter(layer => layer.type !== "button" || layer.link && layer.content);
-      return { editorId: slide.id, backgrounds: [{ url: slide.imageUrl, altText: slide.imageAlt }], canvasLayers: layers };
+      return { editorId: slide.id, editorPath: `slides.${index}`, backgrounds: [{ url: slide.imageUrl, altText: slide.imageAlt }], canvasLayers: layers };
     });
     if (!slides.length) return;
     applyCanvasHero({ hero: slides[0], slideshow: { screens: slides, autoplayIntervalMs: originalHero?.slideshow?.autoplayIntervalMs } });
