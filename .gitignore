@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# Local release exports and tooling
+.tmp/
