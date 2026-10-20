@@ -228,11 +228,29 @@
     if (background) {
       const backdrop = document.createElement("div");
       backdrop.className = "sr-hero-bg";
-      backdrop.style.backgroundImage = `url("${String(background.url).replace(/"/g, "%22")}")`;
-      if (background.altText) {
-        backdrop.setAttribute("role", "img");
-        backdrop.setAttribute("aria-label", background.altText);
+      const framing = headerFraming(background);
+      const picture = document.createElement("picture");
+      const photo = document.createElement("img");
+      photo.alt = background.altText || "";
+      photo.decoding = "async";
+      photo.fetchPriority = isActive ? "high" : "low";
+      const sources = headerImageSources(background.url);
+      photo.src = sources.full;
+      if (sources.standard) {
+        const wide = document.createElement("source");
+        wide.media = "(min-width: 1600px)";
+        wide.srcset = sources.full;
+        picture.appendChild(wide);
+        if (framing.zoom === 1) {
+          photo.src = sources.standard;
+          photo.srcset = `${sources.standard} 1x, ${sources.full} 2x`;
+        }
       }
+      photo.style.objectPosition = `${framing.x}% ${framing.y}%`;
+      photo.style.transformOrigin = `${framing.x}% ${framing.y}%`;
+      photo.style.transform = `scale(${framing.zoom})`;
+      picture.appendChild(photo);
+      backdrop.appendChild(picture);
       node.appendChild(backdrop);
     }
 
@@ -245,6 +263,21 @@
     node.appendChild(layerHost);
 
     return node;
+  }
+
+  function headerFraming(background) {
+    const number = (value, fallback, min, max) => typeof value === "number" && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
+    return { x: number(background.imagePositionX, 50, 0, 100), y: number(background.imagePositionY, 50, 0, 100), zoom: number(background.imageZoom, 1, 1, 3) };
+  }
+
+  function headerImageSources(value) {
+    const full = new URL(value, location.href);
+    if (!/^\/api\/media\/assets\/[^/]+$/.test(full.pathname) || full.searchParams.has("signature")) return { full: full.href };
+    full.searchParams.set("variant", "HERO");
+    full.searchParams.set("v", "header-3840-q88");
+    const standard = new URL(full);
+    standard.searchParams.set("variant", "FULL");
+    return { full: full.href, standard: standard.href };
   }
 
   function buildLayer(layer) {
@@ -375,7 +408,7 @@
         { type: "text", role: "caption", editorField: `slides.${index}.caption`, content: slide.caption, layout: oldLayer("caption")?.layout || { colStart: 2, colEnd: 22, rowStart: 11 } },
         { type: "button", editorField: `slides.${index}.buttonLabel`, content: slide.buttonLabel, link: slide.buttonHref, layout: oldLayer("button")?.layout || { colStart: 2, colEnd: 15, rowStart: 15 } }
       ].filter(layer => layer.type !== "button" || layer.link && layer.content);
-      return { editorId: slide.id, editorPath: `slides.${index}`, backgrounds: [{ url: slide.imageUrl, altText: slide.imageAlt }], canvasLayers: layers };
+      return { editorId: slide.id, editorPath: `slides.${index}`, backgrounds: [{ url: slide.imageUrl, altText: slide.imageAlt, imagePositionX: slide.imagePositionX, imagePositionY: slide.imagePositionY, imageZoom: slide.imageZoom }], canvasLayers: layers };
     });
     if (!slides.length) return;
     applyCanvasHero({ hero: slides[0], slideshow: { screens: slides, autoplayIntervalMs: originalHero?.slideshow?.autoplayIntervalMs } });

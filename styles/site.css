@@ -1879,8 +1879,18 @@ address > * {
 }
 
 .sr-hero-bg {
-  background-position: center;
-  background-size: cover;
+  overflow: hidden;
+}
+
+.sr-hero-bg picture,
+.sr-hero-bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sr-hero-bg img {
+  object-fit: cover;
 }
 
 .sr-hero-bg::after {
