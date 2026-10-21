@@ -343,7 +343,7 @@
             <td>
               <span class="booking-service-name ${image ? "has-image" : ""}">
                 <span class="booking-service-thumb ${image ? "" : "is-empty"}" ${
-                  image ? `style="--service-image: url('${escapeAttribute(image)}')"` : ""
+                  image ? `style="--service-image: url('${escapeAttribute(image)}'); --service-position: ${service.imagePositionX}% ${service.imagePositionY}%; --service-zoom: ${service.imageZoom}"` : ""
                 } aria-hidden="true"></span>
                 <span class="booking-service-copy">
                   <strong>${escapeHtml(service.name)}</strong>
@@ -943,6 +943,9 @@
         name: service.name || "Untitled service",
         description: service.description || "",
         imageUrl: normalizeImageUrl(service.imageUrl),
+        imagePositionX: Math.max(0, Math.min(100, Number(service.imagePositionX ?? 50) || 0)),
+        imagePositionY: Math.max(0, Math.min(100, Number(service.imagePositionY ?? 50) || 0)),
+        imageZoom: Math.max(1, Math.min(3, Number(service.imageZoom ?? 1) || 1)),
         durationMinutes: Number(service.durationMinutes || 0),
         priceCents: typeof service.priceCents === "number" ? service.priceCents : null,
         location: service.location || "",

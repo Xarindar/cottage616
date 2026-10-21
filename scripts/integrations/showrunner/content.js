@@ -419,6 +419,7 @@
     if (!section) return;
 
     const featureImage = section.querySelector(".event-showcase__feature img");
+    if (featureImage) featureImage.dataset.srField = "imageUrl";
     if (featureImage && panel.imageUrl) featureImage.src = String(panel.imageUrl);
     if (featureImage && panel.imageAlt) featureImage.alt = String(panel.imageAlt);
     setText("#events .event-showcase__header h2", panel.heading);
@@ -427,15 +428,15 @@
     const list = section.querySelector(".event-card-grid");
     const items = Array.isArray(panel.items) ? panel.items.slice(0, 3) : [];
     if (!list || !items.length) return;
-    list.innerHTML = items.map((item) => `
+    list.innerHTML = items.map((item, index) => `
       <article class="service-card event-card">
         <div class="service-media event-card__media">
-          ${item.imageUrl ? `<img class="event-card__image" src="${escapeAttribute(item.imageUrl)}" loading="lazy" decoding="async" alt="${escapeAttribute(item.name || "Cottage 616 event")}">` : ""}
+          ${item.imageUrl ? `<img class="event-card__image" data-sr-field="items.${index}.imageUrl" src="${escapeAttribute(item.imageUrl)}" loading="lazy" decoding="async" alt="${escapeAttribute(item.name || "Cottage 616 event")}">` : ""}
         </div>
         <div class="event-card__body">
           <h3>${escapeHtml(item.name || "Event")}</h3>
           <p>${escapeHtml(item.description || "")}</p>
-          <a class="event-card__button button button--secondary button--small" href="booking.html?profile=cottage616" aria-label="Book ${escapeAttribute(item.name || "this event")}">Book now</a>
+          <a class="event-card__button button button--secondary button--small" href="${escapeAttribute(item.ctaHref || "booking.html?profile=cottage616")}" aria-label="Book ${escapeAttribute(item.name || "this event")}">Book now</a>
         </div>
       </article>
     `).join("");
@@ -446,9 +447,9 @@
     const images = Array.isArray(gallery.images) ? gallery.images : [];
     if (!track) return;
 
-    track.innerHTML = images.map((image) => `
+    track.innerHTML = images.map((image, index) => `
       <figure class="venue-strip__image" data-carousel-card>
-        <img src="${escapeAttribute(image.url)}" alt="${escapeAttribute(image.alt || "Cottage 616 event inspiration")}">
+        <img data-sr-field="images.${index}.url" src="${escapeAttribute(image.url)}" alt="${escapeAttribute(image.alt || "Cottage 616 event inspiration")}">
       </figure>
     `).join("");
     track.dispatchEvent(new Event("carousel:content"));
@@ -506,7 +507,7 @@
     ].filter(Boolean).join("");
     return `
       <article class="vendor-entry${partner ? " vendor-entry--partner" : " vendor-entry--local"}">
-        ${partner && vendor.imageUrl ? `<figure class="vendor-entry__image"><img src="${escapeAttribute(vendor.imageUrl)}" alt="${escapeAttribute(vendor.imageAlt || name)}" loading="lazy" decoding="async"></figure>` : ""}
+        ${partner && vendor.imageUrl ? `<figure class="vendor-entry__image"><img data-sr-field="items.${index}.imageUrl" src="${escapeAttribute(vendor.imageUrl)}" alt="${escapeAttribute(vendor.imageAlt || name)}" loading="lazy" decoding="async"></figure>` : ""}
         <div class="vendor-entry__body">
           <div class="vendor-entry__info">
           ${vendor.category ? `<p class="vendor-entry__category">${escapeHtml(vendor.category)}</p>` : ""}
