@@ -595,7 +595,9 @@ p {
 
 .booking-service-thumb::before {
   background-image: var(--service-image);
-  background-position: center;
+  background-position: var(--service-position, center);
+  transform-origin: var(--service-position, center);
+  transform: scale(var(--service-zoom, 1));
   background-size: cover;
   content: "";
   inset: 0;
