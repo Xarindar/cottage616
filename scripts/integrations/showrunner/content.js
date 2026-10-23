@@ -345,6 +345,13 @@
       if (block?.id === "home-events") applyEventsPanel(block.payload || {});
       if (block?.id === "home-venue-gallery") applyVenueGallery(block.payload || {});
       if (block?.id === "vendors-directory") applyVendorDirectory(block.payload || {});
+      if (block?.id === "hive-menu-photo") {
+        const image = document.querySelector("#hive-menu-photo img");
+        // The legacy banner embeds its heading; keep text in the editable HTML heading.
+        if (image && new URL(image.src, location.href).pathname.endsWith("/head-spa-menu-banner-v1.png")) {
+          image.src = "assets/shared/textures/paper/natural-paper.png";
+        }
+      }
       if (block?.presentation?.selector === "#head-spa-menu") applyHiveMenu(block.payload || {});
       if (block?.type === "testimonials") {
         const payload = block.payload || {};

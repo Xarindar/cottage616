@@ -1,5 +1,11 @@
 # Head spa editorial first pass
 
+Current implementation (2026-10-22): the menu heading is visible HTML using the
+shared design tokens. The menu photo binding is retained as a decorative layer;
+the old banner containing raster text maps to the existing paper texture. The
+original generated banner and its provenance remain in the library. The notes
+below describe the historical first pass.
+
 The approved scope is the head spa menu section on The Hive page. Inspiration is the existing Cottage 616 homepage Events section: full-bleed warm photography, a muted #e4dfd3 surface, navy Libre Baskerville headlines, and the shared Raleway/button system. This extends the existing identity; no global visual system changes.
 
 The feature leads with an AI-generated editorial treatment image, “Your time to unwind,” a starting price, duration range, and booking CTA. Five native details/summary rows retain the complete treatment menu with keyboard-accessible expansion. Common inclusions and the possible surcharge remain visible. The booking flow is unchanged.

@@ -1,0 +1,20 @@
+    <header class="site-header">
+      <a class="brand{brand_class}" href="{home}" aria-label="{brand_label}"{home_attribute}>
+        <img class="brand-logo" src="{logo}" alt="{logo_alt}">
+        {brand_name}
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <div class="site-nav__group site-nav__group--left">
+{navigation}
+        </div>
+        <div class="site-nav__group site-nav__group--right">
+          <a href="{contact}">Contact</a>
+          <a class="nav-cta button button--primary button--small" href="booking.html?profile={profile}"{booking_attribute}>{booking_label}</a>
+        </div>
+      </nav>
+    </header>

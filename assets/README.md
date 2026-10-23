@@ -24,7 +24,8 @@ assets/
 │   │   ├── products/
 │   │   ├── team/
 │   │   └── treatments/
-│   └── textures/             Cork and honeycomb patterns
+│   ├── textures/             Cork and honeycomb patterns
+│   └── videos/treatments/    Optimized treatment video versions
 ├── vendors/
 │   ├── illustrations/
 │   ├── logos/
@@ -32,6 +33,7 @@ assets/
 └── shared/
     ├── fonts/
     ├── icons/shapes/
+    ├── photos/team/          Staff shared by Cottage 616 and The Hive
     ├── illustrations/pushpins/
     └── textures/             Paper and linen
 ```
@@ -44,6 +46,12 @@ assets/
 - Keep original large exports in that business's `sources/` folder. Use the optimized photo versions on the website.
 - Keep alternate and currently unused artwork available. “Library asset” in the visual index means no static site reference was found; content managed outside this repository may still use it.
 - Use `shared/` only for reusable assets without a single business owner.
+- Staff shared across Cottage 616 and The Hive live in `shared/photos/team/`;
+  staff specific to one business remain in that business's `photos/team/`.
+- Reusable contact icons live in `shared/icons/`; use their CSS mask classes
+  rather than pasting SVG paths or drawing a brand mark with text.
+- The catalog includes MP4 files. Video entries open the file in a new tab;
+  browsing the index does not download or autoplay every video.
 
 ## Maintenance
 

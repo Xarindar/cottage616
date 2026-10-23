@@ -9,7 +9,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "assets"
-EXTENSIONS = {".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif", ".otf", ".ttf", ".woff", ".woff2"}
+EXTENSIONS = {".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif", ".otf", ".ttf", ".woff", ".woff2", ".mp4"}
 FONT_EXTENSIONS = {".otf", ".ttf", ".woff", ".woff2"}
 
 
@@ -56,6 +56,8 @@ def build():
             name = escape(filename)
             if Path(path).suffix in FONT_EXTENSIONS:
                 preview = '<span class="font-sample">Cottage 616</span>'
+            elif Path(path).suffix == ".mp4":
+                preview = '<span>Video · MP4</span>'
             else:
                 preview = f'<img src="{url}" alt="{name}" loading="lazy" decoding="async">'
             uses = len(item["usedBy"])
@@ -73,6 +75,7 @@ def build():
     html = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex"><title>Cottage 616 | Asset Library</title>
+<link rel="stylesheet" href="../styles/tokens.css?v=shared-design-20261022">
 <link rel="stylesheet" href="../styles/tools/asset-library.css">
 <link rel="stylesheet" href="../styles/components/buttons.css">
 </head><body>

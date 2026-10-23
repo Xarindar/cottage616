@@ -8,7 +8,7 @@ import re
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
-SKIP_PARTS = {".git", "__pycache__"}
+SKIP_PARTS = {".git", "__pycache__", ".tmp", ".impeccable"}
 FILES = {p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*") if p.is_file() and not SKIP_PARTS.intersection(p.relative_to(ROOT).parts)}
 DIRECTORIES = {str(Path(p).parent).replace("\\", "/") for p in FILES}
 REDIRECTS = json.loads((ROOT / "deploy/asset-redirects.json").read_text(encoding="utf-8"))
@@ -46,7 +46,7 @@ class References(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
-        for attr in ("src", "href", "poster", "xlink:href"):
+        for attr in ("src", "data-src", "href", "poster", "xlink:href"):
             if attr in attrs:
                 check(self.source, attrs[attr])
         if "srcset" in attrs and not attrs["srcset"].startswith("data:"):
@@ -66,6 +66,8 @@ def css_urls(source, text):
 
 for source in sorted(FILES):
     path = ROOT / source
+    if "templates" in path.parts:
+        continue  # Check the generated pages, where template links resolve.
     if path.suffix not in {".html", ".svg", ".css", ".js"}:
         continue
     text = path.read_text(encoding="utf-8")

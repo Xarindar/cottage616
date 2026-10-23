@@ -11,14 +11,17 @@
     <link rel="preload" as="image" href="assets/hive/photos/treatments/head-spa-1280w.webp" type="image/webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/hive/branding/logo.png" type="image/png">
     <link rel="preload" as="image" href="assets/hive/textures/patterns/honeycomb-grid.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles/tokens.css?v=shared-design-20261022">
+    <link rel="stylesheet" href="styles/components/header.css?v=shared-design-20261022">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>document.documentElement.classList.add("showrunner-js");</script>
-    <link rel="stylesheet" href="styles/site.css?v=service-framing-20261020">
-    <link rel="stylesheet" href="styles/pages/the-hive.css?v=hive-section-colors-20261010">
-    <link rel="stylesheet" href="styles/components/buttons.css?v=refine-20260926">
+    <link rel="stylesheet" href="styles/site.css?v=shared-design-20261022">
+    <link rel="stylesheet" href="styles/pages/the-hive.css?v=shared-design-20261022">
+    <link rel="stylesheet" href="styles/components/buttons.css?v=shared-design-20261022">
   <script src="scripts/integrations/showrunner/editor.js?v=service-framing-20261020" data-editor-origins="https://admin.cottage616.com,https://showrunner-beta-production.up.railway.app,http://localhost:3000,http://localhost:3100"></script>
   </head>
   <body class="hive-page">
+    <!-- shared:header -->
     <header class="site-header">
       <a class="brand brand--hive" href="the-hive.html" aria-label="The Hive">
         <img class="brand-logo" src="assets/hive/branding/logo.png" alt="The Hive at Cottage 616">
@@ -40,6 +43,7 @@
         </div>
       </nav>
     </header>
+    <!-- /shared:header -->
 
     <main>
       <section class="hero hive-hero" aria-label="The Hive head spa" data-showrunner-profile="the-hive">
@@ -99,7 +103,7 @@
         </div>
         <div id="hive-treatments" class="hive-menu section">
           <div id="hive-menu-photo" class="hive-menu__banner">
-            <img src="assets/hive/photos/treatments/head-spa-menu-banner-v1.png" width="2172" height="724" loading="lazy" decoding="async" alt="" aria-hidden="true">
+            <img src="assets/shared/textures/paper/natural-paper.png" loading="lazy" decoding="async" alt="" aria-hidden="true">
             <h3 id="hive-pricing-title" class="hive-menu__title">Head spa menu.</h3>
           </div>
           <div class="hive-menu__tabs" role="tablist" aria-label="Service menu">
@@ -229,7 +233,7 @@
         <div class="team-grid">
           <article>
             <div class="team-card__media">
-              <img src="assets/employees/jo-lynne-skaggs.png" width="960" height="960" loading="lazy" decoding="async" alt="Jo Lynne Skaggs">
+              <img src="assets/shared/photos/team/jo-lynne-skaggs.png" width="960" height="960" loading="lazy" decoding="async" alt="Jo Lynne Skaggs">
             </div>
             <h3>Jo Lynne Skaggs</h3>
             <p>Founder/CEO<br>Head-Spa Specialist</p>
@@ -266,6 +270,7 @@
 
     </main>
 
+    <!-- shared:footer -->
     <footer id="contact" class="site-footer">
       <div class="site-footer__logos" aria-label="Site links">
         <a class="brand" href="index.html">
@@ -285,8 +290,9 @@
       </address>
       <div data-business-social class="site-footer__social"></div>
     </footer>
+    <!-- /shared:footer -->
 
-    <script src="scripts/integrations/showrunner/content.js?v=service-framing-20261020"></script>
+    <script src="scripts/integrations/showrunner/content.js?v=shared-design-20261022"></script>
     <script src="scripts/site.js?v=service-tabs-20261010"></script>
     <script src="scripts/integrations/showrunner/business.js?v=contact-20260926"></script>
   </body>

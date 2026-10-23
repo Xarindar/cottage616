@@ -211,5 +211,9 @@
   "styles/booking.css": "styles/pages/booking.css",
   "styles/buttons.css": "styles/components/buttons.css",
   "the-hive.css": "styles/pages/the-hive.css",
-  "vendors.css": "styles/pages/vendors.css"
+  "vendors.css": "styles/pages/vendors.css",
+  "assets/employees/abigail-freligh.jpg": "assets/shared/photos/team/abigail-freligh.jpg",
+  "assets/employees/jo-lynne-skaggs.png": "assets/shared/photos/team/jo-lynne-skaggs.png",
+  "assets/employees/max-skaggs.jpg": "assets/shared/photos/team/max-skaggs.jpg",
+  "assets/employees/tiffany-duggin.jpg": "assets/shared/photos/team/tiffany-duggin.jpg"
 }

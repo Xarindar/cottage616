@@ -1,9 +1,6 @@
 .hive-page {
-  --yellow: #f3c64e;
-  --soft-yellow: #fff0bd;
-  --pink: #ff7f73;
-  --soft-pink: #ffe2df;
-  --hive-hex-mask: url("../../assets/shared/icons/shapes/hexagon.svg");
+  --yellow: var(--hive-yellow);
+  --soft-yellow: var(--hive-soft-yellow);
 }
 
 .brand--hive {
@@ -24,7 +21,7 @@
 }
 
 .hive-hero {
-  background-color: rgba(16, 45, 66, 0.68);
+  background-color: color-mix(in srgb, var(--navy) 68%, transparent);
   background-image: url("../../assets/hive/photos/treatments/head-spa-1280w.webp");
   background-position: center 45%;
   background-blend-mode: multiply;
@@ -40,71 +37,8 @@
   max-width: 720px;
 }
 
-.hive-intro__bee,
-.hive-intro__bee {
-  object-fit: contain;
-  pointer-events: none;
-  user-select: none;
-}
-
-.hive-intro {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(280px, 0.86fr) minmax(320px, 1.14fr);
-  gap: clamp(28px, 5vw, 72px);
-  align-items: center;
-  padding: clamp(58px, 7vw, 96px) clamp(18px, 5vw, 72px);
-  background: var(--paper);
-  border-bottom: 1px solid rgba(23, 63, 95, 0.1);
-  z-index: 3;
-}
-
-.hive-intro::after {
-  display: none;
-}
-
-.hive-intro__copy {
-  position: relative;
-  z-index: 4;
-  max-width: 620px;
-}
-
-.hive-intro__copy p:not(.eyebrow) {
-  color: var(--muted);
-}
-
-.hive-intro__bee {
-  display: none;
-}
-
-.hive-photo-stack {
-  position: relative;
-  z-index: 4;
-  min-height: clamp(420px, 52vw, 620px);
-}
-
-.hive-photo-stack img {
-  border-radius: 8px;
-  box-shadow: 0 8px 22px rgba(23, 63, 95, 0.08);
-}
-
-.hive-photo-main {
-  height: clamp(380px, 48vw, 560px);
-}
-
-.hive-photo-secondary {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: min(46%, 280px);
-  aspect-ratio: 667 / 732;
-  border: 0;
-  -webkit-mask: var(--hive-hex-mask) center / contain no-repeat;
-  mask: var(--hive-hex-mask) center / contain no-repeat;
-}
-
 .hive-page .hive-profile-testimonials {
-  background: #fff;
+  background: var(--white);
 }
 
 .hive-profile-testimonials .profile-testimonial-card__stars {
@@ -124,7 +58,7 @@
 .hive-ritual__feature {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  background: #e4dfd3;
+  background: var(--surface-editorial);
 }
 
 .hive-ritual__image {
@@ -159,7 +93,7 @@
 
 .hive-ritual__intro {
   max-width: 35ch;
-  margin: 0 0 32px;
+  margin: 0 0 var(--space-8);
   font-size: clamp(1rem, 1.4vw, 1.125rem);
   line-height: 1.8;
 }
@@ -167,9 +101,9 @@
 .hive-ritual__rate {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 20px;
-  margin: 0 0 20px;
-  font-size: 1rem;
+  gap: var(--space-2) var(--space-5);
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
@@ -181,7 +115,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 24px;
+  gap: 10px var(--space-6);
 }
 
 .hive-menu {
@@ -189,48 +123,48 @@
   grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 28px;
-  padding-block: clamp(32px, 4vw, 56px);
-  padding-bottom: 20px;
+  padding-block: clamp(var(--space-8), 4vw, 56px);
+  padding-bottom: var(--space-5);
   scroll-margin-top: 86px;
 }
 
 .hive-menu__banner {
   position: relative;
+  overflow: hidden;
+  background: var(--surface-editorial);
 }
 
 .hive-menu__banner img {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: clamp(110px, 14vw, 170px);
+  height: 100%;
   object-fit: cover;
-  object-position: center;
+  opacity: 0.18;
 }
 
 .hive-menu__title {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
+  position: relative;
+  margin: 0;
+  padding: var(--space-8) var(--space-6);
+  color: var(--deep-blue);
+  font: 400 clamp(2.1rem, 4.2vw, 4.6rem)/1.15 var(--display-font);
+  text-align: center;
 }
 
 .hive-treatment {
-  border-top: 1px solid #cecbbf;
+  border-top: 1px solid var(--line-editorial);
 }
 
 .hive-treatment:last-of-type {
-  border-bottom: 1px solid #cecbbf;
+  border-bottom: 1px solid var(--line-editorial);
 }
 
 .hive-treatment summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 56px 48px 20px;
   align-items: center;
-  gap: 4px 16px;
+  gap: var(--space-1) var(--space-4);
   padding: 14px 0;
   min-height: 56px;
   list-style: none;
@@ -246,7 +180,7 @@
 }
 
 .hive-treatment summary:focus-visible {
-  outline: 2px solid var(--deep-blue);
+  outline: var(--focus-width) solid var(--deep-blue);
   outline-offset: 5px;
 }
 
@@ -258,7 +192,7 @@
 .hive-treatment__price {
   text-align: right;
   white-space: nowrap;
-  font-size: 0.875rem;
+  font-size: var(--text-label);
   font-variant-numeric: tabular-nums;
 }
 
@@ -267,9 +201,9 @@
 .hive-treatment__description {
   grid-column: 1 / -2;
   max-width: 75ch;
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: #52616a;
+  font-size: var(--text-label);
+  line-height: var(--text-leading);
+  color: var(--muted-on-editorial);
 }
 
 .hive-treatment__toggle {
@@ -297,8 +231,8 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
-  gap: 24px;
-  padding: 2px 0 16px;
+  gap: var(--space-6);
+  padding: 2px 0 var(--space-4);
 }
 
 .hive-treatment__details ul {
@@ -309,17 +243,17 @@
 }
 
 .hive-menu__note {
-  margin: 16px 0 0;
+  margin: var(--space-4) 0 0;
   max-width: none;
-  color: #52616a;
-  font-size: 0.8125rem;
+  color: var(--muted-on-editorial);
+  font-size: var(--text-small);
   line-height: 1.75;
 }
 
 @media (min-width: 900px) {
   .hive-treatment summary {
     grid-template-columns: minmax(160px, 0.6fr) minmax(0, 1.4fr) 56px 48px 20px;
-    gap: 16px;
+    gap: var(--space-4);
   }
   .hive-treatment__name { grid-column: 1; grid-row: 1; }
   .hive-treatment__description { grid-column: 2; grid-row: 1; }
@@ -336,19 +270,19 @@
     aspect-ratio: 5 / 4;
     object-position: center 57%;
   }
-  .hive-ritual__copy { padding: 36px 24px 40px; }
+  .hive-ritual__copy { padding: 36px var(--space-6) 40px; }
   .hive-ritual__copy h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
-  .hive-ritual__intro { max-width: 42ch; margin-bottom: 24px; }
-  .hive-menu { padding: 28px 24px 20px; gap: 22px; }
+  .hive-ritual__intro { max-width: 42ch; margin-bottom: var(--space-6); }
+  .hive-menu { padding: 28px var(--space-6) var(--space-5); gap: 22px; }
   .hive-treatment__details { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .hive-treatment__details .button { justify-self: start; }
   .hive-treatment summary {
     grid-template-columns: minmax(0, 1fr) 46px 34px 16px;
-    gap: 4px 10px;
-    padding-block: 12px;
+    gap: var(--space-1) 10px;
+    padding-block: var(--space-3);
   }
   .hive-treatment__name { font-size: 1.0625rem; }
-  .hive-treatment__duration, .hive-treatment__price { font-size: 0.8125rem; }
+  .hive-treatment__duration, .hive-treatment__price { font-size: var(--text-small); }
   .hive-treatment__description { grid-column: 1 / -1; }
 }
 
@@ -356,31 +290,31 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 16px 24px;
-  padding-block: 16px;
-  border-bottom: 1px solid #cecbbf;
+  gap: var(--space-4) var(--space-6);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--line-editorial);
   color: var(--deep-blue);
   background: var(--paper);
 }
 
 .hive-foot-spa__copy h2 {
-  margin: 0 0 4px;
+  margin: 0 0 var(--space-1);
   font: 400 clamp(1.125rem, 1.8vw, 1.5rem)/1.4 var(--display-font);
 }
 
 .hive-foot-spa__copy p {
   margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: #52616a;
+  font-size: var(--text-label);
+  line-height: var(--text-leading);
+  color: var(--muted-on-editorial);
 }
 
 .hive-foot-spa__price {
   display: flex;
-  gap: 16px;
+  gap: var(--space-4);
   margin: 0;
   white-space: nowrap;
-  font-size: 0.875rem;
+  font-size: var(--text-label);
   font-variant-numeric: tabular-nums;
 }
 
@@ -397,7 +331,7 @@
 @media (min-width: 900px) {
   .hive-foot-spa {
     grid-template-columns: minmax(160px, 0.6fr) minmax(0, 1.4fr) auto auto;
-    gap: 16px;
+    gap: var(--space-4);
   }
   .hive-foot-spa__copy { display: contents; }
   .hive-foot-spa__copy h2 { margin: 0; }
@@ -406,8 +340,8 @@
 @media (max-width: 720px) {
   .hive-foot-spa {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px 16px;
-    padding-inline: 24px;
+    gap: var(--space-2) var(--space-4);
+    padding-inline: var(--space-6);
   }
 
   .hive-foot-spa__copy {
@@ -435,34 +369,9 @@
   display: none;
 }
 
-@media (max-width: 980px) {
-  .hive-intro {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 720px) {
   .hive-hero {
     background-position: 58% center;
-  }
-
-  .hive-intro__bee {
-    display: none;
-  }
-
-  .hive-photo-stack {
-    min-height: 0;
-  }
-
-  .hive-photo-main {
-    height: auto;
-    aspect-ratio: 4 / 5;
-  }
-
-  .hive-photo-secondary {
-    position: static;
-    width: 72%;
-    margin: -54px auto 0;
   }
 
 }
@@ -472,7 +381,7 @@
   align-items: center;
   gap: 18px;
   margin: 0;
-  padding: 16px 0 0;
+  padding: var(--space-4) 0 0;
 }
 
 .hive-product-note__brand {
@@ -495,15 +404,18 @@
   .hive-product-note {
     align-items: flex-start;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--space-3);
   }
 }
 .hive-booking {
-  background-color: #102d42;
-  background-image: linear-gradient(rgba(16, 45, 66, 0.72), rgba(16, 45, 66, 0.72)), url("../../assets/hive/photos/treatments/full-spa-process-poster-576w.webp");
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--navy);
+  background-image: linear-gradient(var(--photo-scrim), var(--photo-scrim)), url("../../assets/hive/photos/treatments/full-spa-process-poster-576w.webp");
   background-size: cover;
   background-position: 56% 29%;
-  border-top: 1px solid rgba(23, 63, 95, 0.12);
+  border-top: 1px solid var(--line-subtle);
   padding-block: clamp(44px, 6vw, 76px);
 }
 
@@ -526,9 +438,9 @@
 .hive-booking-card__benefits {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+  gap: var(--space-6);
   max-width: 860px;
-  margin: 0 auto clamp(32px, 4vw, 48px);
+  margin: 0 auto clamp(var(--space-8), 4vw, var(--space-12));
   padding: 0;
   list-style: none;
 }
@@ -537,7 +449,7 @@
   display: grid;
   justify-items: center;
   align-content: start;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .hive-booking-card__icon {
@@ -565,7 +477,7 @@
 @media (max-width: 640px) {
   .hive-booking-card__benefits {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 16px;
+    gap: 28px var(--space-4);
   }
 
   .hive-booking-card__icon {
@@ -615,11 +527,6 @@
     background-position: 56% 29%;
   }
 }
-.hive-booking {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
 
 .hive-booking__video {
   position: absolute;
@@ -636,7 +543,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(16, 45, 66, 0.72);
+  background: var(--photo-scrim);
   pointer-events: none;
 }
 
@@ -645,26 +552,15 @@
     display: none;
   }
 }
-.hive-intro__copy h2 {
-  max-width: 18ch;
-  margin-bottom: 18px;
-  font-size: clamp(1.9rem, 3vw, 3rem);
-  line-height: 1.15;
-}
 
-.hive-intro__copy > p {
-  max-width: 38ch;
-  font-size: 1rem;
-  line-height: 1.65;
-}
 .hive-menu__tabs {
   display: flex;
   justify-content: center;
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(var(--space-6), 4vw, var(--space-12));
 }
 
 .hive-menu__tabs [role="tab"] {
-  padding: 12px 4px;
+  padding: var(--space-3) var(--space-1);
   border: 0;
   border-bottom: 3px solid transparent;
   background: transparent;
@@ -680,8 +576,8 @@
 
 .hive-menu__tabs [role="tab"]:focus-visible,
 .hive-menu__panel:focus-visible {
-  outline: 2px solid var(--deep-blue);
-  outline-offset: 4px;
+  outline: var(--focus-width) solid var(--deep-blue);
+  outline-offset: var(--focus-offset);
 }
 
 .hive-menu__panels {
@@ -708,8 +604,8 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  gap: 20px 40px;
-  padding-top: 20px;
+  gap: var(--space-5) 40px;
+  padding-top: var(--space-5);
 }
 
 .hive-menu__notes .hive-product-note {
@@ -725,12 +621,12 @@
 @media (max-width: 900px) {
   .hive-menu__notes {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: var(--space-4);
   }
 }
 
 .hive-page .team {
-  background: #fff3ef;
+  background: var(--surface-blush);
 }
 .hive-page .intro .icon-story article:first-child .sketch-icon img {
   width: 60%;

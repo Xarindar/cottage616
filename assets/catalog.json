@@ -29,9 +29,7 @@
     "path": "assets/cottage-616/icons/events/baby-bear.svg",
     "folder": "cottage-616/icons/events",
     "bytes": 16927,
-    "usedBy": [
-      "styles/site.css"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/events/baby-bear.svg",
       "assets/images/events/baby-bear.svg"
@@ -41,9 +39,7 @@
     "path": "assets/cottage-616/icons/events/birthday-cake.svg",
     "folder": "cottage-616/icons/events",
     "bytes": 240723,
-    "usedBy": [
-      "styles/site.css"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/events/birthday-cake.svg",
       "assets/images/events/birthday-cake.svg"
@@ -103,9 +99,7 @@
     "path": "assets/cottage-616/icons/events/wedding-rings.svg",
     "folder": "cottage-616/icons/events",
     "bytes": 7342,
-    "usedBy": [
-      "styles/site.css"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/events/wedding-rings.svg",
       "assets/images/events/wedding-rings.svg"
@@ -451,43 +445,6 @@
     ]
   },
   {
-    "path": "assets/employees/abigail-freligh.jpg",
-    "folder": "employees",
-    "bytes": 79421,
-    "usedBy": [
-      "index.html"
-    ],
-    "previousPaths": []
-  },
-  {
-    "path": "assets/employees/jo-lynne-skaggs.png",
-    "folder": "employees",
-    "bytes": 1514370,
-    "usedBy": [
-      "index.html",
-      "the-hive.html"
-    ],
-    "previousPaths": []
-  },
-  {
-    "path": "assets/employees/max-skaggs.jpg",
-    "folder": "employees",
-    "bytes": 86568,
-    "usedBy": [
-      "index.html"
-    ],
-    "previousPaths": []
-  },
-  {
-    "path": "assets/employees/tiffany-duggin.jpg",
-    "folder": "employees",
-    "bytes": 91038,
-    "usedBy": [
-      "index.html"
-    ],
-    "previousPaths": []
-  },
-  {
     "path": "assets/hive/branding/honeycomb-symbol.webp",
     "folder": "hive/branding",
     "bytes": 149810,
@@ -828,9 +785,7 @@
     "path": "assets/hive/photos/treatments/head-spa-menu-banner-v1.png",
     "folder": "hive/photos/treatments",
     "bytes": 2175224,
-    "usedBy": [
-      "the-hive.html"
-    ],
+    "usedBy": [],
     "previousPaths": []
   },
   {
@@ -851,9 +806,23 @@
     ]
   },
   {
+    "path": "assets/hive/sources/full-spa-process.mp4",
+    "folder": "hive/sources",
+    "bytes": 2115850,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
     "path": "assets/hive/sources/head-spa-session.jpg",
     "folder": "hive/sources",
     "bytes": 371604,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/sources/scalp-rinse-session.mp4",
+    "folder": "hive/sources",
+    "bytes": 1034406,
     "usedBy": [],
     "previousPaths": []
   },
@@ -880,6 +849,38 @@
     ]
   },
   {
+    "path": "assets/hive/videos/treatments/full-spa-process-desktop-576w.mp4",
+    "folder": "hive/videos/treatments",
+    "bytes": 897936,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/videos/treatments/full-spa-process-mobile-540w.mp4",
+    "folder": "hive/videos/treatments",
+    "bytes": 1766547,
+    "usedBy": [
+      "the-hive.html"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/videos/treatments/scalp-rinse-desktop-720w.mp4",
+    "folder": "hive/videos/treatments",
+    "bytes": 275898,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/hive/videos/treatments/scalp-rinse-mobile-540w.mp4",
+    "folder": "hive/videos/treatments",
+    "bytes": 504357,
+    "usedBy": [],
+    "previousPaths": []
+  },
+  {
     "path": "assets/shared/fonts/bigbesty.otf",
     "folder": "shared/fonts",
     "bytes": 30832,
@@ -900,12 +901,37 @@
     "previousPaths": []
   },
   {
+    "path": "assets/shared/icons/facebook.svg",
+    "folder": "shared/icons",
+    "bytes": 183,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/shared/icons/globe.svg",
+    "folder": "shared/icons",
+    "bytes": 263,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": []
+  },
+  {
+    "path": "assets/shared/icons/map-pin.svg",
+    "folder": "shared/icons",
+    "bytes": 258,
+    "usedBy": [
+      "styles/site.css"
+    ],
+    "previousPaths": []
+  },
+  {
     "path": "assets/shared/icons/shapes/hexagon.svg",
     "folder": "shared/icons/shapes",
     "bytes": 968,
-    "usedBy": [
-      "styles/pages/the-hive.css"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/icons/shared/shapes/hexagon.svg",
       "assets/images/events/hex-shape.svg",
@@ -993,6 +1019,51 @@
     ]
   },
   {
+    "path": "assets/shared/photos/team/abigail-freligh.jpg",
+    "folder": "shared/photos/team",
+    "bytes": 79421,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/employees/abigail-freligh.jpg"
+    ]
+  },
+  {
+    "path": "assets/shared/photos/team/jo-lynne-skaggs.png",
+    "folder": "shared/photos/team",
+    "bytes": 1514370,
+    "usedBy": [
+      "index.html",
+      "the-hive.html"
+    ],
+    "previousPaths": [
+      "assets/employees/jo-lynne-skaggs.png"
+    ]
+  },
+  {
+    "path": "assets/shared/photos/team/max-skaggs.jpg",
+    "folder": "shared/photos/team",
+    "bytes": 86568,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/employees/max-skaggs.jpg"
+    ]
+  },
+  {
+    "path": "assets/shared/photos/team/tiffany-duggin.jpg",
+    "folder": "shared/photos/team",
+    "bytes": 91038,
+    "usedBy": [
+      "index.html"
+    ],
+    "previousPaths": [
+      "assets/employees/tiffany-duggin.jpg"
+    ]
+  },
+  {
     "path": "assets/shared/textures/linen/white-linen.png",
     "folder": "shared/textures/linen",
     "bytes": 466,
@@ -1007,7 +1078,8 @@
     "folder": "shared/textures/paper",
     "bytes": 101491,
     "usedBy": [
-      "styles/site.css"
+      "scripts/integrations/showrunner/content.js",
+      "the-hive.html"
     ],
     "previousPaths": [
       "assets/textures/natural-paper.png",
@@ -1104,9 +1176,7 @@
     "path": "assets/vendors/logos/top-notch-entertainment.jpg",
     "folder": "vendors/logos",
     "bytes": 51375,
-    "usedBy": [
-      "vendors.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/branding/vendors/top-notch-entertainment.jpg",
       "assets/images/vendors/top-notch-entertainment.jpg"
@@ -1150,9 +1220,7 @@
     "path": "assets/vendors/photos/parties-and-platters/grazing-table.jpg",
     "folder": "vendors/photos/parties-and-platters",
     "bytes": 139221,
-    "usedBy": [
-      "vendors.html"
-    ],
+    "usedBy": [],
     "previousPaths": [
       "assets/images/vendors/parties-and-platters/grazing-table.jpg",
       "assets/images/vendors/parties-platters.jpg"

@@ -1,29 +1,29 @@
 /* Shared action styles. Page styles may position buttons, but do not restyle them. */
 :root {
-  --button-ink: var(--navy, #102d42);
-  --button-paper: var(--paper, #fffdf8);
-  --button-hover-fill: var(--deep-blue, #173f5f);
+  --button-ink: var(--navy);
+  --button-paper: var(--paper);
+  --button-hover-fill: var(--deep-blue);
   --button-on-hover-fill: var(--button-paper);
   --button-border: color-mix(in srgb, var(--button-ink) 45%, transparent);
-  --button-font: var(--sans-font, "Raleway", sans-serif);
-  --button-font-size: 0.875rem;
-  --button-font-size-small: 0.8125rem;
+  --button-font: var(--sans-font);
+  --button-font-size: var(--text-label);
+  --button-font-size-small: var(--text-small);
   --button-font-weight: 600;
   --button-line-height: 1.4;
   --button-letter-spacing: 0.015em;
-  --button-radius: 2px;
+  --button-radius: var(--radius-action);
   --button-border-width: 1px;
   --button-height: 48px;
-  --button-height-small: 44px;
+  --button-height-small: var(--control-height);
   --button-padding-block: 11px;
   --button-padding-inline: 22px;
   --button-padding-inline-small: 16px;
   --button-padding-block-small: 9px;
-  --button-gap: 12px;
-  --button-focus-width: 2px;
-  --button-focus-offset: 4px;
+  --button-gap: var(--space-3);
+  --button-focus-width: var(--focus-width);
+  --button-focus-offset: var(--focus-offset);
   --button-disabled-opacity: 0.45;
-  --button-transition: 160ms ease;
+  --button-transition: var(--motion-control);
 }
 
 .button {
@@ -108,8 +108,8 @@
 
 .button > svg {
   flex: none;
-  width: 20px;
-  height: 20px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .button:hover:not(:disabled):not([aria-disabled="true"]) {
