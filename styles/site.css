@@ -1159,7 +1159,8 @@ address > * {
 
 @media (max-width: 720px) {
   .hero {
-    min-height: 88svh;
+    min-height: 0;
+    padding: var(--space-8) var(--page-gutter);
   }
 
   .hero::after {
@@ -1375,15 +1376,30 @@ address > * {
 }
 
 @media (max-width: 720px) {
+  .showrunner-js .hero[data-showrunner-profile]:not(.sr-canvas-unavailable) {
+    padding: 0;
+  }
+
+  .sr-hero-screens {
+    position: relative;
+    display: grid;
+  }
+
+  .sr-hero-screen {
+    position: relative;
+    grid-area: 1 / 1;
+  }
+
   .sr-hero-layers {
     position: relative;
     inset: auto;
     display: grid;
-    gap: 18px;
+    gap: var(--space-3);
     align-content: center;
     justify-items: start;
-    min-height: 78svh;
-    padding: var(--space-6) 18px var(--space-12);
+    min-height: max(260px, 56.25cqw);
+    height: 100%;
+    padding: var(--space-8) var(--page-gutter) calc(var(--space-12) + var(--space-2));
   }
 
   .sr-hero-layer {
@@ -1393,6 +1409,15 @@ address > * {
     width: auto;
     max-width: 100% !important;
     min-width: 0 !important;
+  }
+
+  .sr-hero-headline {
+    font-size: clamp(1.75rem, 5.8cqw, 2.65rem);
+  }
+
+  .sr-hero-caption {
+    margin-bottom: 0;
+    font-size: var(--text-body);
   }
 
   .sr-hero-nav {
