@@ -3,6 +3,10 @@
   const pages = { "index.html": "home", "the-hive.html": "hive", "booking.html": "booking", "vendors.html": "vendors" };
   const page = pages[location.pathname.split("/").pop() || "index.html"];
   if (!page) return;
+  const mobile = window.matchMedia("(max-width: 720px)");
+  let published = null;
+  let editingBusiness = false;
+  mobile.addEventListener("change", () => { if (published && !editingBusiness) applyBusiness(published); });
   const useAppleMaps = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
   function updateAddress(node, address) {
     node.textContent = address;
@@ -16,13 +20,13 @@
   document.querySelectorAll("[data-business-address]").forEach(node => updateAddress(node, node.textContent.trim()));
   window.addEventListener("showrunner:render", event => {
     const business = event.detail.blocks?.find(block => block.type === "business");
-    if (business) applyBusiness({ businessConfigured: true, business: business.payload });
+    if (business) { editingBusiness = true; applyBusiness({ businessConfigured: true, business: business.payload }); }
   });
   const endpoint = new URL("https://showrunner-beta-production.up.railway.app/api/public/v1/content/studio");
   endpoint.searchParams.set("page", page);
   fetch(endpoint, { headers: { "X-Showrunner-Key": "pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8" } })
     .then(response => { if (!response.ok) throw new Error("Business info unavailable"); return response.json(); })
-    .then(applyBusiness).catch(() => { /* Static contact and metadata remain available during outages. */ });
+    .then(response => { published = response; if (!editingBusiness) applyBusiness(response); }).catch(() => { /* Static contact and metadata remain available during outages. */ });
   function applyBusiness(response) {
       const data = response.data || response;
       const seo = data.blocks?.find(block => block.type === "seo")?.payload;
@@ -34,7 +38,7 @@
       }
       // Keep approved static fallback values until the canonical record is initialized.
       if (!data.businessConfigured) return;
-      const business = data.business;
+      const business = mobile.matches && data.mobileBusiness ? data.mobileBusiness : data.business;
       document.querySelectorAll("[data-business-phone]").forEach(node => { node.textContent = business.phone || ""; node.href = `tel:${String(business.phone || "").replace(/[^+\d]/g, "")}`; node.hidden = !business.phone; });
       document.querySelectorAll("[data-business-email]").forEach(node => { node.textContent = business.email || ""; node.href = `mailto:${business.email || ""}`; node.hidden = !business.email; });
       const address = [business.line1, business.line2, business.city, [business.region, business.postalCode].filter(Boolean).join(" "), business.country].filter(Boolean).join(", ");
