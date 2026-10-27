@@ -1365,7 +1365,7 @@ address > * {
   grid-column: 1;
   grid-row: 2;
   font-size: clamp(1.05rem, 2cqw, 1.35rem);
-  max-width: 660px;
+  max-width: min(100%, 660px) !important;
   overflow: visible;
   white-space: pre-wrap;
 }
