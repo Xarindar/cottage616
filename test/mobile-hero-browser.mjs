@@ -27,7 +27,11 @@ try {
         assert(bounds.x >= 0 && bounds.x + bounds.width <= width, 'header copy does not overflow horizontally');
       }
       console.log(`${path} ${width}px: hero ${Math.round(hero.height)}px`);
-      if (width === 390 && process.env.SCREENSHOT_DIR) await page.screenshot({ path: `${process.env.SCREENSHOT_DIR}/${path === '/' ? 'cottage' : 'hive'}-mobile-header.png` });
+      if (width === 390 && process.env.SCREENSHOT_DIR) {
+        const photo = page.locator('.sr-hero-screen.is-active img').first();
+        if (await photo.count()) await photo.evaluate(node => node.decode()).catch(() => {});
+        await page.screenshot({ path: `${process.env.SCREENSHOT_DIR}/${path === '/' ? 'cottage' : 'hive'}-mobile-header.png` });
+      }
     }
     await context.close();
   }

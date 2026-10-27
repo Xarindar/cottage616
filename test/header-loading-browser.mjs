@@ -35,17 +35,31 @@ try {
     assert.equal(studioRequests, 1, 'business info reuses the studio request');
     const after = await page.locator('.hero').boundingBox();
     assert(Math.abs(before.height - after.height) < 1, 'published content cannot move the section below');
-    for (const width of [390, 1440]) {
+    for (const width of [320, 390, 1440]) {
       await page.setViewportSize({ width, height: 844 });
-      for (const alignment of ['left', 'center', 'right']) {
-        await page.evaluate(buttonAlignment => window.dispatchEvent(new CustomEvent('showrunner:render', { detail: { blocks: [{ type: 'slideshow', payload: { slides: [{ id: 'test', title: 'Venue', caption: '', buttonLabel: 'Book', buttonHref: '/booking.html', buttonAlignment }] } }] } })), alignment);
+      const render = (buttonAlignment, caption) => page.evaluate(({ buttonAlignment, caption }) => window.dispatchEvent(new CustomEvent('showrunner:render', { detail: { blocks: [{ type: 'slideshow', payload: { slides: [{ id: 'test', title: 'Venue', caption, buttonLabel: 'Book', buttonHref: '/booking.html', buttonAlignment }] } }] } })), { buttonAlignment, caption });
+      for (const alignment of ['', 'left', 'center', 'right']) {
+        await render(alignment, 'First line\nSecond line');
         const button = await page.locator('.sr-hero-cta').boundingBox();
         const layers = await page.locator('.sr-hero-layers').boundingBox();
-        const inset = width <= 720 ? width * 0.05 : 0;
+        const inset = await page.locator('.sr-hero-layers').evaluate(node => parseFloat(getComputedStyle(node).paddingLeft));
         const actual = alignment === 'left' ? button.x : alignment === 'right' ? button.x + button.width : button.x + button.width / 2;
         const expected = alignment === 'left' ? layers.x + inset : alignment === 'right' ? layers.x + layers.width - inset : layers.x + layers.width / 2;
-        assert(Math.abs(actual - expected) < 2, `${alignment} button alignment at ${width}px`);
+        if (alignment) assert(Math.abs(actual - expected) < 2, `${alignment} button alignment at ${width}px`);
+        else assert(Math.abs(button.x + button.width - (layers.x + layers.width - inset)) < 2, 'CTA defaults to the right');
+        const caption = await page.locator('.sr-hero-caption').boundingBox();
+        assert(Math.abs(button.y + button.height / 2 - caption.y - caption.height / 2) < 2, 'CTA is vertically aligned with the caption');
+        assert.equal(await page.locator('.sr-hero-caption').innerText(), 'First line\nSecond line');
       }
+      const titleBefore = await page.locator('.sr-hero-headline').boundingBox();
+      await render('', 'First line\nSecond line\nThird line\nFourth line');
+      const titleAfter = await page.locator('.sr-hero-headline').boundingBox();
+      assert(titleAfter.y < titleBefore.y, 'adding caption lines immediately repositions the heading');
+      const captionAfter = await page.locator('.sr-hero-caption').boundingBox();
+      const lineHeight = await page.locator('.sr-hero-caption').evaluate(node => parseFloat(getComputedStyle(node).lineHeight));
+      assert(captionAfter.height >= lineHeight * 4 - 1, 'all four authored caption lines render on separate lines');
+      const heroAfter = await page.locator('.hero').boundingBox();
+      assert(Math.abs((titleAfter.y + captionAfter.y + captionAfter.height) / 2 - heroAfter.y - heroAfter.height / 2) < 2, 'headline and caption remain vertically centered together');
     }
     console.log(`PASS: ${path} reserves ${after.height}px and renders the header before studio finishes`);
     await context.unrouteAll({ behavior: 'wait' });
