@@ -25,23 +25,23 @@
 
   if (root) root.classList.add("sr-content-loading");
 
-  const contentReady = Promise.allSettled([
-    root ? loadProfile() : Promise.resolve(null),
-    loadStudio(pageId)
-  ]).then(([profileResult, studioResult]) => {
-    if (profileResult.status === "fulfilled" && profileResult.value) {
-      const content = profileResult.value;
+  const profileReady = (root ? loadProfile() : Promise.resolve(null)).then(content => {
+    if (content) {
       originalTestimonials = content?.testimonials?.items || [];
       originalHero = content?.hero;
       applyHeader(content?.header || {});
       const canvasRendered = applyCanvasHero(content?.hero || null);
       if (!canvasRendered) root?.classList.add("sr-canvas-unavailable");
       applyTestimonials(content?.testimonials || {});
-    } else if (profileResult.status === "rejected") {
-      root?.classList.add("sr-canvas-unavailable");
-      if (window.console?.warn) window.console.warn("Showrunner profile content could not load.", profileResult.reason);
     }
+  }).catch(error => {
+    root?.classList.add("sr-canvas-unavailable");
+    if (window.console?.warn) window.console.warn("Showrunner profile content could not load.", error);
+  });
 
+  const studioReady = loadStudio(pageId);
+  window.cottageShowrunnerStudioReady = studioReady;
+  const contentReady = Promise.allSettled([profileReady, studioReady]).then(([, studioResult]) => {
     if (studioResult.status === "fulfilled") {
       applyStudio(studioResult.value);
       window.dispatchEvent(new CustomEvent("showrunner:content", { detail: studioResult.value }));
@@ -237,6 +237,12 @@
       const sources = headerImageSources(background.url);
       photo.src = sources.full;
       if (sources.standard) {
+        if (framing.zoom === 1) {
+          const mobile = document.createElement("source");
+          mobile.media = "(max-width: 720px)";
+          mobile.srcset = sources.standard;
+          picture.appendChild(mobile);
+        }
         const wide = document.createElement("source");
         wide.media = "(min-width: 1600px)";
         wide.srcset = sources.full;
@@ -297,6 +303,7 @@
       element.className = "sr-hero-layer sr-hero-cta button button--primary";
       element.textContent = layer.content || "Book now";
       element.setAttribute("href", normalizeHref(layer.link || "booking.html"));
+      if (["left", "center", "right"].includes(layer.alignment)) element.dataset.align = layer.alignment;
     }
 
     if (!element || !String(element.textContent || "").trim()) return null;
@@ -413,7 +420,7 @@
       const layers = [
         { type: "text", role: "headline", editorField: `slides.${index}.title`, content: slide.title, layout: oldLayer("headline")?.layout || { colStart: 2, colEnd: 28, rowStart: 7 } },
         { type: "text", role: "caption", editorField: `slides.${index}.caption`, content: slide.caption, layout: oldLayer("caption")?.layout || { colStart: 2, colEnd: 22, rowStart: 11 } },
-        { type: "button", editorField: `slides.${index}.buttonLabel`, content: slide.buttonLabel, link: slide.buttonHref, layout: oldLayer("button")?.layout || { colStart: 2, colEnd: 15, rowStart: 15 } }
+        { type: "button", editorField: `slides.${index}.buttonLabel`, content: slide.buttonLabel, link: slide.buttonHref, alignment: slide.buttonAlignment, layout: oldLayer("button")?.layout || { colStart: 2, colEnd: 15, rowStart: 15 } }
       ].filter(layer => layer.type !== "button" || layer.link && layer.content);
       return { editorId: slide.id, editorPath: `slides.${index}`, backgrounds: [{ url: slide.imageUrl, altText: slide.imageAlt, imagePositionX: slide.imagePositionX, imagePositionY: slide.imagePositionY, imageZoom: slide.imageZoom }], canvasLayers: layers };
     });

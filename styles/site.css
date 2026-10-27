@@ -1162,12 +1162,35 @@ address > * {
 
 @media (max-width: 720px) {
   .hero {
-    min-height: 0;
+    min-height: clamp(320px, 70cqw, 440px);
     padding: var(--space-8) var(--page-gutter);
   }
 
   .hero::after {
     display: none;
+  }
+
+  .intro {
+    padding-block: var(--space-6);
+  }
+
+  .icon-story {
+    gap: var(--space-5);
+  }
+
+  .icon-story article {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .icon-story .highlight-label {
+    align-self: flex-start;
+  }
+
+  .intro .icon-story p {
+    max-width: none;
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-body);
   }
 
   .service-grid,
@@ -1335,6 +1358,10 @@ address > * {
   margin-top: 0;
 }
 
+.sr-hero-cta[data-align="left"] { left: 0 !important; }
+.sr-hero-cta[data-align="center"] { left: 50% !important; transform: translateX(-50%); }
+.sr-hero-cta[data-align="right"] { left: auto !important; right: 0; }
+
 .sr-hero-nav {
   align-items: center;
   bottom: clamp(12px, 2cqw, 22px);
@@ -1401,7 +1428,7 @@ address > * {
     gap: var(--space-3);
     align-content: center;
     justify-items: start;
-    min-height: max(260px, 56.25cqw);
+    min-height: clamp(320px, 70cqw, 440px);
     height: 100%;
     padding: var(--space-8) var(--page-gutter) calc(var(--space-12) + var(--space-2));
   }
@@ -1423,6 +1450,11 @@ address > * {
     margin-bottom: 0;
     font-size: var(--text-body);
   }
+
+  .sr-hero-cta[data-align] { transform: none; }
+  .sr-hero-cta[data-align="left"] { justify-self: start; }
+  .sr-hero-cta[data-align="center"] { justify-self: center; }
+  .sr-hero-cta[data-align="right"] { justify-self: end; }
 
   .sr-hero-nav {
     bottom: 14px;

@@ -24,8 +24,9 @@
   });
   const endpoint = new URL("https://showrunner-beta-production.up.railway.app/api/public/v1/content/studio");
   endpoint.searchParams.set("page", page);
-  fetch(endpoint, { headers: { "X-Showrunner-Key": "pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8" } })
-    .then(response => { if (!response.ok) throw new Error("Business info unavailable"); return response.json(); })
+  const contentReady = window.cottageShowrunnerStudioReady || fetch(endpoint, { headers: { "X-Showrunner-Key": "pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8" } })
+    .then(response => { if (!response.ok) throw new Error("Business info unavailable"); return response.json(); });
+  contentReady
     .then(response => { published = response; if (!editingBusiness) applyBusiness(response); }).catch(() => { /* Static contact and metadata remain available during outages. */ });
   function applyBusiness(response) {
       const data = response.data || response;
