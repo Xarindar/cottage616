@@ -436,8 +436,8 @@
     if (featureImage) featureImage.dataset.srField = "imageUrl";
     if (featureImage && panel.imageUrl) featureImage.src = String(panel.imageUrl);
     if (featureImage && panel.imageAlt) featureImage.alt = String(panel.imageAlt);
-    setText("#events .event-showcase__header h2", panel.heading);
-    setText("#events .event-showcase__intro", panel.copy);
+    setText("#events .event-showcase__header h2", panel.heading, "heading");
+    setText("#events .event-showcase__intro", panel.copy, "copy");
 
     const list = section.querySelector(".event-card-grid");
     const items = Array.isArray(panel.items) ? panel.items.slice(0, 3) : [];
@@ -448,8 +448,8 @@
           ${item.imageUrl ? `<img class="event-card__image" data-sr-field="items.${index}.imageUrl" src="${escapeAttribute(item.imageUrl)}" loading="lazy" decoding="async" alt="${escapeAttribute(item.name || "Cottage 616 event")}">` : ""}
         </div>
         <div class="event-card__body">
-          <h3>${escapeHtml(item.name || "Event")}</h3>
-          <p>${escapeHtml(item.description || "")}</p>
+          <h3 data-sr-field="items.${index}.title">${escapeHtml(item.name || "Event")}</h3>
+          <p data-sr-field="items.${index}.description">${escapeHtml(item.description || "")}</p>
           <a class="event-card__button button button--secondary button--small" href="${escapeAttribute(item.ctaHref || "booking.html?profile=cottage616")}" aria-label="Book ${escapeAttribute(item.name || "this event")}">Book now</a>
         </div>
       </article>
@@ -470,6 +470,7 @@
 
     const heading = String(gallery.heading || "").trim();
     const copy = document.querySelector(".venue-strip__copy");
+    if (copy) copy.dataset.srField = "heading";
     if (copy && heading) {
       const parts = heading.split(/,\s*/);
       const first = copy.querySelector("span:first-child");
@@ -524,14 +525,14 @@
         ${partner && vendor.imageUrl ? `<figure class="vendor-entry__image"><img data-sr-field="items.${index}.imageUrl" src="${escapeAttribute(vendor.imageUrl)}" alt="${escapeAttribute(vendor.imageAlt || name)}" loading="lazy" decoding="async"></figure>` : ""}
         <div class="vendor-entry__body">
           <div class="vendor-entry__info">
-          ${vendor.category ? `<p class="vendor-entry__category">${escapeHtml(vendor.category)}</p>` : ""}
-          <h3>${escapeHtml(name)}</h3>
-          ${vendor.description ? `<p class="vendor-entry__description">${escapeHtml(vendor.description)}</p>` : ""}
+          ${vendor.category ? `<p class="vendor-entry__category" data-sr-field="items.${index}.category">${escapeHtml(vendor.category)}</p>` : ""}
+          <h3 data-sr-field="items.${index}.name">${escapeHtml(name)}</h3>
+          ${vendor.description ? `<p class="vendor-entry__description" data-sr-field="items.${index}.description">${escapeHtml(vendor.description)}</p>` : ""}
           </div>
           <div class="vendor-entry__details">
           ${partner ? '<span class="vendor-partner-badge"><img src="assets/shared/icons/crown.svg" width="20" height="20" alt="">Cottage partner</span>' : ""}
-          ${partner ? `<p class="vendor-entry__offer">${escapeHtml(vendor.offer.trim())}</p>` : ""}
-          ${contacts ? `<button class="vendor-entry__link button button--text" type="button" data-contact-modal="${escapeAttribute(name)}" data-contact-target="${targetId}">${escapeHtml(vendor.ctaLabel || "Get in touch")} <span aria-hidden="true">→</span></button>` : ""}
+          ${partner ? `<p class="vendor-entry__offer" data-sr-field="items.${index}.offer">${escapeHtml(vendor.offer.trim())}</p>` : ""}
+          ${contacts ? `<button class="vendor-entry__link button button--text" type="button" data-sr-field="items.${index}.ctaLabel" data-contact-modal="${escapeAttribute(name)}" data-contact-target="${targetId}">${escapeHtml(vendor.ctaLabel || "Get in touch")} <span aria-hidden="true">→</span></button>` : ""}
           </div>
           <div id="${targetId}" class="vendor-contact-data" hidden>${contacts}</div>
         </div>
@@ -560,13 +561,13 @@
     const items = Array.isArray(testimonials.items) ? testimonials.items : [];
     if (!section || !list || !items.length) return;
 
-    setText("[data-content-testimonial-heading]", testimonials.heading);
-    setText("[data-content-testimonial-intro]", testimonials.intro);
+    setText("[data-content-testimonial-heading]", testimonials.heading, "heading");
+    setText("[data-content-testimonial-intro]", testimonials.intro, "copy");
     list.innerHTML = items.map(testimonialCard).join("");
     section.hidden = false;
   }
 
-  function testimonialCard(testimonial) {
+  function testimonialCard(testimonial, index) {
     const quote = String(testimonial.quote || "");
     const longReview = quote.length > 280;
     const preview = longReview ? quote.slice(0, 280).replace(/\s+\S*$/, "") + "…" : quote;
@@ -594,10 +595,10 @@
         <header class="profile-testimonial-card__person">
           <span class="profile-testimonial-card__avatar">${image}</span>
           <span class="profile-testimonial-card__identity">
-            <strong>${escapeHtml(name)}</strong>
+            <strong data-sr-field="items.${index}.author">${escapeHtml(name)}</strong>
           </span>
         </header>
-        <blockquote class="profile-testimonial-card__quote">
+        <blockquote class="profile-testimonial-card__quote" data-sr-field="items.${index}.quote">
           ${review}
         </blockquote>
         <div class="profile-testimonial-card__stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}</div>
@@ -605,8 +606,9 @@
     `;
   }
 
-  function setText(selector, value) {
+  function setText(selector, value, field) {
     const element = document.querySelector(selector);
+    if (element && field) element.dataset.srField = field;
     if (element && typeof value === "string") element.textContent = value;
   }
 
