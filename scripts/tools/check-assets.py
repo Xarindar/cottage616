@@ -17,6 +17,7 @@ checked = set()
 
 
 def check(source, url, page_relative=False):
+    url = url.removeprefix("{{BASE}}") if url else url
     if not url or url.startswith(("#", "data:", "mailto:", "tel:", "javascript:", "${")):
         return
     parsed = urlsplit(url)

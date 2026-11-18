@@ -6,8 +6,9 @@ to the stopped former installation.
 
 Railway project: `e72b421f-abca-48d4-aa39-c805456d9d13`, production environment:
 `536cb800-6976-4af2-b85a-2c11ea508636`, website service:
-`8b990358-9340-48ea-a240-a6b805bd4f1e`. Railpack serves the committed HTML with
-Caddy. Run `python scripts/tools/build-site.py` and commit its generated
+`8b990358-9340-48ea-a240-a6b805bd4f1e`. Railpack runs the Node preview server. Keep `SITE_PREVIEW_ENABLED=1` to show
+Coming soon and configure a private `SITE_PREVIEW_SECRET` for stable sessions.
+For the legacy Caddy configuration, run `python scripts/tools/build-site.py` and commit its generated
 `Caddyfile` whenever templates or `deploy/asset-redirects.json` change. It keeps
 retired media URLs working with 308 redirects and preserves query strings.
 

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Cottage 616 | Coming soon</title>
+  <link rel="stylesheet" href="{{BASE}}coming-soon.css">
+</head>
+<body data-brand="cottage">
+  <header class="preview-header">
+    <span class="preview-site-name">Cottage 616</span>
+    <button class="preview-login" type="button" data-preview-login>Log in</button>
+  </header>
+  <main class="preview-main">
+    <h1>Coming soon.</h1>
+    <p>We’re getting things ready. Check back soon.</p>
+  </main>
+  <dialog data-preview-dialog aria-labelledby="preview-login-title">
+    <div class="preview-dialog-header">
+      <h2 id="preview-login-title">Website preview</h2>
+      <button class="preview-close" type="button" aria-label="Close login" data-preview-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p>Enter the preview password to visit the website.</p>
+    <form method="post" action="{{BASE}}__preview/login">
+      <input name="next" type="hidden" value="{{NEXT}}">
+      <label>Preview password<input name="password" type="password" autocomplete="current-password" maxlength="128" required autofocus></label>
+      <p class="preview-error" data-preview-error role="alert">{{ERROR}}</p>
+      <button type="submit">Enter website</button>
+    </form>
+  </dialog>
+  <script src="{{BASE}}coming-soon.js"></script>
+</body>
+</html>

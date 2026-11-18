@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/components/header.css?v=shared-design-20261022">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles/themes/booking.css?v=shared-design-20261022" />
-    <link rel="stylesheet" href="./styles/pages/booking.css?v=team-members-20261026" />
+    <link rel="stylesheet" href="./styles/pages/booking.css?v=booking-upgrade-20261117" />
     <link rel="stylesheet" href="styles/components/buttons.css?v=shared-design-20261022">
   <script src="scripts/integrations/showrunner/editor.js?v=editor-assets-20261115" data-editor-origins="https://admin.cottage616.com,https://showrunner-beta-production.up.railway.app,http://localhost:3000,http://localhost:3100"></script>
   </head>
@@ -52,6 +52,7 @@
 
         <section class="booking-workspace">
           <div class="booking-stage">
+            <p class="booking-status" data-catalog-status role="status" aria-live="polite" hidden></p>
             <section class="booking-panel is-active" data-step-panel="categories" aria-labelledby="category-title">
               <div class="booking-panel-head">
                 <div>
@@ -69,17 +70,12 @@
                   <em class="button button--inverse button--small" data-promo-cta></em>
                 </button>
 
-                <div class="booking-category-strip-head">
-                  <h3>Category</h3>
-                  <button class="booking-plain-link button button--text button--small" type="button" data-clear-category-filter>See all</button>
-                </div>
                 <div class="booking-home-search-row">
                   <label class="booking-home-search">
                     <span class="booking-visually-hidden">Search services and categories</span>
                     <input data-home-search type="search" placeholder="Search services, specialists" autocomplete="off" />
                   </label>
                 </div>
-                <div class="booking-pill-rail" data-category-pills role="group" aria-label="Service categories"></div>
               </div>
 
               <div class="booking-category-grid" data-category-grid></div>
@@ -128,6 +124,50 @@
               <p class="booking-empty" data-service-empty hidden>No services match that search.</p>
             </section>
 
+            <section class="booking-panel" data-step-panel="packages" aria-labelledby="package-title" hidden>
+              <div class="booking-panel-head">
+                <div><h2 id="package-title">Find your package</h2><p data-package-service></p></div>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-from-packages>Back</button>
+              </div>
+              <div class="booking-compare-wrap" role="region" aria-label="Package comparison" tabindex="0">
+                <table class="booking-compare" data-package-list aria-labelledby="package-title"></table>
+              </div>
+              <div class="booking-package-stack" data-package-stack></div>
+            </section>
+            <section class="booking-panel" data-step-panel="extras" aria-labelledby="extras-title" hidden>
+              <div class="booking-panel-head">
+                <div><h2 id="extras-title">Make more of your session</h2><p>Choose any extras you’d like to add before you book.</p></div>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-from-extras>Back</button>
+              </div>
+              <div class="booking-extras">
+                <ul class="booking-extra-list" data-extra-list aria-label="Optional extras"></ul>
+                <div class="booking-extras-summary">
+                  <h3>Your session</h3>
+                  <p data-extras-package></p>
+                  <dl>
+                    <div><dt>Package</dt><dd data-extras-base></dd></div>
+                    <div><dt>Extras</dt><dd data-extras-subtotal></dd></div>
+                    <div class="booking-extras-total"><dt>Total</dt><dd data-extras-total aria-live="polite"></dd></div>
+                  </dl>
+                  <button class="booking-button button button--primary" type="button" data-continue-extras>Continue without extras</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="booking-panel" data-step-panel="duration" aria-labelledby="duration-title" hidden>
+              <div class="booking-panel-head">
+                <h2 id="duration-title">How long would you like to book?</h2>
+                <button class="button button--secondary button--small" type="button" data-back-from-duration>Back</button>
+              </div>
+              <form class="booking-form" data-duration-form>
+                <p data-duration-rate></p>
+                <label><span>Hours</span><input name="hours" type="number" min="0" max="24" step="1" inputmode="numeric" placeholder="e.g. 2" required /></label>
+                <label><span>Minutes</span><input name="minutes" type="number" min="0" max="59" step="1" inputmode="numeric" value="0" required /></label>
+                <p data-duration-total aria-live="polite"></p>
+                <div class="booking-form-actions"><button class="booking-button button button--primary" type="submit">See available times</button></div>
+              </form>
+            </section>
+
             <section class="booking-panel" data-step-panel="time" aria-labelledby="time-title" hidden>
               <div class="booking-panel-head">
                 <div>
@@ -137,6 +177,7 @@
                 <button class="booking-plain-button button button--secondary button--small" type="button" data-back-to-services>Back</button>
               </div>
 
+              <div data-time-inclusions hidden></div>
               <div class="booking-time-controls">
                 <label class="booking-select" data-staff-control hidden>
                   <span>Provider</span>
@@ -173,23 +214,39 @@
               </div>
             </section>
 
+            <section class="booking-panel" data-step-panel="terms" aria-labelledby="terms-title" hidden>
+              <div class="booking-panel-head">
+                <h2 id="terms-title" data-policy-title>Terms &amp; Conditions</h2>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-from-terms>Back</button>
+              </div>
+              <form class="booking-terms" data-policy-field>
+                <p class="booking-terms-note" data-policy-note hidden>Your contact details have been added. Review the updated terms before booking.</p>
+                <div class="booking-terms-copy" role="region" aria-label="Booking terms text" tabindex="0" data-policy-text></div>
+                <label class="booking-policy" data-policy-consent>
+                  <input name="policyAccepted" type="checkbox" />
+                  <span>I have read and agree to these booking terms.</span>
+                </label>
+                <div class="booking-form-actions">
+                  <button class="booking-button button button--primary" type="submit">Agree and continue</button>
+                </div>
+              </form>
+            </section>
+
             <section class="booking-panel" data-step-panel="confirm" aria-labelledby="confirm-title" hidden>
               <div class="booking-panel-head">
-                <div>
-                  <span class="booking-kicker">Confirmation</span>
-                  <h2 id="confirm-title">Confirm your booking</h2>
-                </div>
-                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-to-time>Back</button>
+                <h2 id="confirm-title">Review your booking</h2>
+                <button class="booking-plain-button button button--secondary button--small" type="button" data-back-from-contact>Back</button>
               </div>
 
               <div class="booking-confirm-layout">
                 <div class="booking-confirm-summary" data-confirm-summary></div>
                 <form class="booking-form" data-booking-form>
                   <input data-honeypot class="booking-honeypot" name="companyWebsite" type="text" tabindex="-1" autocomplete="off" />
+                  <h3 class="booking-contact-title">Contact details</h3>
 
                   <label>
                     <span>Name</span>
-                    <input name="customerName" type="text" autocomplete="name" required />
+                    <input name="customerName" type="text" autocomplete="name" pattern=".*\S.*" required />
                   </label>
                   <label>
                     <span>Email</span>
@@ -197,21 +254,41 @@
                   </label>
                   <label>
                     <span>Phone</span>
-                    <input name="customerPhone" type="tel" autocomplete="tel" />
+                    <input name="customerPhone" type="tel" autocomplete="tel" pattern=".*\S.*" required />
+                  </label>
+                  <label>
+                    <span>Company (optional)</span>
+                    <input name="customerCompany" type="text" autocomplete="organization" maxlength="200" />
                   </label>
                   <label data-intake-field hidden>
                     <span data-intake-label>Appointment notes</span>
                     <textarea name="intakeResponse" rows="3"></textarea>
                   </label>
+                  <fieldset class="booking-session-address" data-session-address hidden disabled>
+                    <legend>Session address</legend>
+                    <label>
+                      <span>Address</span>
+                      <input name="sessionAddressLine" autocomplete="section-session street-address" list="booking-address-suggestions" maxlength="200" pattern=".*\S.*" required />
+                    </label>
+                    <datalist id="booking-address-suggestions"></datalist>
+                    <label>
+                      <span>City</span>
+                      <input name="sessionCity" autocomplete="section-session address-level2" maxlength="100" pattern=".*\S.*" required />
+                    </label>
+                    <label>
+                      <span>State</span>
+                      <input name="sessionState" autocomplete="section-session address-level1" maxlength="60" pattern=".*\S.*" required />
+                    </label>
+                    <label>
+                      <span>ZIP code</span>
+                      <input name="sessionZip" autocomplete="section-session postal-code" maxlength="20" pattern=".*\S.*" required />
+                    </label>
+                    <small class="booking-address-credit">Suggestions by <a href="https://photon.komoot.io" target="_blank" rel="noopener noreferrer">Photon</a> / <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>.</small>
+                  </fieldset>
                   <label>
-                    <span>Notes</span>
+                    <span>Notes (optional)</span>
                     <textarea name="notes" rows="3" placeholder="Anything we should know before you arrive?"></textarea>
                   </label>
-                  <label class="booking-policy" data-policy-field hidden>
-                    <input name="policyAccepted" type="checkbox" />
-                    <span data-policy-text></span>
-                  </label>
-
                   <div class="booking-form-actions">
                     <button class="booking-button button button--primary" type="submit" data-submit-booking>Confirm booking</button>
                     <p class="booking-form-status" data-form-status role="status" aria-live="polite"></p>
@@ -222,7 +299,6 @@
 
             <section class="booking-panel booking-success" data-step-panel="success" aria-labelledby="success-title" hidden>
               <span class="booking-success-icon" aria-hidden="true"></span>
-              <span class="booking-kicker">Confirmed</span>
               <h2 id="success-title">You're booked</h2>
               <p data-success-copy>Your appointment request has been received.</p>
               <div class="booking-confirm-summary" data-success-summary></div>
@@ -235,7 +311,7 @@
 
       <footer class="booking-flow-footer" data-flow-footer hidden>
         <div class="booking-flow-footer-inner">
-          <p class="booking-flow-summary" data-flow-summary aria-live="polite"></p>
+          <p class="booking-flow-summary" aria-live="polite"><span data-flow-session></span><span data-flow-when></span></p>
           <button class="booking-button booking-flow-review button button--primary" type="button" data-review-booking disabled>Review booking</button>
         </div>
       </footer>
@@ -243,7 +319,8 @@
 
     <script src="./scripts/booking/assets.js"></script>
     <script src="./scripts/booking/config.js?v=profile-routing-1"></script>
-    <script src="./scripts/booking/app.js?v=availability-batches-20261115"></script>
+    <script src="./scripts/booking/booking-rules.js?v=booking-upgrade-20261117"></script>
+    <script type="module" src="./scripts/booking/app.js?v=booking-upgrade-20261117"></script>
     <script src="./scripts/site.js?v=refine-20260926"></script>
     <script src="scripts/integrations/showrunner/business.js?v=stable-header-20261026"></script>
   </body>
