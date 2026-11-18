@@ -6,6 +6,10 @@ const { chromium } = await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE).h
 const base = process.env.BOOKING_TEST_URL || 'http://127.0.0.1:8083/cottage616/';
 const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, timezoneId: 'Asia/Tokyo' });
+if (process.env.BOOKING_PREVIEW_PASSWORD) {
+  const login = await page.request.post(new URL('__preview/login', base).href, { headers: { Origin: new URL(base).origin }, form: { password: process.env.BOOKING_PREVIEW_PASSWORD, next: new URL(base).pathname }, maxRedirects: 0 });
+  assert.equal(login.status(), 303);
+}
 const errors = [];
 page.on('pageerror', error => errors.push(error.message));
 const pack = (id, priceCents, durationMinutes) => ({ id, name: id, priceCents, durationMinutes, coverage: ['Venue hire'], deliverables: { finalPhotos: 10, locations: 2 }, addOns: [{ id: 'chairs', name: 'Extra chairs', priceCents: 500, pricingType: 'PER_UNIT', deliverables: { finalPhotos: 1 } }] });
@@ -93,6 +97,49 @@ try {
   assert.equal(await page.title(), 'The Hive | Booking');
   assert.equal(await page.locator('[data-booking-home]').getAttribute('href'), 'the-hive.html');
   assert.equal(await page.locator('[data-category-id=events]').count(), 0);
+  service.policyText = 'I agree to the hourly booking terms.';
+  service.packages = [{ ...pack('Hourly', 10000, 60), pricingType: 'HOURLY', hourlyRateCents: 10000,
+    addOns: [{ id: 'assistant', name: 'Event assistant', pricingType: 'HOURLY', priceCents: 2000, hourlyRateCents: 2000 }] }];
+  const previousRequests = availability.length;
+  await page.goto(`${base}booking.html?service=celebration&next=1`);
+  await page.locator('[data-step-panel=duration]').waitFor();
+  assert.equal(availability.length, previousRequests, 'Hourly bookings ask for duration before fetching slots');
+  await page.locator('[data-duration-form] [name=hours]').fill('2');
+  await page.locator('[data-duration-form] [name=minutes]').fill('30');
+  assert.match(await page.locator('[data-duration-total]').innerText(), /250\.00/);
+  await page.screenshot({ path: '.tmp/booking-review/mobile-hourly-duration.png', fullPage: true });
+  await page.getByRole('button', { name: 'See available times' }).click();
+  await page.locator('[data-slot-index]').first().click();
+  assert(availability.slice(previousRequests).every(query => query.durationMinutes === '150'));
+  await page.locator('[data-review-booking]').click();
+  assert.match(await page.locator('[data-extra-list]').innerText(), /50\.00/);
+  await page.locator('[data-extra-id=assistant]').check();
+  assert.match(await page.locator('[data-extras-total]').innerText(), /300\.00/);
+  await page.locator('[data-continue-extras]').click();
+  assert.match(await page.locator('[data-policy-text]').innerText(), /hourly booking terms/);
+  await page.locator('[name=policyAccepted]').check();
+  await page.locator('[data-back-from-terms]').click();
+  await page.locator('[data-back-from-extras]').click();
+  await page.locator('[data-back-to-services]').click();
+  await page.locator('[data-duration-form] [name=hours]').fill('3');
+  await page.locator('[data-duration-form] [name=minutes]').fill('0');
+  await page.getByRole('button', { name: 'See available times' }).click();
+  assert(await page.locator('[data-review-booking]').isDisabled(), 'Changing duration clears the previous slot');
+  await page.locator('[data-slot-index]').first().click();
+  await page.locator('[data-review-booking]').click();
+  assert.match(await page.locator('[data-extras-total]').innerText(), /360\.00/);
+  await page.locator('[data-continue-extras]').click();
+  assert.equal(await page.locator('[name=policyAccepted]').isChecked(), false, 'Changing duration renews acceptance even for static terms');
+  await page.locator('[name=policyAccepted]').check();
+  await page.getByRole('button', { name: 'Agree and continue' }).click();
+  await page.locator('[name=customerName]').fill('Hourly Guest');
+  await page.locator('[name=customerEmail]').fill('hourly@example.com');
+  await page.locator('[name=customerPhone]').fill('555-123-4567');
+  await page.locator('[name="bookingRule:guests"]').fill('20');
+  await page.locator('[data-submit-booking]').click();
+  await page.locator('[data-step-panel=success]').waitFor();
+  assert.equal(submitted.durationMinutes, 180);
+  assert.deepEqual(submitted.addOnIds, ['assistant']);
   for (const value of ['empty', 'error']) {
     mode = value;
     await page.goto(`${base}booking.html`);

@@ -1,5 +1,12 @@
 # Cottage 616 deployment
 
+The coming-soon preview branch is **not authorized for live deployment**. Its
+`railway.json` switches serving to the shared dependency-free Node preview server
+when released. Until the user approves launch/deployment, the current main/Caddy
+installation stays unchanged. Before an approved rollout, configure a private
+`SITE_PREVIEW_SECRET` for stable sessions and keep `SITE_PREVIEW_ENABLED=1` while
+the public site should show Coming soon. Disable the gate only on launch approval.
+
 The live site is `https://www.cottage616.com`, built from `Xarindar/cottage616`
 `main` on Railway. Push this checkout to the `xarindar` remote; `origin` belongs
 to the stopped former installation.

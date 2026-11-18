@@ -1,0 +1,11 @@
+{
+  "name": "cottage616",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node --check deploy/server.mjs && node --check deploy/site-preview-server.mjs",
+    "start": "node deploy/server.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

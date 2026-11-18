@@ -66,6 +66,8 @@ extras, answers and acceptance. Showrunner validates and prices the booking.
 Photography marketing consent stays specific to Jazzr.
 The catalog's site-specific `packageFields` list controls which package
 allowances appear; Cottage uses an empty list and keeps general package features.
+Hourly bookings ask the customer for hours/minutes before loading time slots.
+Hourly extras use the same length; Showrunner validates and prices the booking.
 
 `scripts/booking/booking-rules.js` and `booking-terms.js` are distribution copies
 of the shared Showrunner browser helpers. `app.js` follows Jazzr's upgraded flow
@@ -79,3 +81,22 @@ flow, start the local preview, set `PLAYWRIGHT_MODULE` to an existing Playwright
 both profiles, packages, extras, required answers, terms, submission retries and
 empty/error states without creating real bookings. `BOOKING_TEST_URL` can select
 another website base URL.
+
+## Coming-soon preview
+
+`npm start` runs the server-side preview gate; use a separate `PORT` when the
+Python preview is already running. Visitors see Coming soon and a corner Log in
+button. Preview access uses the supplied shared preview password and lasts eight
+hours. Set a private `SITE_PREVIEW_SECRET` consistently across replicas to retain
+sessions. `SITE_PREVIEW_ENABLED=0` opens the public website after launch approval.
+The Python preview remains useful for direct booking fixture tests.
+
+The Node server in `deploy/` is distributed from Showrunner's
+`clients/site-preview/server.mjs`. It retains legacy asset redirects and supports
+media ranges, compression and private preview caching. `test/site-preview.test.mjs`
+checks the gate without changing live users or settings. For booking browser
+tests against the gated server, set `BOOKING_PREVIEW_PASSWORD` as well as
+`BOOKING_TEST_URL`.
+
+This branch is under a release hold: do not merge, deploy or apply the pending
+Cottage `packageFields: []` live setting until the user explicitly authorizes it.
