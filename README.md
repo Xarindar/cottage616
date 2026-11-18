@@ -56,3 +56,26 @@ The site generator also updates Railway's Caddy configuration from the asset
 redirect map; commit `Caddyfile` with any redirect changes.
 
 Page URLs remain at the repository root. Stylesheet URLs resolve relative to the stylesheet's folder; asset strings used by browser scripts resolve relative to the HTML page.
+
+## Booking integration
+
+The Cottage and Hive profiles share Showrunner's catalog, package pricing,
+per-unit extras, availability, intake forms and Booking Terms & Conditions.
+The browser sends service and requirements revisions with the selected package,
+extras, answers and acceptance. Showrunner validates and prices the booking.
+Photography marketing consent stays specific to Jazzr.
+The catalog's site-specific `packageFields` list controls which package
+allowances appear; Cottage uses an empty list and keeps general package features.
+
+`scripts/booking/booking-rules.js` and `booking-terms.js` are distribution copies
+of the shared Showrunner browser helpers. `app.js` follows Jazzr's upgraded flow
+with Cottage profile navigation and service-image framing preserved. Keep the
+helpers synchronized when updating the shared booking contract, and bump static
+asset versions in `booking.html` when changing the browser integration.
+
+Run `node --test test/*.test.mjs` for unit checks. For the fixture-based browser
+flow, start the local preview, set `PLAYWRIGHT_MODULE` to an existing Playwright
+`index.mjs`, then run `node test/booking-browser.mjs`. It checks desktop/mobile,
+both profiles, packages, extras, required answers, terms, submission retries and
+empty/error states without creating real bookings. `BOOKING_TEST_URL` can select
+another website base URL.

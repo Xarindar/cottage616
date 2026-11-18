@@ -1,3 +1,4 @@
+import { bookingTermsValues, renderBookingTerms, renderTermsText } from "./booking-terms.js";
 (function () {
   const config = window.BookingClientConfig || {};
   const assets = window.BookingAssets || {};
@@ -5,15 +6,21 @@
 
   const state = {
     activeStep: "categories",
+    packageFields: ["locations", "outfitChanges", "finalPhotos"],
     categories: [],
     services: [],
     categoryId: null,
     categoryFocusId: "",
     serviceId: null,
+    tierId: null,
+    addOnIds: [],
+    addOnQuantities: {},
+    earliestRequested: false,
     selectedDate: dateKey(initialSelectedDate()),
     dateRailStart: null,
     selectedSlot: null,
     staffId: "",
+    termsFromContact: false,
     lastBooking: null
   };
 
@@ -32,6 +39,7 @@
 
     try {
       const catalog = await loadServices();
+      state.packageFields = Array.isArray(catalog.packageFields) ? catalog.packageFields : state.packageFields;
       state.services = catalog.services;
       state.categories = normalizeCategories(
         [...(catalog.categories || []), ...filterCategoriesForProfile(config.categories || [])],
@@ -55,10 +63,15 @@
     renderAll();
     const params = new URLSearchParams(location.search);
     const requestedService = params.get("service") || params.get("slug");
+    const requestedCategory = params.get("category");
     if (requestedService) {
       const service = state.services.find(service => service.slug === requestedService || service.id === requestedService);
       if (service) selectServiceWithCategory(service.id, true);
       else setStatus("This service is no longer available. Please choose another service.", true);
+    } else if (requestedCategory) {
+      const category = state.categories.find(category => category.id === requestedCategory);
+      if (category) selectCategory(category.id);
+      else setStatus("This category is no longer available. Please choose another category.", true);
     }
   }
 
@@ -67,8 +80,6 @@
     els.panels = Array.from(document.querySelectorAll("[data-step-panel]"));
     els.categoryGrid = document.querySelector("[data-category-grid]");
     els.categoryEmpty = document.querySelector("[data-category-empty]");
-    els.categoryPills = document.querySelector("[data-category-pills]");
-    els.clearCategoryFilter = document.querySelector("[data-clear-category-filter]");
     els.homeSearch = document.querySelector("[data-home-search]");
     els.promoCard = document.querySelector("[data-promo-card]");
     els.promoTitle = document.querySelector("[data-promo-title]");
@@ -91,11 +102,12 @@
     els.slotGrid = document.querySelector("[data-slot-grid]");
     els.slotEmpty = document.querySelector("[data-slot-empty]");
     els.earliestAvailable = document.querySelector("[data-earliest-available]");
-    els.slotHeading = document.querySelector("[data-slot-heading]");
     els.timezoneLabel = document.querySelector("[data-timezone-label]");
     els.availabilityStatus = document.querySelector("[data-availability-status]");
+    els.catalogStatus = document.querySelector("[data-catalog-status]");
     els.flowFooter = document.querySelector("[data-flow-footer]");
-    els.flowSummary = document.querySelector("[data-flow-summary]");
+    els.flowSession = document.querySelector("[data-flow-session]");
+    els.flowWhen = document.querySelector("[data-flow-when]");
     els.reviewBooking = document.querySelector("[data-review-booking]");
     els.confirmSummary = document.querySelector("[data-confirm-summary]");
     els.successSummary = document.querySelector("[data-success-summary]");
@@ -106,8 +118,13 @@
     els.submitBooking = document.querySelector("[data-submit-booking]");
     els.intakeField = document.querySelector("[data-intake-field]");
     els.intakeLabel = document.querySelector("[data-intake-label]");
+    els.sessionAddress = document.querySelector("[data-session-address]");
     els.policyField = document.querySelector("[data-policy-field]");
     els.policyText = document.querySelector("[data-policy-text]");
+    els.policyTitle = document.querySelector("[data-policy-title]");
+    els.policyNote = document.querySelector("[data-policy-note]");
+    els.policyConsent = document.querySelector("[data-policy-consent]");
+    els.policyAccepted = els.policyField.elements.policyAccepted;
   }
 
   function applyBusinessCopy() {
@@ -130,22 +147,6 @@
   }
 
   function applyProfileNavigation() {
-    if (bookingProfile.key === "the-hive") {
-      const hiveLinks = [
-        ["Cottage 616", "index.html"],
-        ["Treatments", "the-hive.html#head-spa-menu"],
-        ["Team", "the-hive.html#team"]
-      ];
-      document.querySelectorAll(".site-nav__group--left a").forEach((link, index) => {
-        if (!hiveLinks[index]) {
-          link.remove();
-          return;
-        }
-        link.textContent = hiveLinks[index][0];
-        link.setAttribute("href", hiveLinks[index][1]);
-      });
-      document.querySelector(".site-nav__group--right a")?.setAttribute("href", "the-hive.html#contact");
-    }
     document.querySelectorAll("[data-booking-home]").forEach((link) => link.setAttribute("href", bookingProfile.homeHref));
     document
       .querySelectorAll("[data-booking-nav]")
@@ -154,20 +155,29 @@
 
   function bindEvents() {
     document.querySelector("[data-back-to-categories]")?.addEventListener("click", () => goToStep("categories"));
-    document.querySelector("[data-back-to-services]")?.addEventListener("click", () => goToStep("services"));
-    document.querySelector("[data-back-to-time]")?.addEventListener("click", () => goToStep("time"));
+    document.querySelector("[data-back-to-services]")?.addEventListener("click", () => goToStep(sessionSelectionStep()));
+    document.querySelector("[data-back-from-packages]")?.addEventListener("click", () => goToStep("services"));
+    document.querySelector("[data-back-from-extras]")?.addEventListener("click", () => goToStep("time"));
+    document.querySelector("[data-continue-extras]")?.addEventListener("click", () => {
+      if ([...document.querySelectorAll("[data-extra-quantity]")].every(input => input.reportValidity())) goToStep(contactEntryStep());
+    });
+    document.querySelector("[data-back-from-terms]")?.addEventListener("click", () => {
+      if (state.termsFromContact) goToStep("confirm");
+      else if (selectedService()?.addOns?.length) {
+        renderExtras();
+        goToStep("extras");
+      } else goToStep("time");
+    });
+    document.querySelector("[data-back-from-contact]")?.addEventListener("click", () => {
+      goToStep(contactEntryStep() === "terms" ? "terms" : "time");
+    });
     document.querySelector("[data-new-booking]")?.addEventListener("click", resetFlow);
-    els.reviewBooking?.addEventListener("click", () => goToStep("confirm"));
+    els.reviewBooking?.addEventListener("click", () => {
+      if (selectedService()?.addOns?.length) { renderExtras(); goToStep("extras"); } else goToStep(contactEntryStep());
+    });
 
     els.homeSearch?.addEventListener("input", () => {
       state.categoryFocusId = "";
-      renderCategoryPills();
-      renderCategories();
-    });
-    els.clearCategoryFilter?.addEventListener("click", () => {
-      state.categoryFocusId = "";
-      if (els.homeSearch) els.homeSearch.value = "";
-      renderCategoryPills();
       renderCategories();
     });
     els.promoCard?.addEventListener("click", handlePromotionClick);
@@ -192,11 +202,15 @@
     els.weekNext?.addEventListener("click", () => shiftDateRail(1));
     els.earliestAvailable?.addEventListener("click", jumpToEarliestAvailableDate);
     els.form?.addEventListener("submit", submitBooking);
+    bindAddressLookup();
+    els.policyField.addEventListener("submit", event => {
+      event.preventDefault();
+      goToStep("confirm");
+    });
   }
 
   function renderAll() {
     renderPromo();
-    renderCategoryPills();
     renderCategories();
     renderServices();
     renderDates();
@@ -211,16 +225,17 @@
     const visible = query ? sorted.filter((category) => categoryMatchesQuery(category, query)) : sorted;
 
     els.categoryEmpty.hidden = visible.length > 0;
+    els.categoryEmpty.textContent = query ? "No categories match that search." : "No services are currently available for booking.";
     els.categoryGrid.innerHTML = sorted
       .filter((category) => visible.includes(category))
       .map((category) => {
         const image = imageForCategory(category);
         const highlighted = state.categoryFocusId === category.id;
         return `
-          <button class="booking-category-card ${highlighted ? "is-highlighted" : ""}" type="button" data-category-id="${escapeAttribute(category.id)}" style="--category-image: url('${escapeAttribute(image)}')">
+          <button class="booking-category-card ${image ? "has-image" : ""} ${highlighted ? "is-highlighted" : ""}" type="button" data-category-id="${escapeAttribute(category.id)}" ${image ? `style="--category-image: url('${escapeAttribute(image)}')"` : ""}>
             <span class="booking-category-card-copy">
               <strong>${escapeHtml(category.name)}</strong>
-              <span>${escapeHtml(category.description || "Select from available services.")}</span>
+              ${category.description ? `<span>${escapeHtml(category.description)}</span>` : ""}
             </span>
           </button>
         `;
@@ -233,13 +248,6 @@
       });
     });
 
-    if (state.categoryFocusId) {
-      window.setTimeout(() => {
-        els.categoryGrid
-          .querySelector(`[data-category-id="${cssEscape(state.categoryFocusId)}"]`)
-          ?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-      }, 0);
-    }
   }
 
   function renderPromo() {
@@ -284,33 +292,6 @@
     if (categoryId) selectCategory(categoryId);
   }
 
-  function renderCategoryPills() {
-    const query = (els.homeSearch?.value || "").trim().toLowerCase();
-    const categories = [...state.categories]
-      .sort(sortBySortThenName)
-      .filter((category) => !query || categoryMatchesQuery(category, query));
-
-    const allActive = !state.categoryFocusId;
-    els.categoryPills.innerHTML = [
-      `<button class="booking-pill button button--secondary button--small ${allActive ? "is-active" : ""}" type="button" data-pill-category="">All</button>`,
-      ...categories.map(
-        (category) => `
-          <button class="booking-pill button button--secondary button--small ${state.categoryFocusId === category.id ? "is-active" : ""}" type="button" data-pill-category="${escapeAttribute(category.id)}">
-            ${escapeHtml(category.name)}
-          </button>
-        `
-      )
-    ].join("");
-
-    els.categoryPills.querySelectorAll("[data-pill-category]").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.categoryFocusId = button.dataset.pillCategory || "";
-        renderCategoryPills();
-        renderCategories();
-      });
-    });
-  }
-
   function renderServices() {
     const category = selectedCategory();
     const search = (els.serviceSearch?.value || "").trim().toLowerCase();
@@ -351,7 +332,7 @@
                 </span>
               </span>
             </td>
-            <td><span class="booking-service-meta">${service.durationMinutes || 0} min</span></td>
+            <td><span class="booking-service-meta">${formatDuration(service.durationMinutes || 0)}</span></td>
             <td><span class="booking-service-meta">${formatPrice(service.priceCents)}</span></td>
             <td><span class="booking-service-detail">${escapeHtml(detail)}</span></td>
             <td><button class="booking-row-button button button--primary button--small" type="button" data-service-id="${escapeAttribute(service.id)}">Select</button></td>
@@ -366,11 +347,26 @@
   }
 
   function selectService(serviceId, earliest = false) {
+    if (state.serviceId !== serviceId) {
+      els.sessionAddress.querySelectorAll("input").forEach(input => { input.value = ""; });
+    }
     state.serviceId = serviceId;
+    state.tierId = null; state.addOnIds = []; state.addOnQuantities = {}; state.earliestRequested = earliest;
+    state.selectedSlot = null;
+    const packages = serviceById(serviceId)?.packages || [];
+    if (packages.length > 1) { renderPackages(); goToStep("packages"); return; }
+    state.tierId = packages[0]?.id || null;
+    startServiceTime(earliest);
+  }
+
+  function startServiceTime(earliest = false) {
     state.selectedSlot = null;
     state.staffId = "";
     state.dateRailStart = null;
     const service = selectedService();
+    const inclusions = document.querySelector("[data-time-inclusions]");
+    inclusions.innerHTML = service?.packages.length === 1 ? packageInclusionsMarkup(service.coverage) : "";
+    inclusions.hidden = !inclusions.innerHTML;
     if (service) {
       state.selectedDate = dateKey(minBookableDateFor(service));
     }
@@ -382,7 +378,138 @@
     else loadAndRenderSlots();
   }
 
+  function packageDetails(pack) {
+    return [...(pack.coverage || []), ...Object.entries(pack.deliverables || {}).filter(([key]) => state.packageFields.includes(key)).map(([key, count]) => {
+      const label = { finalPhotos: "photo", locations: "location", outfitChanges: "outfit change" }[key];
+      return label ? `${count === null ? "Unlimited" : count} ${label}${count === 1 ? "" : "s"}` : "";
+    })].filter(Boolean).map(escapeHtml).join("<br>");
+  }
+
+  function packageInclusionsMarkup(coverage, heading = "What’s included") {
+    return coverage?.length ? `<div class="booking-inclusions">
+      <p>${escapeHtml(heading)}</p>
+      <ul>${coverage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+    </div>` : "";
+  }
+
+  function mobilePackageInclusionsMarkup(pack, packages) {
+    const coverage = pack.coverage || [];
+    const duration = candidate => candidate.unlimitedDuration ? Infinity : candidate.durationMinutes;
+    const base = packages.filter(candidate => {
+      const items = candidate.coverage || [];
+      if (!items.length || !items.every(item => coverage.includes(item)) || items.length >= coverage.length) return false;
+      if (!(duration(candidate) <= duration(pack))) return false;
+
+      return Object.entries(candidate.deliverables || {}).every(([key, count]) => {
+        const upgradedCount = pack.deliverables?.[key];
+        return upgradedCount === null || (count !== null && upgradedCount >= count);
+      });
+    }).sort((a, b) => b.coverage.length - a.coverage.length || duration(b) - duration(a))[0];
+
+    if (!base) return packageInclusionsMarkup(coverage);
+    const addedCoverage = coverage.filter(item => !base.coverage.includes(item));
+    return packageInclusionsMarkup(addedCoverage, `Everything in ${base.name}, plus…`);
+  }
+
+  function renderPackages() {
+    const service = serviceById(state.serviceId);
+    const packages = service?.packages || [];
+    document.querySelector("[data-package-service]").textContent = service?.name || "";
+    const rows = [
+      ["Session length", pack => pack.unlimitedDuration ? "Unlimited" : formatDuration(pack.durationMinutes)],
+      ...Object.entries({ finalPhotos: "Edited photos", locations: "Locations", outfitChanges: "Outfit changes" })
+        .filter(([key]) => state.packageFields.includes(key) && packages.some(pack => Object.hasOwn(pack.deliverables || {}, key)))
+        .map(([key, label]) => [label, pack => pack.deliverables?.[key] === null ? "Unlimited" : pack.deliverables?.[key]]),
+    ];
+    const coverage = [...new Set(packages.flatMap(pack => pack.coverage || []))];
+    const selectPackage = pack => `<button class="booking-button button button--primary" type="button" data-package-id="${escapeAttribute(pack.id)}">Select ${escapeHtml(pack.name)}</button>`;
+    document.querySelector("[data-package-list]").innerHTML = `
+      <thead><tr><td></td>${packages.map(pack => `<th scope="col">
+        <strong>${escapeHtml(pack.name)}</strong>
+        <span>${escapeHtml(formatPrice(pack.priceCents))}</span>
+        ${selectPackage(pack)}
+      </th>`).join("")}</tr></thead>
+      <tbody>${rows.map(([label, value]) => `<tr><th scope="row">${label}</th>
+        ${packages.map(pack => `<td>${escapeHtml(value(pack) ?? "Not specified")}</td>`).join("")}
+      </tr>`).join("")}</tbody>
+      ${coverage.length ? `<tbody class="booking-compare-inclusions">
+        ${coverage.map(item => `<tr><th scope="row">${escapeHtml(item)}</th>
+          ${packages.map(pack => `<td>${pack.coverage?.includes(item) ? '<span class="booking-included">Included</span>' : '<span aria-hidden="true">—</span><span class="booking-visually-hidden">Not included</span>'}</td>`).join("")}
+        </tr>`).join("")}
+      </tbody>` : ""}`;
+    document.querySelector("[data-package-stack]").innerHTML = packages.map(pack => `<article class="booking-package-card">
+      <div class="booking-package-card-head">
+        <h3>${escapeHtml(pack.name)}</h3>
+        <p>${escapeHtml(formatPrice(pack.priceCents))}</p>
+      </div>
+      ${mobilePackageInclusionsMarkup(pack, packages)}
+      <dl>${rows.map(([label, value]) => {
+        const detail = value(pack);
+        return detail == null ? "" : `<div><dt>${label}</dt><dd>${escapeHtml(detail)}</dd></div>`;
+      }).join("")}</dl>
+      ${selectPackage(pack)}
+    </article>`).join("");
+    document.querySelectorAll("[data-package-id]").forEach(button => button.addEventListener("click", () => {
+      state.tierId = button.dataset.packageId;
+      state.addOnIds = []; state.addOnQuantities = {}; state.selectedSlot = null;
+      startServiceTime(state.earliestRequested);
+    }));
+  }
+
+  function renderExtras() {
+    const service = selectedService();
+    const pack = service?.packages.find(pack => pack.id === state.tierId);
+    document.querySelector("[data-extras-package]").textContent = service?.name || "";
+    document.querySelector("[data-extras-base]").textContent = formatPrice(pack?.priceCents);
+    const extras = document.querySelector("[data-extra-list]");
+    extras.innerHTML = (service?.addOns || []).map(extra => {
+      const selected = state.addOnIds.includes(extra.id);
+      const perUnit = extra.pricingType === "PER_UNIT";
+      const details = packageDetails(extra);
+      return `<li class="booking-extra">
+        <div class="booking-extra-head">
+          <h3>${escapeHtml(extra.name)}</h3>
+          <p class="booking-extra-price">${escapeHtml(formatPrice(extra.priceCents))}${perUnit ? " each" : ""}</p>
+        </div>
+        ${extra.description ? `<p class="booking-extra-description">${escapeHtml(extra.description)}</p>` : ""}
+        ${details ? `<p class="booking-extra-details">${details}</p>` : ""}
+        <div class="booking-extra-controls">
+          <label class="booking-extra-choice"><input type="checkbox" data-extra-id="${escapeAttribute(extra.id)}" aria-label="Add ${escapeAttribute(extra.name)}" ${selected ? "checked" : ""}><span aria-hidden="true"></span></label>
+          ${perUnit ? `<label class="booking-extra-quantity"><span>Qty</span><input type="number" min="1" max="10000" step="1" required value="${state.addOnQuantities[extra.id] || 1}" aria-label="${escapeAttribute(extra.name)} quantity" data-extra-quantity="${escapeAttribute(extra.id)}" ${selected ? "" : "disabled"}></label>` : ""}
+        </div>
+      </li>`;
+    }).join("");
+    extras.querySelectorAll("[data-extra-id]").forEach(input => input.addEventListener("change", () => {
+      const id = input.dataset.extraId;
+      state.addOnIds = input.checked ? [...state.addOnIds, id] : state.addOnIds.filter(selectedId => selectedId !== id);
+      const quantity = input.closest(".booking-extra").querySelector("[data-extra-quantity]");
+      if (quantity) {
+        quantity.disabled = !input.checked;
+        if (!input.checked) {
+          delete state.addOnQuantities[id];
+          quantity.value = 1;
+        }
+      }
+      updateExtrasTotal();
+    }));
+    extras.querySelectorAll("[data-extra-quantity]").forEach(input => input.addEventListener("input", () => {
+      if (!input.checkValidity()) return;
+      state.addOnQuantities[input.dataset.extraQuantity] = input.valueAsNumber;
+      updateExtrasTotal();
+    }));
+    updateExtrasTotal();
+  }
+
+  function updateExtrasTotal() {
+    const service = selectedService();
+    const extrasTotal = (service?.extras || []).reduce((total, extra) => total + extra.priceCents * extra.quantity, 0);
+    document.querySelector("[data-extras-subtotal]").textContent = formatPrice(extrasTotal);
+    document.querySelector("[data-extras-total]").textContent = formatPrice(service?.priceCents);
+    document.querySelector("[data-continue-extras]").textContent = state.addOnIds.length ? "Continue with extras" : "Continue without extras";
+  }
+
   function selectCategory(categoryId) {
+    setStatus("");
     availabilityRequest += 1;
     state.categoryId = categoryId;
     state.categoryFocusId = categoryId;
@@ -526,11 +653,10 @@
     if (els.selectedServiceKicker) {
       els.selectedServiceKicker.textContent = service ? service.name : "Time";
     }
-    if (els.slotHeading) {
-      els.slotHeading.textContent = "Time";
-    }
     if (els.timezoneLabel) {
-      els.timezoneLabel.textContent = "";
+      const timeZone = config.business?.timezone;
+      els.timezoneLabel.textContent = timeZone ? new Intl.DateTimeFormat(undefined, { timeZone, timeZoneName: "longGeneric" })
+        .formatToParts().find(part => part.type === "timeZoneName")?.value || timeZone : "";
     }
 
     els.slotEmpty.hidden = slots.length > 0;
@@ -605,21 +731,114 @@
     els.confirmSummary.innerHTML = summaryMarkup(service, slot);
     els.submitBooking.textContent = service.requestOnly ? "Send request" : "Confirm booking";
 
-    if (service.intakePrompt) {
+    els.form.append(els.sessionAddress);
+    window.ShowrunnerBookingRules.render(els.form, service.bookingRules, service.id, {title:service.bookingFormTitle,revision:service.bookingRequirementsRevision});
+    renderSessionAddress(service.bookingRules);
+    if (service.intakePrompt && !Array.isArray(service.bookingRules)) {
       els.intakeField.hidden = false;
       els.intakeLabel.textContent = service.intakePrompt;
     } else {
       els.intakeField.hidden = true;
     }
+  }
 
-    if (service.policyText) {
-      els.policyField.hidden = false;
-      els.policyText.textContent = service.policyText;
-      const checkbox = els.policyField.querySelector("input");
-      checkbox.required = Boolean(service.requirePolicy);
-    } else {
-      els.policyField.hidden = true;
+  function renderSessionAddress(rules) {
+    const locationRule = rules?.find(rule => rule.kind === "intake" && rule.type === "SELECT" && rule.label.trim().toLowerCase() === "preferred location");
+    const select = locationRule && els.form.elements.namedItem(`bookingRule:${locationRule.id}`);
+    const isOnLocation = value => /^(outdoors|on location)$/i.test(value.trim());
+    const updateFields = () => {
+      const active = select && isOnLocation(select.value);
+      els.sessionAddress.hidden = !active;
+      els.sessionAddress.disabled = !active;
+    };
+    if (select) {
+      // Keep existing answer values valid for forms saved with the Outdoors option.
+      for (const option of select.options) if (isOnLocation(option.value)) option.textContent = "On Location";
+      select.closest("label").after(els.sessionAddress);
+      select.addEventListener("change", updateFields);
     }
+    updateFields();
+  }
+
+  function bindAddressLookup() {
+    const { sessionAddressLine, sessionCity, sessionState, sessionZip } = els.form.elements;
+    const list = document.getElementById("booking-address-suggestions");
+    let matches = new Map();
+    let timer;
+    let controller;
+    const applyMatch = () => {
+      const match = matches.get(sessionAddressLine.value);
+      if (!match) return false;
+      sessionAddressLine.value = match.address;
+      sessionCity.value = match.city;
+      sessionState.value = match.state;
+      sessionZip.value = match.zip;
+      return true;
+    };
+    sessionAddressLine.addEventListener("change", applyMatch);
+    sessionAddressLine.addEventListener("input", () => {
+      clearTimeout(timer);
+      controller?.abort();
+      const selected = applyMatch();
+      matches.clear();
+      list.replaceChildren();
+      const query = sessionAddressLine.value.trim();
+      if (selected || query.length < 3) return;
+      const request = new AbortController();
+      controller = request;
+      timer = setTimeout(async () => {
+        try {
+          const { suggestions } = await apiRequest(`/locations?q=${encodeURIComponent(query)}`, { signal: request.signal });
+          if (request.signal.aborted || els.sessionAddress.disabled || sessionAddressLine.value.trim() !== query) return;
+          matches = new Map((suggestions || []).map(match => [match.label, match]));
+          list.replaceChildren(...[...matches.keys()].map(label => new Option(label, label)));
+        } catch {
+          // The address fields stay editable if suggestions are unavailable.
+        }
+      }, 450);
+    });
+  }
+
+  function contactEntryStep(service = selectedService()) {
+    return service?.policyText || service?.bookingRules?.some(rule => rule.kind === "policy") ? "terms" : "confirm";
+  }
+
+  function renderPolicy(service) {
+    const rules = service.bookingRules?.filter(rule => rule.kind === "policy") || [];
+    const rich = rules.some(rule => rule.richText);
+    const values = bookingTermsValues({
+      serviceName: serviceById(state.serviceId)?.name || service.name,
+      package: service.packages?.length ? { ...service, name: service.packages.find(pack => pack.id === state.tierId)?.name } : null,
+      priceCents: service.priceCents,
+      durationMinutes: service.durationMinutes,
+      startsAt: state.selectedSlot?.startsAt,
+      timezone: config.business?.timezone || "America/Chicago",
+      customerName: els.form.elements.customerName.value,
+      customerEmail: els.form.elements.customerEmail.value,
+      customerPhone: els.form.elements.customerPhone.value
+    });
+    const missingContactFields = ["clientName", "clientEmail", "clientPhone"].filter(field => !values[field]);
+    for (const field of missingContactFields) delete values[field];
+    const rendered = rich ? renderBookingTerms(rules, values) : { text: renderTermsText(service.policyText || rules.map(rule => rule.label).join("\n\n"), values) };
+    const usesMissingContact = node => node?.type === "dynamicField"
+      ? missingContactFields.includes(node.attrs.field)
+      : node?.content?.some(usesMissingContact);
+    const needsContact = rich && rules.some(rule => usesMissingContact(rule.richText));
+
+    els.policyText.classList.toggle("booking-rich-terms", rich);
+    if (rich) els.policyText.innerHTML = rendered.html;
+    else els.policyText.textContent = rendered.text;
+    els.policyTitle.textContent = service.bookingTermsTitle || "Terms & Conditions";
+    els.policyNote.hidden = needsContact || !state.termsFromContact;
+    els.policyConsent.hidden = needsContact;
+    els.policyAccepted.disabled = needsContact;
+    els.policyAccepted.required = Boolean(service.requirePolicy) && !needsContact;
+
+    const policyKey = JSON.stringify([service.id, state.tierId, state.addOnIds, service.bookingRequirementsRevision, rendered.text]);
+    const changed = els.policyField.dataset.policyKey !== policyKey;
+    if (changed) els.policyAccepted.checked = false;
+    els.policyField.dataset.policyKey = policyKey;
+    return { changed, acceptedTerms: rich ? rendered.text : undefined };
   }
 
   function updateInlineActions() {
@@ -639,14 +858,12 @@
     if (els.flowFooter) {
       els.flowFooter.hidden = !isVisible;
     }
-    if (!els.flowSummary || !service) return;
+    if (!isVisible) return;
 
-    const parts = [service.name, formatFooterDate(state.selectedSlot?.startsAt || state.selectedDate)];
-    if (state.selectedSlot) {
-      parts.push(formatFooterTime(state.selectedSlot.startsAt));
-    }
-
-    els.flowSummary.textContent = parts.join(" | ");
+    const date = formatFooterDate(state.selectedSlot?.startsAt || state.selectedDate);
+    const time = state.selectedSlot && formatFooterTime(state.selectedSlot.startsAt);
+    els.flowSession.textContent = service.name;
+    els.flowWhen.textContent = time ? `${date} at ${time}` : date;
   }
 
   function renderSuccess(bookingResult) {
@@ -655,9 +872,12 @@
     if (!service || !slot) return;
 
     els.successSummary.innerHTML = summaryMarkup(service, slot, bookingResult?.booking?.id);
-    els.successCopy.textContent = service.requestOnly
+    const pending = bookingResult?.booking?.status === "PENDING" || service.requestOnly;
+    document.querySelector("#success-title").textContent = pending ? "Request received" : "You're booked";
+    document.querySelector(".booking-success-icon").hidden = pending;
+    els.successCopy.textContent = pending
       ? "Your appointment request has been sent. The team will follow up with confirmation."
-      : "Your appointment is confirmed. A confirmation email is on its way.";
+      : "Your appointment is confirmed.";
 
     const links = [];
     if (bookingResult?.booking?.calendarUrl) {
@@ -688,20 +908,40 @@
     if (state.activeStep === "confirm") {
       renderConfirm();
     }
+    if (state.activeStep === "terms") renderPolicy(selectedService());
   }
 
   function goToStep(stepId) {
     if (!canVisitStep(stepId)) return;
+    const changed = state.activeStep !== stepId;
+    const moveFocus = document.activeElement !== document.body;
     state.activeStep = stepId;
+    if (stepId !== "terms") state.termsFromContact = false;
     updatePanels();
     updateInlineActions();
     if (stepId === "time") loadAndRenderSlots();
+    if (changed) {
+      if (moveFocus) {
+        const title = document.getElementById(els.panels.find(panel => panel.dataset.stepPanel === stepId)?.getAttribute("aria-labelledby"));
+        title?.setAttribute("tabindex", "-1");
+        title?.focus({ preventScroll: true });
+      }
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function sessionSelectionStep() {
+    if ((serviceById(state.serviceId)?.packages.length || 0) > 1) return "packages";
+    return state.categoryId ? "services" : "categories";
   }
 
   function canVisitStep(stepId) {
     if (stepId === "categories") return true;
     if (stepId === "services") return Boolean(state.categoryId);
-    if (stepId === "time") return Boolean(state.serviceId);
+    if (stepId === "packages") return Boolean(state.serviceId);
+    if (stepId === "extras") return Boolean(state.serviceId && state.selectedSlot);
+    if (stepId === "time") return Boolean(state.serviceId && (!serviceById(state.serviceId)?.packages.length || state.tierId));
+    if (stepId === "terms") return Boolean(state.selectedSlot) && contactEntryStep() === "terms";
     if (stepId === "confirm") return Boolean(state.serviceId && state.selectedSlot);
     return false;
   }
@@ -712,18 +952,46 @@
     const slot = state.selectedSlot;
     if (!service || !slot) return;
 
+    let policyAccepted = false;
+    let acceptedTerms;
+    if (contactEntryStep(service) === "terms") {
+      const policy = renderPolicy(service);
+      policyAccepted = els.policyAccepted.checked;
+      acceptedTerms = policy.acceptedTerms;
+      if (policy.changed || (service.requirePolicy && !policyAccepted)) {
+        state.termsFromContact = true;
+        goToStep("terms");
+        return;
+      }
+    }
+
     const formData = new FormData(els.form);
+    const sessionAddress = els.sessionAddress.disabled ? undefined : {
+      address: formData.get("sessionAddressLine").trim(),
+      city: formData.get("sessionCity").trim(),
+      state: formData.get("sessionState").trim(),
+      zip: formData.get("sessionZip").trim()
+    };
     const payload = {
       serviceId: service.id,
+      tierId: state.tierId || undefined,
+      addOnIds: state.addOnIds,
+      addOnQuantities: state.addOnQuantities,
+      serviceRevision: service.serviceRevision,
       staffId: slot.staffId || selectedStaffId(service) || undefined,
       resourceIds: slot.resourceIds?.length ? slot.resourceIds : service.resources?.map((resource) => resource.id) || undefined,
       startsAt: slot.startsAt,
       customerName: String(formData.get("customerName") || "").trim(),
       customerEmail: String(formData.get("customerEmail") || "").trim(),
       customerPhone: String(formData.get("customerPhone") || "").trim(),
+      customerCompany: String(formData.get("customerCompany") || "").trim(),
       notes: String(formData.get("notes") || "").trim(),
       intakeResponse: String(formData.get("intakeResponse") || "").trim(),
-      policyAccepted: formData.get("policyAccepted") === "on",
+      intakeAnswers: window.ShowrunnerBookingRules.answers(els.form),
+      policyAccepted,
+      sessionAddress,
+      bookingRequirementsRevision: service.bookingRequirementsRevision || undefined,
+      acceptedTerms,
       companyWebsite: String(formData.get("companyWebsite") || "")
     };
 
@@ -738,6 +1006,8 @@
       updatePanels();
       updateInlineActions();
       els.form.reset();
+      els.policyField.reset();
+      delete els.policyField.dataset.policyKey;
       setFormStatus("");
     } catch (error) {
       setFormStatus(error.message || "Booking could not be completed.", true);
@@ -757,6 +1027,7 @@
     const liveCategories = Array.isArray(response.categories) ? response.categories : [];
     const liveServices = response.services || [];
     return filterCatalogForProfile({
+      packageFields: response.packageFields,
       categories: liveCategories,
       services: normalizeServices(liveServices.map(mergeServicePresentation))
     });
@@ -797,6 +1068,7 @@
     if (!allowedCategoryIds.size) return catalog;
 
     return {
+      ...catalog,
       categories: filterCategoriesForProfile(catalog.categories || []),
       services: (catalog.services || []).filter((service) => allowedCategoryIds.has(service.categoryId))
     };
@@ -839,6 +1111,7 @@
   async function loadSlotsForDate(service, date) {
     if (config.api?.enabled) {
       const params = new URLSearchParams({ serviceId: service.id, date });
+      if (state.tierId) params.set("tierId", state.tierId);
       const staffId = selectedStaffId(service);
       if (staffId) params.set("staffId", staffId);
       const response = await apiRequest(`/availability?${params.toString()}`);
@@ -948,6 +1221,8 @@
       .map((service, index) => ({
         id: String(service.id || service.slug || `service-${index}`),
         slug: service.slug || "",
+        packages: Array.isArray(service.packages) ? service.packages : [],
+        serviceRevision: service.serviceRevision,
         categoryId: service.categoryId || "general",
         categoryName: service.categoryName || "",
         name: service.name || "Untitled service",
@@ -963,6 +1238,10 @@
         maxAdvanceDays: service.maxAdvanceDays,
         slotIntervalMinutes: service.slotIntervalMinutes,
         intakePrompt: service.intakePrompt || "",
+        bookingRules: Array.isArray(service.bookingRules) ? service.bookingRules : null,
+        bookingFormTitle: service.bookingFormTitle || "Session details",
+        bookingTermsTitle: service.bookingTermsTitle || "Booking terms",
+        bookingRequirementsRevision: service.bookingRequirementsRevision || "",
         policyText: service.policyText || "",
         requirePolicy: Boolean(service.requirePolicy),
         requestOnly: Boolean(service.requestOnly),
@@ -1009,7 +1288,7 @@
       }
     });
 
-    return Array.from(normalizedById.values()).sort(sortBySortThenName);
+    return Array.from(normalizedById.values()).filter(category => services.some(service => service.categoryId === category.id)).sort(sortBySortThenName);
   }
 
   function mergeServicePresentation(service) {
@@ -1085,7 +1364,16 @@
   }
 
   function selectedService() {
-    return state.services.find((service) => service.id === state.serviceId) || null;
+    const service = serviceById(state.serviceId);
+    const pack = service?.packages.find(pack => pack.id === state.tierId);
+    if (!pack) return service;
+    const extras = (pack.addOns || []).filter(extra => state.addOnIds.includes(extra.id));
+    const priceCents = pack.priceCents == null ? null : pack.priceCents + extras.reduce((total, extra) => total + extra.priceCents * (state.addOnQuantities[extra.id] || 1), 0);
+    const deliverables={...pack.deliverables};
+    for(const extra of extras) for(const [key,count] of Object.entries(extra.deliverables||{})) if(deliverables[key]!==null) deliverables[key]=(deliverables[key]||0)+count*(state.addOnQuantities[extra.id]||1);
+    const selectedExtras=extras.map(extra=>({...extra,quantity:state.addOnQuantities[extra.id]||1}));
+    return { ...service, name: `${service.name} — ${pack.name}`, durationMinutes: pack.durationMinutes, unlimitedDuration: pack.unlimitedDuration, priceCents, addOns: pack.addOns, extras:selectedExtras, deliverables, coverage: pack.coverage };
+
   }
 
   function selectedStaffName() {
@@ -1141,17 +1429,18 @@
   }
 
   function summaryMarkup(service, slot, bookingId) {
-    const rows = [["Length", `${service.durationMinutes} minutes`]];
+    const rows = [["Length", service.unlimitedDuration ? "Unlimited — rest of day reserved" : formatDuration(service.durationMinutes)]];
+    for (const extra of service.extras || []) rows.push([extra.name, `${state.addOnQuantities[extra.id] || 1} × ${formatPrice(extra.priceCents)}`]);
     if (slot.staffName) rows.push(["Provider", slot.staffName]);
     if (bookingId) rows.push(["Reference", bookingId]);
 
     return `
-      <p class="booking-summary-kicker">Your appointment</p>
       <h3 class="booking-summary-service">${escapeHtml(service.name)}</h3>
       <p class="booking-summary-when">
         <strong>${escapeHtml(formatLongDate(slot.startsAt))}</strong>
-        <span>${escapeHtml(`${formatTime(slot.startsAt)} – ${formatTime(slot.endsAt)}`)}</span>
+        <span>${escapeHtml(`${formatTime(slot.startsAt)} – ${service.unlimitedDuration ? "end of day" : formatTime(slot.endsAt)}`)}</span>
       </p>
+      ${packageInclusionsMarkup(service.coverage)}
       <dl class="booking-summary-rows">
         ${rows
           .map(
@@ -1171,6 +1460,16 @@
     `;
   }
 
+  function formatDuration(totalMinutes) {
+    if (!Number.isFinite(totalMinutes) || totalMinutes < 0) return "Not specified";
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    if (!hours) return `${minutes} min`;
+
+    const hourLabel = `${hours} ${hours === 1 ? "hr" : "hrs"}`;
+    return minutes ? `${hourLabel} ${minutes} min` : hourLabel;
+  }
+
   function formatPrice(cents) {
     if (cents === 0) return "Free";
     if (typeof cents !== "number" || Number.isNaN(cents)) return "Varies";
@@ -1184,7 +1483,9 @@
     const date = value instanceof Date ? value : new Date(value);
     return new Intl.DateTimeFormat(undefined, {
       hour: "numeric",
-      minute: "2-digit"
+      minute: "2-digit",
+      hour12: true,
+      timeZone: config.business?.timezone
     }).format(date);
   }
 
@@ -1193,7 +1494,8 @@
     return new Intl.DateTimeFormat(undefined, {
       weekday: "long",
       month: "long",
-      day: "numeric"
+      day: "numeric",
+      timeZone: typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) ? undefined : config.business?.timezone
     }).format(date);
   }
 
@@ -1210,24 +1512,19 @@
   }
 
   function formatSlotTime(value) {
-    const date = value instanceof Date ? value : new Date(value);
-    const hour = date.getHours() % 12 || 12;
-    return `${String(hour).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    return formatTime(value);
   }
 
   function formatFooterDate(value) {
     const date = typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) ? parseDateKey(value) : new Date(value);
-    const weekday = new Intl.DateTimeFormat(undefined, { weekday: "long" }).format(date);
-    const day = date.getDate();
+    const timeZone = typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) ? undefined : config.business?.timezone;
+    const weekday = new Intl.DateTimeFormat(undefined, { weekday: "long", timeZone }).format(date);
+    const day = Number(new Intl.DateTimeFormat("en-US", { day: "numeric", timeZone }).format(date));
     return `${weekday} ${day}${ordinalSuffix(day)}`;
   }
 
   function formatFooterTime(value) {
-    const date = value instanceof Date ? value : new Date(value);
-    const hour = date.getHours() % 12 || 12;
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const suffix = date.getHours() < 12 ? "AM" : "PM";
-    return `${hour}:${minutes}${suffix}`;
+    return formatTime(value);
   }
 
   function ordinalSuffix(day) {
@@ -1282,7 +1579,9 @@
   }
 
   function setStatus(message, isError) {
-    setAvailabilityStatus(message, isError);
+    els.catalogStatus.textContent = message || "";
+    els.catalogStatus.hidden = !message;
+    els.catalogStatus.classList.toggle("is-error", Boolean(isError));
   }
 
   function setAvailabilityStatus(message, isError) {
@@ -1314,8 +1613,4 @@
     return escapeHtml(value).replace(/`/g, "&#96;");
   }
 
-  function cssEscape(value) {
-    if (window.CSS?.escape) return window.CSS.escape(value);
-    return String(value).replace(/["\\]/g, "\\$&");
-  }
 })();
