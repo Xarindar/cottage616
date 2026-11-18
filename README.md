@@ -97,6 +97,3 @@ media ranges, compression and private preview caching. `test/site-preview.test.m
 checks the gate without changing live users or settings. For booking browser
 tests against the gated server, set `BOOKING_PREVIEW_PASSWORD` as well as
 `BOOKING_TEST_URL`.
-
-This branch is under a release hold: do not merge, deploy or apply the pending
-Cottage `packageFields: []` live setting until the user explicitly authorizes it.
