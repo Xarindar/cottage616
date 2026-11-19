@@ -1,6 +1,6 @@
 // PLAYWRIGHT_MODULE points to an existing Playwright install. API fixtures never create real bookings.
 import assert from 'node:assert/strict';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 const { chromium } = await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE).href);
 const base = process.env.BOOKING_TEST_URL || 'http://127.0.0.1:8083/cottage616/';
@@ -22,9 +22,25 @@ const service = {
   bookingTermsTitle: 'Venue terms', bookingFormTitle: 'Event details', bookingRequirementsRevision: 'requirements-v1',
   bookingRules: [{ id: 'guests', kind: 'intake', category: 'Event', label: 'Guest count', type: 'TEXT', required: true }]
 };
-let submitted, reject = true, mode = 'catalog', hostedPayment = false;
-const paymentUrl = new URL('fixture-payment', base).href;
-await page.route(paymentUrl, route => route.fulfill({ body: 'Booking payment' }));
+let submitted, reject = true, mode = 'catalog', hostedPayment = false, invalidBooking = '';
+const returnFixture = process.env.BOOKING_TEST_RETURN_FIXTURE
+  ? JSON.parse(readFileSync(process.env.BOOKING_TEST_RETURN_FIXTURE, 'utf8')) : null;
+const paymentUrl = 'https://www.sandbox.paypal.com/checkoutnow?token=synthetic';
+const calendarUrl = 'https://admin.cottage616.com/api/calendar/booking.ics?bookingId=fixture-only&token=synthetic';
+let confirmed = false;
+await page.route(calendarUrl, async route => returnFixture ? route.fulfill({
+  response: await route.fetch({ url: returnFixture.paid.calendarUrl })
+}) : route.fulfill({
+  contentType: 'text/calendar', headers: { 'content-disposition': 'attachment; filename="calendar.ics"' }, body: 'BEGIN:VCALENDAR\nEND:VCALENDAR'
+}));
+await page.route(paymentUrl, route => route.fulfill({
+  contentType: 'text/html',
+  body: returnFixture ? [
+    ['cancel', returnFixture.pending.billingUrl + '?checkout=cancel'],
+    ['waiting', returnFixture.pending.billingUrl + '?checkout=success'],
+    ['paid', returnFixture.paid.billingUrl + '?checkout=success']
+  ].map(([label, href]) => '<a id="' + label + '" href="' + href + '">' + label + '</a>').join(' ') : 'Booking payment'
+}));
 const availability = [];
 await page.route('**/api/public/v1/**', async route => {
   const request = route.request(), url = new URL(request.url());
@@ -37,7 +53,11 @@ await page.route('**/api/public/v1/**', async route => {
   }
   if (url.pathname.endsWith('/bookings')) {
     submitted = request.postDataJSON();
-    return route.fulfill({ status: reject ? 409 : 201, json: reject ? { error: 'That time is no longer available.' } : { data: hostedPayment ? { paymentUrl } : { booking: { id: 'fixture-only', status: 'PENDING' } } } });
+    if (invalidBooking === 'invalid-json') return route.fulfill({ status: 201, body: '{' });
+    if (invalidBooking === 'no-booking') return route.fulfill({ status: 201, json: { data: { ok: true } } });
+    if (invalidBooking === 'invalid-handoff') return route.fulfill({ status: 201, json: { data: { ok: true, paymentUrl: 'https://checkout.stripe.com.invalid/checkout' } } });
+    const booking = confirmed ? { id: 'fixture-only', status: 'CONFIRMED', calendarUrl, manageUrl: 'https://example.invalid' } : { id: 'fixture-only', status: 'PENDING' };
+    return route.fulfill({ status: reject ? 409 : 201, json: reject ? { error: 'That time is no longer available.' } : { data: hostedPayment ? { ok: true, paymentUrl } : { ok: true, booking } } });
   }
   return route.fulfill({ json: { data: {} } });
 });
@@ -80,9 +100,12 @@ try {
   assert.equal(submitted.serviceRevision, 'service-v1');
   assert.equal(submitted.policyAccepted, true);
   assert.equal(submitted.photoMarketingConsent, undefined);
+  const requestKey = submitted.submissionKey;
+  assert.match(requestKey, /^[a-f\d-]{36}$/i);
   reject = false;
   await page.locator('[data-submit-booking]').click();
   await page.locator('[data-step-panel=success]').waitFor();
+  assert.equal(submitted.submissionKey, requestKey);
   assert.equal(await page.locator('#success-title').innerText(), 'Request received');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${base}booking.html?service=celebration&next=1`);
@@ -140,11 +163,61 @@ try {
   await page.locator('[name="bookingRule:guests"]').fill('20');
   hostedPayment = true;
   assert.equal(await page.locator('[data-submit-booking]').innerText(), 'Continue to payment');
+  for (const invalid of ['invalid-json', 'no-booking', 'invalid-handoff']) {
+    invalidBooking = invalid;
+    const response = page.waitForResponse(result => result.request().method() === 'POST' && new URL(result.url()).pathname.endsWith('/bookings'));
+    await page.locator('[data-submit-booking]').click();
+    await response;
+    await page.getByText('We couldn’t verify the booking response.', { exact: false }).waitFor();
+    assert((await page.locator('[name=customerName]').inputValue()).length > 0);
+  }
+  invalidBooking = '';
   await page.locator('[data-submit-booking]').click();
   await page.waitForURL(paymentUrl);
+  if (returnFixture) {
+    await page.locator('#cancel').click();
+    await page.getByText('Checkout was canceled.', { exact: false }).waitFor();
+    await page.goto(paymentUrl);
+    await page.locator('#waiting').click();
+    await page.getByText('We’re waiting for payment confirmation.', { exact: false }).waitFor();
+    assert.equal(await page.getByRole('link', { name: 'Add to calendar' }).count(), 0);
+    await page.goto(paymentUrl);
+    await page.locator('#paid').click();
+    await page.getByRole('heading', { name: 'Booking confirmed' }).waitFor();
+    assert.equal(await page.getByRole('link', { name: 'Manage booking' }).count(), 0);
+    const calendar = await page.getByRole('link', { name: 'Add to calendar' }).getAttribute('href');
+    const signed = new URL(calendar, page.url());
+    const response = await page.request.get(signed.href);
+    assert.equal(response.status(), 200);
+    assert.match(response.headers()['content-type'], /text\/calendar/);
+    assert.match(await response.text(), /BEGIN:VCALENDAR/);
+    signed.searchParams.set('token', 'invalid');
+    assert.equal((await page.request.get(signed.href)).status(), 401);
+  }
   assert.equal(submitted.checkoutSupported, true);
   assert.equal(submitted.durationMinutes, 180);
   assert.deepEqual(submitted.addOnIds, ['assistant']);
+  hostedPayment = false;
+  confirmed = true;
+  Object.assign(service, { bookingRules: [], requirePolicy: false, policyText: '', packages: [] });
+  await page.goto(`${base}booking.html?profile=the-hive&service=head-spa&next=1`);
+  await page.locator('[data-slot-index]').first().click();
+  await page.locator('[data-review-booking]').click();
+  await page.locator('[name=customerName]').fill('Calendar Fixture');
+  await page.locator('[name=customerEmail]').fill('calendar@example.test');
+  await page.locator('[name=customerPhone]').fill('5551234567');
+  await page.locator('[data-submit-booking]').click();
+  await page.getByRole('heading', { name: "You're booked" }).waitFor();
+  assert.equal(await page.getByRole('link', { name: 'Manage booking' }).count(), 0);
+  const calendarLink = page.getByRole('link', { name: 'Add to calendar' });
+  assert.equal(await calendarLink.getAttribute('href'), calendarUrl);
+  const responsePromise = page.waitForResponse(response => response.url() === calendarUrl);
+  const downloadPromise = page.waitForEvent('download');
+  await calendarLink.click();
+  const file = await responsePromise;
+  assert.equal(file.status(), 200);
+  assert.match(file.headers()['content-type'], /text\/calendar/);
+  assert.match(readFileSync(await (await downloadPromise).path(), 'utf8'), /BEGIN:VCALENDAR/);
   mode = 'blocked';
   const lastAvailabilityCount = availability.length;
   await page.goto(`${base}booking.html?service=celebration&next=1`);
