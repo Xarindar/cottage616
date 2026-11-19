@@ -9,6 +9,7 @@
       enabled: true,
       baseUrl: "https://showrunner-beta-production.up.railway.app/api/public/v1",
       publishableKey: "pk_live_ByKzPoI9HTbxIEIidXD68GhgIyQjQaT8",
+      billingOrigin: "https://admin.cottage616.com",
       sendKeyAsHeader: true,
       demoFallback: false
     },
