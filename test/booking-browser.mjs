@@ -22,11 +22,13 @@ const service = {
   bookingTermsTitle: 'Venue terms', bookingFormTitle: 'Event details', bookingRequirementsRevision: 'requirements-v1',
   bookingRules: [{ id: 'guests', kind: 'intake', category: 'Event', label: 'Guest count', type: 'TEXT', required: true }]
 };
-let submitted, reject = true, mode = 'catalog';
+let submitted, reject = true, mode = 'catalog', hostedPayment = false;
+const paymentUrl = new URL('fixture-payment', base).href;
+await page.route(paymentUrl, route => route.fulfill({ body: 'Booking payment' }));
 const availability = [];
 await page.route('**/api/public/v1/**', async route => {
   const request = route.request(), url = new URL(request.url());
-  if (url.pathname.endsWith('/services')) return route.fulfill({ status: mode === 'error' ? 503 : 200, json: mode === 'error' ? { error: 'Services unavailable' } : { data: { packageFields: [], categories: [{ id: 'events', name: 'Events' }, { id: 'the-hive', name: 'The Hive' }], services: mode === 'empty' ? [] : [service, { ...service, id: 'fixture-hive', slug: 'head-spa', categoryId: 'the-hive', categoryName: 'The Hive', name: 'Head spa', packages: [], addOns: [] }] } } });
+  if (url.pathname.endsWith('/services')) return route.fulfill({ status: mode === 'error' ? 503 : 200, json: mode === 'error' ? { error: 'Services unavailable' } : { data: { onlineBookingEnabled: mode !== 'blocked', packageFields: [], categories: [{ id: 'events', name: 'Events' }, { id: 'the-hive', name: 'The Hive' }], services: mode === 'empty' ? [] : [service, { ...service, id: 'fixture-hive', slug: 'head-spa', categoryId: 'the-hive', categoryName: 'The Hive', name: 'Head spa', packages: [], addOns: [] }] } } });
   if (url.pathname.endsWith('/availability')) {
     availability.push(Object.fromEntries(url.searchParams));
     const date = url.searchParams.get('date');
@@ -35,7 +37,7 @@ await page.route('**/api/public/v1/**', async route => {
   }
   if (url.pathname.endsWith('/bookings')) {
     submitted = request.postDataJSON();
-    return route.fulfill({ status: reject ? 409 : 201, json: reject ? { error: 'That time is no longer available.' } : { data: { booking: { id: 'fixture-only', status: 'PENDING' } } } });
+    return route.fulfill({ status: reject ? 409 : 201, json: reject ? { error: 'That time is no longer available.' } : { data: hostedPayment ? { paymentUrl } : { booking: { id: 'fixture-only', status: 'PENDING' } } } });
   }
   return route.fulfill({ json: { data: {} } });
 });
@@ -136,10 +138,19 @@ try {
   await page.locator('[name=customerEmail]').fill('hourly@example.com');
   await page.locator('[name=customerPhone]').fill('555-123-4567');
   await page.locator('[name="bookingRule:guests"]').fill('20');
+  hostedPayment = true;
+  assert.equal(await page.locator('[data-submit-booking]').innerText(), 'Continue to payment');
   await page.locator('[data-submit-booking]').click();
-  await page.locator('[data-step-panel=success]').waitFor();
+  await page.waitForURL(paymentUrl);
+  assert.equal(submitted.checkoutSupported, true);
   assert.equal(submitted.durationMinutes, 180);
   assert.deepEqual(submitted.addOnIds, ['assistant']);
+  mode = 'blocked';
+  const lastAvailabilityCount = availability.length;
+  await page.goto(`${base}booking.html?service=celebration&next=1`);
+  await page.getByText('Online booking is unavailable. Contact us to schedule.', { exact: true }).waitFor();
+  assert.equal(availability.length, lastAvailabilityCount);
+  assert.equal(await page.locator('[data-step-panel=duration]').isVisible(), false);
   for (const value of ['empty', 'error']) {
     mode = value;
     await page.goto(`${base}booking.html`);
